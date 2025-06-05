@@ -2,20 +2,18 @@
 
 namespace Validationable\Rules;
 
-use Validationable\Arr;
 use Validationable\Parameters;
 use Validationable\Str;
 
 class InRule implements RuleInterface
 {
 
-    public function passes(string $attribute, Parameters $parameters, array $arguments = []): bool
+    public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if(empty($arguments)) {
+        if (empty($arguments)) {
             throw new \InvalidArgumentException("In rule requires arguments.");
         }
 
-        $value = Arr::get($parameters->toArray(), $attribute, '');
         return Str::of($value) && in_array($value, $arguments, false);
     }
 }

@@ -2,14 +2,13 @@
 
 namespace Validationable\Rules;
 
-use Validationable\Arr;
 use Validationable\Parameters;
 
 class CountableRule implements RuleInterface
 {
 
-    public function passes(string $attribute, Parameters $parameters, array $arguments = []): bool
+    public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        return is_countable(Arr::get($parameters->toArray(), $attribute));
+        return is_countable($value);
     }
 }

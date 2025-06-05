@@ -101,4 +101,12 @@ class Arr
     {
         return is_countable($array);
     }
+
+    public static function findByValue($array, $value, $default = null)
+    {
+        if(array_search($value, $array, true) === -1) {
+            return $default;
+        }
+        return $array[array_search($value, $array, true)];
+    }
 }

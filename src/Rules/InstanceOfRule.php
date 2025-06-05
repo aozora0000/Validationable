@@ -2,16 +2,14 @@
 
 namespace Validationable\Rules;
 
-use Validationable\Arr;
 use Validationable\Parameters;
 
-class ObjectRule implements RuleInterface
+class InstanceOfRule implements RuleInterface
 {
-    public function passes(string $attribute, Parameters $parameters, array $arguments = []): bool
+    public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        $value = Arr::get($parameters->toArray(), $attribute);
-        if ($value === null) {
-            return false;
+        if(empty($arguments)) {
+            throw new \InvalidArgumentException("InstanceOf rule requires arguments.");
         }
         $class = $arguments[0] ?? 'stdClass';
         $is_sub_class = (boolean)($arguments[1] ?? false);

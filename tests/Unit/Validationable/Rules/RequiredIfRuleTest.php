@@ -16,15 +16,15 @@ class RequiredIfRuleTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage("RequiredIf rule requires arguments.");
 
-        $instance->passes('test', $params, []);
+        $instance->passes('test', 'value', $params, []);
     }
 
     #[Test]
     public function 条件フィールドが存在しない場合にTrueが返る(): void
     {
         $instance = new RequiredIfRule();
-        $params =  $this->createParameter([]);
-        $actual = $instance->passes('test', $params, ['test2']);
+        $params = $this->createParameter([]);
+        $actual = $instance->passes('test', null, $params, ['test2']);
 
         $this->assertTrue($actual);
     }
@@ -34,7 +34,7 @@ class RequiredIfRuleTest extends TestCase
     {
         $instance = new RequiredIfRule();
         $params = $this->createParameter(['condition_field' => null]);
-        $actual = $instance->passes('target_field', $params, ['condition_field']);
+        $actual = $instance->passes('target_field', null, $params, ['condition_field']);
 
         $this->assertTrue($actual);
     }
@@ -44,7 +44,7 @@ class RequiredIfRuleTest extends TestCase
     {
         $instance = new RequiredIfRule();
         $params = $this->createParameter(['condition_field' => '']);
-        $actual = $instance->passes('target_field', $params , ['condition_field']);
+        $actual = $instance->passes('target_field', null, $params, ['condition_field']);
 
         $this->assertTrue($actual);
     }
@@ -57,7 +57,7 @@ class RequiredIfRuleTest extends TestCase
             'condition_field' => 'some_value',
             'target_field' => 'target_value'
         ]);
-        $actual = $instance->passes('target_field', $params , ['condition_field']);
+        $actual = $instance->passes('target_field', 'target_value', $params, ['condition_field']);
 
         $this->assertTrue($actual);
     }
@@ -71,7 +71,7 @@ class RequiredIfRuleTest extends TestCase
             'condition_field2' => 'some_value',
             'target_field' => 'target_value'
         ]);
-        $actual = $instance->passes('target_field', $params , ['condition_field1', 'condition_field2']);
+        $actual = $instance->passes('target_field', 'target_value', $params, ['condition_field1', 'condition_field2']);
 
         $this->assertTrue($actual);
     }
@@ -83,7 +83,7 @@ class RequiredIfRuleTest extends TestCase
         $params = $this->createParameter([
             'condition_field1' => 'some_value',
         ]);
-        $actual = $instance->passes('target_field', $params , ['condition_field1', 'condition_field2']);
+        $actual = $instance->passes('target_field', null, $params, ['condition_field1', 'condition_field2']);
 
         $this->assertTrue($actual);
     }
@@ -95,7 +95,7 @@ class RequiredIfRuleTest extends TestCase
         $params = $this->createParameter([
             'condition_field' => 'some_value'
         ]);
-        $actual = $instance->passes('target_field', $params , ['condition_field']);
+        $actual = $instance->passes('target_field', null, $params, ['condition_field']);
 
         $this->assertFalse($actual);
     }
@@ -108,7 +108,7 @@ class RequiredIfRuleTest extends TestCase
             'condition_field' => 'some_value',
             'target_field' => null
         ]);
-        $actual = $instance->passes('target_field', $params, ['condition_field']);
+        $actual = $instance->passes('target_field', null, $params, ['condition_field']);
 
         $this->assertFalse($actual);
     }
@@ -117,11 +117,11 @@ class RequiredIfRuleTest extends TestCase
     public function 条件フィールドが存在するが対象フィールドが空文字の場合にFalseが返る(): void
     {
         $instance = new RequiredIfRule();
-        $params =  $this->createParameter([
+        $params = $this->createParameter([
             'condition_field' => 'some_value',
             'target_field' => ''
         ]);
-        $actual = $instance->passes('target_field',$params, ['condition_field']);
+        $actual = $instance->passes('target_field', '', $params, ['condition_field']);
 
         $this->assertFalse($actual);
     }
@@ -134,7 +134,7 @@ class RequiredIfRuleTest extends TestCase
             'condition_field' => 'some_value',
             'target_field' => []
         ]);
-        $actual = $instance->passes('target_field', $params , ['condition_field']);
+        $actual = $instance->passes('target_field', 'some_value', $params, ['condition_field']);
 
         $this->assertFalse($actual);
     }
@@ -147,7 +147,7 @@ class RequiredIfRuleTest extends TestCase
             'condition_field' => 'some_value',
             'target_field' => 0
         ]);
-        $actual = $instance->passes('target_field',$params , ['condition_field']);
+        $actual = $instance->passes('target_field', 'some_value', $params, ['condition_field']);
 
         $this->assertTrue($actual);
     }
@@ -160,7 +160,7 @@ class RequiredIfRuleTest extends TestCase
             'condition_field' => 'some_value',
             'target_field' => '0'
         ]);
-        $actual = $instance->passes('target_field', $params , ['condition_field']);
+        $actual = $instance->passes('target_field', '0', $params, ['condition_field']);
 
         $this->assertTrue($actual);
     }
@@ -173,7 +173,7 @@ class RequiredIfRuleTest extends TestCase
             'condition_field' => 'some_value',
             'target_field' => false
         ]);
-        $actual = $instance->passes('target_field', $params , ['condition_field']);
+        $actual = $instance->passes('target_field', false, $params, ['condition_field']);
 
         $this->assertTrue($actual);
     }

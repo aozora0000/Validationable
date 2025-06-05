@@ -4,11 +4,12 @@ namespace Validationable\Rules;
 
 use Validationable\Arr;
 use Validationable\Parameters;
+use Validationable\Str;
 
 class StringRule implements RuleInterface
 {
-    public function passes(string $attribute, Parameters $parameters, array $arguments = []): bool
+    public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        return is_string(Arr::get($parameters->toArray(), $attribute));
+        return Str::of($value);
     }
 }

@@ -12,7 +12,7 @@ class RequiredRuleTest extends TestCase
     public function 値が存在する時にTrueが返る(): void
     {
         $instance = new RequiredRule();
-        $actual = $instance->passes('test', $this->createParameter(['test' => 'value']));
+        $actual = $instance->passes('test', 'value', $this->createParameter(['test' => 'value']));
         $this->assertTrue($actual);
     }
 
@@ -20,7 +20,7 @@ class RequiredRuleTest extends TestCase
     public function 値がnullの時にFalseが返る(): void
     {
         $instance = new RequiredRule();
-        $actual = $instance->passes('test', $this->createParameter(['test' => null]));
+        $actual = $instance->passes('test', null, $this->createParameter(['test' => null]));
         $this->assertFalse($actual);
     }
 
@@ -28,7 +28,7 @@ class RequiredRuleTest extends TestCase
     public function 値が空文字の時にFalseが返る(): void
     {
         $instance = new RequiredRule();
-        $actual = $instance->passes('test', $this->createParameter(['test' => '']));
+        $actual = $instance->passes('test', '', $this->createParameter(['test' => '']));
         $this->assertFalse($actual);
     }
 
@@ -36,7 +36,7 @@ class RequiredRuleTest extends TestCase
     public function 値が空配列の時にFalseが返る(): void
     {
         $instance = new RequiredRule();
-        $actual = $instance->passes('test', $this->createParameter(['test' => []]));
+        $actual = $instance->passes('test', [], $this->createParameter(['test' => []]));
         $this->assertFalse($actual);
     }
 
@@ -44,7 +44,7 @@ class RequiredRuleTest extends TestCase
     public function キーが存在しない時にFalseが返る(): void
     {
         $instance = new RequiredRule();
-        $actual = $instance->passes('nonexistent', $this->createParameter(['test' => 'value']));
+        $actual = $instance->passes('nonexistent', null, $this->createParameter(['test' => 'value']));
         $this->assertFalse($actual);
     }
 
@@ -52,7 +52,7 @@ class RequiredRuleTest extends TestCase
     public function 数値のゼロの時にTrueが返る(): void
     {
         $instance = new RequiredRule();
-        $actual = $instance->passes('test', $this->createParameter(['test' => 0]));
+        $actual = $instance->passes('test', 0, $this->createParameter(['test' => 0]));
         $this->assertTrue($actual);
     }
 
@@ -60,7 +60,7 @@ class RequiredRuleTest extends TestCase
     public function 文字列のゼロの時にTrueが返る(): void
     {
         $instance = new RequiredRule();
-        $actual = $instance->passes('test', $this->createParameter(['test' => '0']));
+        $actual = $instance->passes('test', '0', $this->createParameter(['test' => '0']));
         $this->assertTrue($actual);
     }
 
@@ -68,7 +68,7 @@ class RequiredRuleTest extends TestCase
     public function falseの時にTrueが返る(): void
     {
         $instance = new RequiredRule();
-        $actual = $instance->passes('test', $this->createParameter(['test' => false]));
+        $actual = $instance->passes('test', false, $this->createParameter(['test' => false]));
         $this->assertTrue($actual);
     }
 }

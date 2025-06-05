@@ -4,21 +4,25 @@ namespace Validationable\Rules;
 
 use Validationable\Arr;
 use Validationable\Parameters;
+use Validationable\Str;
 
 class BetweenRule implements RuleInterface
 {
 
-    public function passes(string $attribute, Parameters $parameters, array $arguments = []): bool
+    public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if(!(new IntegerRule())->passes($attribute, $parameters)) {
+        if (!Str::isInteger($value)) {
             return false;
         }
-        if(Arr::has($arguments, 0) && Arr::has($arguments, 1)) {
-            $value = (int)Arr::get($parameters, $attribute);
-            $min = (int)min(...$arguments);
-            $max = (int)max(...$arguments);
-            return $min <= $value && $value <= $max;
+        if(empty($arguments) || !Arr::every($arguments, [Str::class, 'isInteger'])) {
+            throw new \InvalidArgumentException('The between rule requires at least 1 argument.');
         }
-        return false;
+        $min = (int)min($arguments);
+        $max = (int)max($arguments);
+        return match(true) {
+            Arr::has($arguments, 0) && Arr::has($arguments, 1) => $min <= $value && $value <= $max,
+            Arr::has($arguments, 0) => $min <= $value,
+            Arr::has($arguments, 1) => $value <= $max,
+        };
     }
 }

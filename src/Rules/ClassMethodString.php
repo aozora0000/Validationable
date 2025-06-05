@@ -2,24 +2,15 @@
 
 namespace Validationable\Rules;
 
-use Validationable\Arr;
 use Validationable\Parameters;
+use Validationable\Str;
 
 class ClassMethodString implements RuleInterface
 {
 
-    public function passes(string $attribute, Parameters $parameters, array $arguments = []): bool
+    public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if(!(new StringRule)->passes($attribute, $parameters, $arguments)) {
-            return false;
-        }
         $sep = $arguments[0] ?? '@';
-        $value = Arr::get($parameters->all(), $attribute);
-        if(!str_contains($value, $sep)) {
-            return false;
-        }
-        [$class, $method] = explode($sep, $attribute);
-
-        return class_exists($class) && method_exists($class, $method);
+        return Str::of($value) && Str::isClassMethodString($attribute, $sep);
     }
 }

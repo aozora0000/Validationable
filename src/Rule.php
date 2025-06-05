@@ -9,10 +9,13 @@ class Rule
     public static function callback(callable $callback): RuleInterface
     {
         return new class($callback) implements RuleInterface {
-            public function __construct(private $callback) {}
-            public function passes(string $attribute, Parameters $parameters, array $arguments = []): bool
+            public function __construct(private $callback)
             {
-                return ($this->callback)($attribute, $parameters, $arguments);
+            }
+
+            public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
+            {
+                return ($this->callback)($attribute, $value, $parameters, $arguments);
             }
         };
     }

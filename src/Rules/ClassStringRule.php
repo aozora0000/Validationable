@@ -2,17 +2,17 @@
 
 namespace Validationable\Rules;
 
-use Validationable\Arr;
 use Validationable\Parameters;
+use Validationable\Str;
 
 class ClassStringRule implements RuleInterface
 {
 
-    public function passes(string $attribute, Parameters $parameters, array $arguments = []): bool
+    public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if((new StringRule)->passes($attribute, $parameters, $arguments)) {
-            return class_exists(Arr::get($parameters->toArray(), $attribute));
-        }
-        return false;
+        $is_sub_of = empty($arguments) || !Str::of($arguments[0]) ?
+            fn() => true :
+            fn() => is_subclass_of($value, $arguments[0]);
+        return Str::of($value) && class_exists($value) && $is_sub_of();
     }
 }

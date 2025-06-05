@@ -19,7 +19,7 @@ use Validationable\Rules\MoreRule;
 use Validationable\Rules\MoreThanEqualRule;
 use Validationable\Rules\NotInRule;
 use Validationable\Rules\NumericRule;
-use Validationable\Rules\ObjectRule;
+use Validationable\Rules\InstanceOfRule;
 use Validationable\Rules\RequiredIfRule;
 use Validationable\Rules\RequiredRule;
 use Validationable\Rules\RuleInterface;
@@ -36,6 +36,7 @@ abstract class Parameters implements ArrayAccess
      */
     protected array $params = [];
     protected array $errors = [];
+    protected bool $validated = false;
 
     protected array $rules = [
         'sometimes' => SometimesRule::class,
@@ -57,7 +58,7 @@ abstract class Parameters implements ArrayAccess
         'class-string' => ClassStringRule::class,
         'class-method-string' => ClassMethodString::class,
         'closure' => ClosureRule::class,
-        'object' => ObjectRule::class,
+        'instance_of' => InstanceOfRule::class,
         'array' => ArrayRule::class,
         'length' => LengthRule::class,
     ];
@@ -70,7 +71,7 @@ abstract class Parameters implements ArrayAccess
     {
         $this->params = match (true) {
             Arr::of($params) => Arr::toArray($params),
-            default => throw new \Exception('Invalid params'),
+            default => throw new \InvalidArgumentException('Invalid params'),
         };
     }
 
@@ -95,12 +96,19 @@ abstract class Parameters implements ArrayAccess
         return [];
     }
 
+    public function valid(): bool
+    {
+
+    }
+
     public function passes(): bool
     {
-        $result = true;
+        if($this->validated) {
+            return empty($this->errors);
+        }
         $this->prepareValidate();
+
         foreach($this->rules() as $attribute => $rules) {
-            $validations = [];
             foreach($rules as $rule) {
                 $arguments = [];
                 // 引数がある場合はここで初期化する
@@ -111,28 +119,33 @@ abstract class Parameters implements ArrayAccess
                 if(is_string($rule) && array_key_exists($rule, $this->rules)) {
                     $rule = $this->rules[$rule];
                 }
-                $validations[] = match(true) {
-                    Str::isClassString($rule, RuleInterface::class) => ['rule' => new $rule, 'arguments' => $arguments],
-                    is_a($rule, RuleInterface::class) => ['rule' => $rule, 'arguments' => $arguments],
+                $rule = match(true) {
+                    Str::isClassString($rule, RuleInterface::class) => new $rule,
+                    is_a($rule, RuleInterface::class) => $rule,
                     default => throw new \Exception('Invalid rule'),
                 };
-            }
-            foreach($validations as $validation) {
-                if($validation['rule'] instanceof SometimesRule && !$validation['rule']->passes($attribute, $this, $validation['arguments'])) {
+                $value = Arr::get($this->toArray(), $attribute);
+                $check = fn($val) => $rule->passes($attribute, $val, $this, $arguments);
+                $failed = Str::isGlob($attribute) ? !Arr::every($value, $check) : !$check($value);
+                if($failed && $rule instanceof SometimesRule) {
                     continue 2; // sometimesがfalseの場合は後ろを処理しない
                 }
-                if(!$validation['rule']->passes($attribute, $this, $validation['arguments'])) {
-                    $this->errors[$attribute] = sprintf("%s is invalid: %s", $attribute, class_basename($validation['rule']));
-                    $result = false;
+                if($failed) {
+                    $name = Arr::findByValue($this->rules, get_class($rule), get_class($rule));
+                    $this->errors[$attribute][$name] = sprintf("%s is invalid: %s", $attribute, $name);
                 }
             }
         }
         $this->afterValidate();
-        return $result;
+        $this->validated = true;
+        return empty($this->errors);
     }
 
     public function errors(): array
     {
+        if(!$this->validated) {
+            $this->passes();
+        }
         return $this->errors;
     }
 

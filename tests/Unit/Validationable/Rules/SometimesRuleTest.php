@@ -12,7 +12,7 @@ class SometimesRuleTest extends TestCase
     public function 属性が存在する時にTrueが返る(): void
     {
         $instance = new SometimesRule();
-        $actual = $instance->passes('test', $this->createParameter(['test' => 'value']));
+        $actual = $instance->passes('test', 'value', $this->createParameter(['test' => 'value']));
         $this->assertTrue($actual);
     }
 
@@ -20,7 +20,7 @@ class SometimesRuleTest extends TestCase
     public function 属性が存在しない時にFalseが返る(): void
     {
         $instance = new SometimesRule();
-        $actual = $instance->passes('nonexistent', $this->createParameter(['test' => 'value']));
+        $actual = $instance->passes('nonexistent', null, $this->createParameter(['test' => 'value']));
         $this->assertFalse($actual);
     }
 
@@ -28,7 +28,7 @@ class SometimesRuleTest extends TestCase
     public function 属性の値がnullでも存在する時にTrueが返る(): void
     {
         $instance = new SometimesRule();
-        $actual = $instance->passes('test', $this->createParameter(['test' => null]));
+        $actual = $instance->passes('test', null, $this->createParameter(['test' => null]));
         $this->assertTrue($actual);
     }
 
@@ -36,7 +36,7 @@ class SometimesRuleTest extends TestCase
     public function 属性の値が空文字でも存在する時にTrueが返る(): void
     {
         $instance = new SometimesRule();
-        $actual = $instance->passes('test', $this->createParameter(['test' => '']));
+        $actual = $instance->passes('test', '', $this->createParameter(['test' => '']));
         $this->assertTrue($actual);
     }
 
@@ -44,7 +44,7 @@ class SometimesRuleTest extends TestCase
     public function 属性の値が空配列でも存在する時にTrueが返る(): void
     {
         $instance = new SometimesRule();
-        $actual = $instance->passes('test', $this->createParameter(['test' => []]));
+        $actual = $instance->passes('test', [], $this->createParameter(['test' => []]));
         $this->assertTrue($actual);
     }
 
@@ -52,7 +52,7 @@ class SometimesRuleTest extends TestCase
     public function 属性の値がfalseでも存在する時にTrueが返る(): void
     {
         $instance = new SometimesRule();
-        $actual = $instance->passes('test', $this->createParameter(['test' => false]));
+        $actual = $instance->passes('test', false, $this->createParameter(['test' => false]));
         $this->assertTrue($actual);
     }
 
@@ -60,7 +60,7 @@ class SometimesRuleTest extends TestCase
     public function 空のパラメータで属性が存在しない時にFalseが返る(): void
     {
         $instance = new SometimesRule();
-        $actual = $instance->passes('test', $this->createParameter([]));
+        $actual = $instance->passes('test', null, $this->createParameter([]));
         $this->assertFalse($actual);
     }
 
@@ -68,7 +68,8 @@ class SometimesRuleTest extends TestCase
     public function ネストした配列で属性が存在する時にTrueが返る(): void
     {
         $instance = new SometimesRule();
-        $actual = $instance->passes('user.name', $this->createParameter(['user' => ['name' => 'John']]));
+        $values = ['user' => ['name' => 'John']];
+        $actual = $instance->passes('user.name', 'John', $this->createParameter($values));
         $this->assertTrue($actual);
     }
 
@@ -76,7 +77,8 @@ class SometimesRuleTest extends TestCase
     public function ネストした配列で属性が存在しない時にFalseが返る(): void
     {
         $instance = new SometimesRule();
-        $actual = $instance->passes('user.email', $this->createParameter(['user' => ['name' => 'John']]));
+        $values = ['user' => ['name' => 'John']];
+        $actual = $instance->passes('user.email', null, $this->createParameter($values));
         $this->assertFalse($actual);
     }
 }

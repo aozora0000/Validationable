@@ -13,7 +13,7 @@ class IntegerRuleTest extends TestCase
     public function 整数の時にTrueが返る(): void
     {
         $rule = new IntegerRule();
-        $actual = $rule->passes('test', $this->createParameter(['test' => '1000']));
+        $actual = $rule->passes('test', '1000', $this->createParameter(['test' => '1000']));
         $this->assertTrue($actual);
     }
 
@@ -22,7 +22,7 @@ class IntegerRuleTest extends TestCase
     public function 負の整数の時にTrueが返る(): void
     {
         $rule = new IntegerRule();
-        $actual = $rule->passes('test', $this->createParameter(['test' => '-1000']));
+        $actual = $rule->passes('test', '-1000', $this->createParameter(['test' => '-1000']));
         $this->assertTrue($actual);
     }
 
@@ -30,7 +30,7 @@ class IntegerRuleTest extends TestCase
     public function 存在しないデータの時にFalseが返る(): void
     {
         $rule = new IntegerRule();
-        $actual = $rule->passes('invalidKey', $this->createParameter(['test' => 'test']));
+        $actual = $rule->passes('invalidKey',null, $this->createParameter(['test' => 'test']));
         $this->assertFalse($actual);
     }
 
@@ -39,7 +39,7 @@ class IntegerRuleTest extends TestCase
     public function 整数でないデータの時にFalseが返る(mixed $value, string $message): void
     {
         $rule = new IntegerRule();
-        $actual = $rule->passes('test', $this->createParameter(['test' => $value]));
+        $actual = $rule->passes('test', $value, $this->createParameter(['test' => $value]));
         $this->assertFalse($actual, $message);
     }
 

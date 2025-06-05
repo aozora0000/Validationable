@@ -15,7 +15,7 @@ class NumericRuleTest extends TestCase
         // テスト対象のインスタンスを作成
         $instance = new NumericRule();
         // 数値文字列でテスト実行
-        $actual = $instance->passes('test', $this->createParameter(['test' => '123']));
+        $actual = $instance->passes('test','123' ,$this->createParameter(['test' => '123']));
         // 結果を検証
         $this->assertTrue($actual);
     }
@@ -26,7 +26,7 @@ class NumericRuleTest extends TestCase
         // テスト対象のインスタンスを作成
         $instance = new NumericRule();
         // 整数でテスト実行
-        $actual = $instance->passes('test', $this->createParameter(['test' => 123]));
+        $actual = $instance->passes('test', 123, $this->createParameter(['test' => 123]));
         // 結果を検証
         $this->assertTrue($actual);
     }
@@ -37,7 +37,7 @@ class NumericRuleTest extends TestCase
         // テスト対象のインスタンスを作成
         $instance = new NumericRule();
         // 小数でテスト実行
-        $actual = $instance->passes('test', $this->createParameter(['test' => '123.45']));
+        $actual = $instance->passes('test', '123.45', $this->createParameter(['test' => '123.45']));
         // 結果を検証
         $this->assertTrue($actual);
     }
@@ -48,7 +48,7 @@ class NumericRuleTest extends TestCase
         // テスト対象のインスタンスを作成
         $instance = new NumericRule();
         // 負の数値でテスト実行
-        $actual = $instance->passes('test', $this->createParameter(['test' => '-123']));
+        $actual = $instance->passes('test', '-123',$this->createParameter(['test' => '-123']));
         // 結果を検証
         $this->assertTrue($actual);
     }
@@ -59,7 +59,7 @@ class NumericRuleTest extends TestCase
         // テスト対象のインスタンスを作成
         $instance = new NumericRule();
         // ゼロでテスト実行
-        $actual = $instance->passes('test', $this->createParameter(['test' => '0']));
+        $actual = $instance->passes('test', '0',$this ->createParameter(['test' => '0']));
         // 結果を検証
         $this->assertTrue($actual);
     }
@@ -70,7 +70,7 @@ class NumericRuleTest extends TestCase
         // テスト対象のインスタンスを作成
         $instance = new NumericRule();
         // 存在しないキーでテスト実行
-        $actual = $instance->passes('invalidKey', $this->createParameter(['test' => '123']));
+        $actual = $instance->passes('invalidKey', null, $this->createParameter(['test' => '123']));
         // 結果を検証
         $this->assertFalse($actual);
     }
@@ -82,7 +82,7 @@ class NumericRuleTest extends TestCase
         // テスト対象のインスタンスを作成
         $instance = new NumericRule();
         // 非数値データでテスト実行
-        $actual = $instance->passes('test', $this->createParameter(['test' => $value]));
+        $actual = $instance->passes('test', $value, $this->createParameter(['test' => $value]));
         // 結果を検証
         $this->assertFalse($actual, $message);
     }

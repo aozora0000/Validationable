@@ -2,14 +2,14 @@
 
 namespace Validationable\Rules;
 
-use Validationable\Arr;
 use Validationable\Parameters;
+use Validationable\Str;
 
 class BooleanRule implements RuleInterface
 {
 
-    public function passes(string $attribute, Parameters $parameters, array $arguments = []): bool
+    public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        return in_array(Arr::get($parameters->toArray(), $attribute), [true, false, 0, 1, '0', '1'], true);
+        return Str::isBoolean($value);
     }
 }

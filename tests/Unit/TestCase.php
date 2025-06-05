@@ -11,6 +11,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
         $mock = $this->createMock(Parameters::class);
         $mock->method('rules')->willReturn($rules);
         $mock->method('toArray')->willReturn($values);
+        $mock->method('all')->willReturn($values);
         return $mock;
     }
 }

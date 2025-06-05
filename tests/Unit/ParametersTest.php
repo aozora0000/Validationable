@@ -15,7 +15,7 @@ class ParametersTest extends TestCase
             public function rules(): array
             {
                 return [
-                    'test' => [Rule::callback(fn($attribute, $parameters) => $parameters[$attribute] === 'test')],
+                    'test' => [Rule::callback(fn($attribute, $value, $parameters) => $value === 'test')],
                 ];
             }
         };
@@ -24,11 +24,12 @@ class ParametersTest extends TestCase
     #[Test]
     public function セミコロン付きバリデーションが機能しているかチェック(): void
     {
-        $validation = new class(['test' => 'test', 'test2' => true]) extends Parameters {
+        $values = ['test' => 'test', 'test2' => true];
+        $validation = new class($values) extends Parameters {
             public function rules(): array
             {
                 return [
-                    'test' => ['required_if:test2,test3'],
+                    'test' => ['required_if:test2'],
                 ];
             }
         };

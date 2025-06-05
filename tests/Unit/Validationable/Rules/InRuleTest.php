@@ -22,7 +22,7 @@ class InRuleTest extends TestCase
         $this->expectExceptionMessage("In rule requires arguments.");
 
         // テスト実行
-        $instance->passes('test_attribute', $parameters, []);
+        $instance->passes('test_attribute', 'apple', $parameters, []);
     }
 
     #[Test]
@@ -35,7 +35,7 @@ class InRuleTest extends TestCase
         $parameters = $this->createParameter(['test_attribute' => 'apple']);
 
         // テスト実行
-        $actual = $instance->passes('test_attribute', $parameters, ['apple', 'banana', 'orange']);
+        $actual = $instance->passes('test_attribute', 'apple',$parameters, ['apple', 'banana', 'orange']);
 
         // アサーション
         $this->assertTrue($actual);
@@ -51,7 +51,7 @@ class InRuleTest extends TestCase
         $parameters = $this->createParameter(['test_attribute' => 'grape']);
 
         // テスト実行
-        $actual = $instance->passes('test_attribute', $parameters, ['apple', 'banana', 'orange']);
+        $actual = $instance->passes('test_attribute', 'grape', $parameters, ['apple', 'banana', 'orange']);
 
         // アサーション
         $this->assertFalse($actual);
@@ -67,7 +67,7 @@ class InRuleTest extends TestCase
         $parameters = $this->createParameter([]);
 
         // テスト実行
-        $actual = $instance->passes('non_existent_attribute', $parameters, ['apple', 'banana']);
+        $actual = $instance->passes('non_existent_attribute', null, $parameters, ['apple', 'banana']);
 
         // アサーション
         $this->assertFalse($actual);
@@ -83,7 +83,7 @@ class InRuleTest extends TestCase
         $parameters = $this->createParameter(['test_attribute' => '']);
 
         // テスト実行
-        $actual = $instance->passes('test_attribute', $parameters, ['', 'apple', 'banana']);
+        $actual = $instance->passes('test_attribute', '', $parameters, ['', 'apple', 'banana']);
 
         // アサーション
         $this->assertTrue($actual);
@@ -99,7 +99,7 @@ class InRuleTest extends TestCase
         $parameters = $this->createParameter(['test_attribute' => '']);
 
         // テスト実行
-        $actual = $instance->passes('test_attribute', $parameters, ['apple', 'banana']);
+        $actual = $instance->passes('test_attribute','', $parameters, ['apple', 'banana']);
 
         // アサーション
         $this->assertFalse($actual);
@@ -115,7 +115,7 @@ class InRuleTest extends TestCase
         $parameters = $this->createParameter(['test_attribute' => '123']);
 
         // テスト実行
-        $actual = $instance->passes('test_attribute', $parameters, ['123', '456', '789']);
+        $actual = $instance->passes('test_attribute','123', $parameters, ['123', '456', '789']);
 
         // アサーション
         $this->assertTrue($actual);
@@ -131,7 +131,7 @@ class InRuleTest extends TestCase
         $parameters = $this->createParameter(['test_attribute' => '123']);
 
         // テスト実行（文字列の'123'と数値の123は厳密比較でfalse）
-        $actual = $instance->passes('test_attribute', $parameters, [123, 456, 789]);
+        $actual = $instance->passes('test_attribute', '123', $parameters, [123, 456, 789]);
 
         // アサーション
         $this->assertTrue($actual);
