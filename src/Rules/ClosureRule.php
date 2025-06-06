@@ -10,9 +10,6 @@ class ClosureRule implements RuleInterface
 
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if (!Arr::has($parameters->toArray(), $attribute)) {
-            return false;
-        }
         return match (true) {
             is_callable($value) => true,
             $value instanceof \Closure => true,

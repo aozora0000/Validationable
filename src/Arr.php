@@ -4,6 +4,7 @@ namespace Validationable;
 
 use ArrayAccess;
 use Flow\ArrayDot\Exception\InvalidPathException;
+use Validationable\Rules\RuleInterface;
 use function Flow\ArrayDot\array_dot_get;
 use function Flow\ArrayDot\array_dot_set;
 
@@ -95,6 +96,16 @@ class Arr
             }
         }
         return false;
+    }
+
+    public static function everyPasses(array $array, string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
+    {
+        return Arr::every($array, fn(RuleInterface $rule) => $rule->passes($attribute, $value, $parameters, $arguments));
+    }
+
+    public static function somePasses(array $array, string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
+    {
+        return Arr::some($array, fn(RuleInterface $rule) => $rule->passes($attribute, $value, $parameters, $arguments));
     }
 
     public static function countable($array): bool

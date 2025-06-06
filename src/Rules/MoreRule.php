@@ -10,12 +10,13 @@ class MoreRule implements RuleInterface
 {
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if(!(new IntegerRule())->passes($attribute,$value, $parameters)) {
-            return false;
+        if(empty($arguments)) {
+            throw new \InvalidArgumentException("Less rule requires parameters.");
         }
-        if(Arr::has($arguments, 0)) {
-            return Str::of($value) && $arguments[0] < $value;
+        $integer = fn ($val) => Str::isNumeric($val);
+        if(!Arr::every($arguments, $integer)) {
+            throw new \InvalidArgumentException("Less rule requires integer arguments.");
         }
-        return false;
+        return $integer($value) && $arguments[0] < $value;
     }
 }

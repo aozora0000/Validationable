@@ -2,14 +2,14 @@
 
 namespace Validationable\Rules;
 
-use Validationable\Arr;
 use Validationable\Parameters;
+use Validationable\Str;
 
-class NotInRule implements RuleInterface
+class AlphaDashRule implements RuleInterface
 {
 
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        return !Arr::everyPasses([new InRule], $attribute, $value, $parameters, $arguments);
+        return Str::match($value, '/^[a-zA-Z_-]+$/');
     }
 }

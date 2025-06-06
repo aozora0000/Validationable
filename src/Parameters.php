@@ -7,7 +7,7 @@ use ArrayAccess;
 use Validationable\Rules\ArrayRule;
 use Validationable\Rules\BetweenRule;
 use Validationable\Rules\BooleanRule;
-use Validationable\Rules\ClassMethodString;
+use Validationable\Rules\ClassMethodStringRule;
 use Validationable\Rules\ClassStringRule;
 use Validationable\Rules\ClosureRule;
 use Validationable\Rules\InRule;
@@ -56,7 +56,7 @@ abstract class Parameters implements ArrayAccess
         'numeric' => NumericRule::class,
         'string' => StringRule::class,
         'class-string' => ClassStringRule::class,
-        'class-method-string' => ClassMethodString::class,
+        'class-method-string' => ClassMethodStringRule::class,
         'closure' => ClosureRule::class,
         'instance_of' => InstanceOfRule::class,
         'array' => ArrayRule::class,

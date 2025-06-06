@@ -54,6 +54,50 @@ class NumericRuleTest extends TestCase
     }
 
     #[Test]
+    public function 正の指数表記の時にTrueが返る(): void
+    {
+        // テスト対象のインスタンスを作成
+        $instance = new NumericRule();
+        // 負の数値でテスト実行
+        $actual = $instance->passes('test', '1.23e10',$this->createParameter(['test' => '-123']));
+        // 結果を検証
+        $this->assertTrue($actual);
+    }
+
+    #[Test]
+    public function 負の指数表記の時にTrueが返る(): void
+    {
+        // テスト対象のインスタンスを作成
+        $instance = new NumericRule();
+        // 負の数値でテスト実行
+        $actual = $instance->passes('test', '1.23e-10',$this->createParameter(['test' => '-123']));
+        // 結果を検証
+        $this->assertTrue($actual);
+    }
+
+    #[Test]
+    public function 負の数値の指数表記の時にTrueが返る(): void
+    {
+        // テスト対象のインスタンスを作成
+        $instance = new NumericRule();
+        // 負の数値でテスト実行
+        $actual = $instance->passes('test', '-1.23e+10',$this->createParameter(['test' => '-123']));
+        // 結果を検証
+        $this->assertTrue($actual);
+    }
+
+    #[Test]
+    public function 負の数値の負の指数表記の時にTrueが返る(): void
+    {
+        // テスト対象のインスタンスを作成
+        $instance = new NumericRule();
+        // 負の数値でテスト実行
+        $actual = $instance->passes('test', '-1.23e-10',$this->createParameter(['test' => '-123']));
+        // 結果を検証
+        $this->assertTrue($actual);
+    }
+
+    #[Test]
     public function ゼロの時にTrueが返る(): void
     {
         // テスト対象のインスタンスを作成

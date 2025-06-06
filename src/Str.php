@@ -6,6 +6,11 @@ use Stringable;
 
 class Str
 {
+    public static function rand(): string
+    {
+        return md5(uniqid(rand(), true));
+    }
+
     public static function isInteger($value): bool
     {
         return Str::of($value) && preg_match('/^(-|)\d+$/', $value);
@@ -17,6 +22,26 @@ class Str
             is_string($value), is_float($value), is_int($value), is_bool($value) && is_a($value, Stringable::class) => true,
             default => false,
         };
+    }
+
+    public static function empty($value): bool
+    {
+        return !Str::of($value) || $value === '';
+    }
+
+    public static function contains($value, string $needle): bool
+    {
+        return Str::of($value) && str_contains($value, $needle);
+    }
+
+    public static function split($value, string $delimiter): array
+    {
+        return Str::of($value) ? explode($delimiter, $value) : [];
+    }
+
+    public static function match($value, string $pattern): bool
+    {
+        return Str::of($value) && preg_match($pattern, $value);
     }
 
     public static function isNumeric($value): bool
@@ -46,5 +71,24 @@ class Str
             return class_exists($class) && method_exists($class, $method);
         }
         return false;
+    }
+
+    public static function isRegexPattern($value): bool
+    {
+        if(!Str::of($value)) {
+            return false;
+        }
+        try {
+            if(preg_match('/^(.)(.*)\\1[imsxuADSUXJu]*$/', $value)) {
+                // 正規表現として利用可能か試す
+                set_error_handler(function(): void {}, E_WARNING);
+                $result = preg_match($value, "");
+                restore_error_handler();
+                return $result !== false;
+            }
+            return false;
+        } catch (\Throwable) {
+            return false;
+        }
     }
 }

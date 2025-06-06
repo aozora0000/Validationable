@@ -5,12 +5,10 @@ namespace Validationable\Rules;
 use Validationable\Parameters;
 use Validationable\Str;
 
-class ClassMethodString implements RuleInterface
+class AlphaRule implements RuleInterface
 {
-
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        $sep = $arguments[0] ?? '@';
-        return Str::of($value) && Str::isClassMethodString($attribute, $sep);
+        return Str::match($value, '/^[a-zA-Z]+$/');
     }
 }

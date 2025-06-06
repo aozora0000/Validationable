@@ -2,6 +2,7 @@
 
 namespace Validationable\Rules;
 
+use Validationable\Arr;
 use Validationable\Parameters;
 
 class InstanceOfRule implements RuleInterface
@@ -11,8 +12,8 @@ class InstanceOfRule implements RuleInterface
         if(empty($arguments)) {
             throw new \InvalidArgumentException("InstanceOf rule requires arguments.");
         }
-        $class = $arguments[0] ?? 'stdClass';
-        $is_sub_class = (boolean)($arguments[1] ?? false);
+        $class = Arr::get($arguments, 0);
+        $is_sub_class = (bool)Arr::get($arguments, 1, false);
         return ($is_sub_class ? 'is_subclass_of' : 'is_a')($value, $class, false);
     }
 }

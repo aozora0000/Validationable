@@ -4,15 +4,15 @@ namespace Tests\Unit\Validationable\Rules;
 
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Unit\TestCase;
-use Validationable\Rules\ClassMethodString;
+use Validationable\Rules\ClassMethodStringRule;
 
-class ClassMethodStringTest extends TestCase
+class ClassMethodStringRuleTest extends TestCase
 {
     #[Test]
     public function デフォルト区切り文字で存在するクラスメソッド文字列が有効な場合にtrueを返す(): void
     {
         // テスト対象のインスタンスを作成
-        $instance = new ClassMethodString();
+        $instance = new ClassMethodStringRule();
 
         // モックを作成
         $parameters = $this->createParameter([]);
@@ -28,7 +28,7 @@ class ClassMethodStringTest extends TestCase
     public function カスタム区切り文字で存在するクラスメソッド文字列が有効な場合にtrueを返す(): void
     {
         // テスト対象のインスタンスを作成
-        $instance = new ClassMethodString();
+        $instance = new ClassMethodStringRule();
 
         // モックを作成
         $parameters = $this->createParameter([]);
@@ -44,7 +44,7 @@ class ClassMethodStringTest extends TestCase
     public function 無効な値が渡された場合にfalseを返す(): void
     {
         // テスト対象のインスタンスを作成
-        $instance = new ClassMethodString();
+        $instance = new ClassMethodStringRule();
 
         // モックを作成
         $parameters = $this->createParameter([]);
@@ -60,7 +60,7 @@ class ClassMethodStringTest extends TestCase
     public function 存在しないクラスメソッド文字列の場合にfalseを返す(): void
     {
         // テスト対象のインスタンスを作成
-        $instance = new ClassMethodString();
+        $instance = new ClassMethodStringRule();
 
         // モックを作成
         $parameters = $this->createParameter([]);
@@ -76,7 +76,7 @@ class ClassMethodStringTest extends TestCase
     public function null値が渡された場合にfalseを返す(): void
     {
         // テスト対象のインスタンスを作成
-        $instance = new ClassMethodString();
+        $instance = new ClassMethodStringRule();
 
         // モックを作成
         $parameters = $this->createParameter([]);
@@ -92,7 +92,7 @@ class ClassMethodStringTest extends TestCase
     public function 空文字列が渡された場合にfalseを返す(): void
     {
         // テスト対象のインスタンスを作成
-        $instance = new ClassMethodString();
+        $instance = new ClassMethodStringRule();
 
         // モックを作成
         $parameters = $this->createParameter([]);
@@ -108,7 +108,7 @@ class ClassMethodStringTest extends TestCase
     public function 存在するクラスの存在しないメソッドの場合にfalseを返す(): void
     {
         // テスト対象のインスタンスを作成
-        $instance = new ClassMethodString();
+        $instance = new ClassMethodStringRule();
 
         // モックを作成
         $parameters = $this->createParameter([]);
@@ -124,7 +124,7 @@ class ClassMethodStringTest extends TestCase
     public function 不正な形式の文字列の場合にfalseを返す(): void
     {
         // テスト対象のインスタンスを作成
-        $instance = new ClassMethodString();
+        $instance = new ClassMethodStringRule();
 
         // モックを作成
         $parameters = $this->createParameter([]);
