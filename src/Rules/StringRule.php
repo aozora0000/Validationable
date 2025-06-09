@@ -2,9 +2,9 @@
 
 namespace Validationable\Rules;
 
-use Validationable\Arr;
+use Validationable\Contracts\RuleInterface;
+use Validationable\Helpers\Str;
 use Validationable\Parameters;
-use Validationable\Str;
 
 class StringRule implements RuleInterface
 {

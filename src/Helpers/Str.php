@@ -1,10 +1,10 @@
 <?php
 
-namespace Validationable;
+namespace Validationable\Helpers;
 
 use Stringable;
 
-class Str
+final class Str
 {
     public static function rand(): string
     {
@@ -42,6 +42,16 @@ class Str
     public static function match($value, string $pattern): bool
     {
         return Str::of($value) && preg_match($pattern, $value);
+    }
+
+    public static function startsWith($value, string $needle): bool
+    {
+        return Str::of($value) && str_starts_with($value, $needle);
+    }
+
+    public static function endsWith($value, string $needle): bool
+    {
+        return Str::of($value) && str_ends_with($value, $needle);
     }
 
     public static function isNumeric($value): bool

@@ -6,10 +6,10 @@ use Validationable\Contracts\RuleInterface;
 use Validationable\Helpers\Str;
 use Validationable\Parameters;
 
-class IntegerRule implements RuleInterface
+class RegexPatternRule implements RuleInterface
 {
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        return Str::isInteger($value);
+        return Str::of($value) && Str::isRegexPattern($value);
     }
 }

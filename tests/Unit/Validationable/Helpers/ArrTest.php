@@ -1,11 +1,11 @@
 <?php
 
-namespace Unit\Validationable;
+namespace Tests\Unit\Validationable\Helpers;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Unit\TestCase;
-use Validationable\Arr;
+use Validationable\Helpers\Arr;
 
 class ArrTest extends TestCase
 {

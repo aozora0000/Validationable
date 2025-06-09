@@ -4,9 +4,9 @@ namespace Tests\Unit\Validationable\Rules;
 
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Unit\TestCase;
+use Validationable\Helpers\Str;
 use Validationable\Parameters;
 use Validationable\Rules\EmailRule;
-use Validationable\Str;
 
 class EmailRuleTest extends TestCase
 {
@@ -18,11 +18,10 @@ class EmailRuleTest extends TestCase
     {
         $instance = new EmailRule();
         $attribute = 'email';
-        $value = 'user@example.com';
+        $value = 'user@google.co.jp';
         $parameters = $this->createMock(Parameters::class);
-        $arguments = [];
+        $arguments = ['dns'];
 
-        $expected = true;
         $actual = $instance->passes($attribute, $value, $parameters, $arguments);
 
         $this->assertTrue($actual, '有効なメールアドレスである場合、trueを期待します。');
@@ -40,7 +39,6 @@ class EmailRuleTest extends TestCase
         $parameters = $this->createMock(Parameters::class);
         $arguments = [];
 
-        $expected = false;
         $actual = $instance->passes($attribute, $value, $parameters, $arguments);
 
         $this->assertFalse($actual, '@記号を含まない無効なメールアドレスに対してfalseを期待します。');
@@ -58,7 +56,6 @@ class EmailRuleTest extends TestCase
         $parameters = $this->createMock(Parameters::class);
         $arguments = [];
 
-        $expected = false;
         $actual = $instance->passes($attribute, $value, $parameters, $arguments);
 
         $this->assertFalse($actual, 'アットマークの後が空の無効なメールアドレスに対してfalseを期待します。');
@@ -76,7 +73,6 @@ class EmailRuleTest extends TestCase
         $parameters = $this->createMock(Parameters::class);
         $arguments = [];
 
-        $expected = false;
         $actual = $instance->passes($attribute, $value, $parameters, $arguments);
 
         $this->assertFalse($actual, '形式が正しくない無効なメールアドレスに対してfalseを期待します。');
@@ -92,9 +88,8 @@ class EmailRuleTest extends TestCase
         $attribute = 'email';
         $value = 'user@anotherdomain.com';
         $parameters = $this->createMock(Parameters::class);
-        $arguments = [];
+        $arguments = ['dns'];
 
-        $expected = true;
         $actual = $instance->passes($attribute, $value, $parameters, $arguments);
 
         $this->assertTrue($actual, 'Aレコードが存在する有効なメールアドレスに対してtrueを期待します。');
@@ -110,9 +105,8 @@ class EmailRuleTest extends TestCase
         $attribute = 'email';
         $value = sprintf('user@nonexistentdomain.%s.xyz', Str::rand());
         $parameters = $this->createMock(Parameters::class);
-        $arguments = [];
+        $arguments = ['dns'];
 
-        $expected = false;
         $actual = $instance->passes($attribute, $value, $parameters, $arguments);
 
         $this->assertFalse($actual, 'DNSレコードが存在しないドメインの無効なメールアドレスに対してfalseを期待します。');

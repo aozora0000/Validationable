@@ -2,6 +2,7 @@
 
 namespace Validationable\Rules;
 
+use Validationable\Contracts\RuleInterface;
 use Validationable\Parameters;
 
 class RequiredRule implements RuleInterface

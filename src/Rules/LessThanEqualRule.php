@@ -2,9 +2,10 @@
 
 namespace Validationable\Rules;
 
-use Validationable\Arr;
+use Validationable\Contracts\RuleInterface;
+use Validationable\Helpers\Arr;
+use Validationable\Helpers\Str;
 use Validationable\Parameters;
-use Validationable\Str;
 
 class LessThanEqualRule implements RuleInterface
 {

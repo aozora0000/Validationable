@@ -1,14 +1,15 @@
 <?php
 
-namespace Validationable;
+namespace Validationable\Helpers;
 
 use ArrayAccess;
 use Flow\ArrayDot\Exception\InvalidPathException;
-use Validationable\Rules\RuleInterface;
+use Validationable\Contracts\RuleInterface;
+use Validationable\Parameters;
 use function Flow\ArrayDot\array_dot_get;
 use function Flow\ArrayDot\array_dot_set;
 
-class Arr
+final class Arr
 {
     public static function toArray($value): array
     {
@@ -41,6 +42,11 @@ class Arr
         } catch (\Throwable) {
             return [];
         }
+    }
+
+    public static function only($array, array $keys): array
+    {
+        return array_filter(array_map(fn($key) => Arr::get($array, $key), $keys));
     }
 
     public static function has($array, string $prepend = ''): bool
@@ -90,6 +96,9 @@ class Arr
 
     public static function some($array, callable $callback): bool
     {
+        if(empty($array)) {
+            return true;
+        }
         foreach ($array as $key => $value) {
             if ($callback($value, $key)) {
                 return true;
@@ -107,6 +116,7 @@ class Arr
     {
         return Arr::some($array, fn(RuleInterface $rule) => $rule->passes($attribute, $value, $parameters, $arguments));
     }
+
 
     public static function countable($array): bool
     {

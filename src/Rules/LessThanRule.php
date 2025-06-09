@@ -2,11 +2,12 @@
 
 namespace Validationable\Rules;
 
-use Validationable\Arr;
+use Validationable\Contracts\RuleInterface;
+use Validationable\Helpers\Arr;
+use Validationable\Helpers\Str;
 use Validationable\Parameters;
-use Validationable\Str;
 
-class LessRule implements RuleInterface
+class LessThanRule implements RuleInterface
 {
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {

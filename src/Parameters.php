@@ -4,27 +4,41 @@ namespace Validationable;
 
 
 use ArrayAccess;
+use Validationable\Contracts\RuleInterface;
+use Validationable\Helpers\Arr;
+use Validationable\Helpers\Str;
+use Validationable\Rules\ActiveUrlRule;
+use Validationable\Rules\AlphaNumRule;
+use Validationable\Rules\AlphaRule;
 use Validationable\Rules\ArrayRule;
 use Validationable\Rules\BetweenRule;
 use Validationable\Rules\BooleanRule;
 use Validationable\Rules\ClassMethodStringRule;
 use Validationable\Rules\ClassStringRule;
 use Validationable\Rules\ClosureRule;
+use Validationable\Rules\CountableRule;
+use Validationable\Rules\DistinctRule;
+use Validationable\Rules\EmailRule;
+use Validationable\Rules\EndsWithRule;
+use Validationable\Rules\FileRule;
 use Validationable\Rules\InRule;
+use Validationable\Rules\InstanceOfRule;
 use Validationable\Rules\IntegerRule;
 use Validationable\Rules\LengthRule;
-use Validationable\Rules\LessRule;
 use Validationable\Rules\LessThanEqualRule;
-use Validationable\Rules\MoreRule;
+use Validationable\Rules\LessThanRule;
 use Validationable\Rules\MoreThanEqualRule;
+use Validationable\Rules\MoreThanRule;
 use Validationable\Rules\NotInRule;
 use Validationable\Rules\NumericRule;
-use Validationable\Rules\InstanceOfRule;
+use Validationable\Rules\RegexPatternRule;
 use Validationable\Rules\RequiredIfRule;
 use Validationable\Rules\RequiredRule;
-use Validationable\Rules\RuleInterface;
 use Validationable\Rules\SometimesRule;
+use Validationable\Rules\StartsWithRule;
 use Validationable\Rules\StringRule;
+use Validationable\Rules\UniqueRule;
+use Validationable\Rules\UrlRule;
 
 /**
  * @template T
@@ -47,20 +61,35 @@ abstract class Parameters implements ArrayAccess
         'boolean' => BooleanRule::class,
         'integer' => IntegerRule::class,
         'between' => BetweenRule::class,
-        'more' => MoreRule::class,
+        'more_than' => MoreThanRule::class,
         'more_than_equal' => MoreThanEqualRule::class,
+        'mt' => MoreThanRule::class,
         'mte' => MoreThanEqualRule::class,
-        'less' => LessRule::class,
+        'less_than' => LessThanRule::class,
         'less_than_equal' => LessThanEqualRule::class,
+        'lt' => LessThanRule::class,
         'lte' => LessThanEqualRule::class,
         'numeric' => NumericRule::class,
         'string' => StringRule::class,
+        'regex_pattern' => RegexPatternRule::class,
+        'alpha' => AlphaRule::class,
+        'alpha_dash' => AlphaRule::class,
+        'alpha_num' => AlphaNumRule::class,
+        'starts_with' => StartsWithRule::class,
+        'ends_with' => EndsWithRule::class,
+        'email' => EmailRule::class,
+        'url' => UrlRule::class,
+        'active_url' => ActiveUrlRule::class,
         'class-string' => ClassStringRule::class,
         'class-method-string' => ClassMethodStringRule::class,
         'closure' => ClosureRule::class,
         'instance_of' => InstanceOfRule::class,
         'array' => ArrayRule::class,
+        'countable' => CountableRule::class,
+        'unique' => UniqueRule::class,
+        'distinct' => DistinctRule::class,
         'length' => LengthRule::class,
+        'file' => FileRule::class,
     ];
 
 

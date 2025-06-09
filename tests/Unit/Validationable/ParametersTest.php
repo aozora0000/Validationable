@@ -1,8 +1,9 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Validationable;
 
 use PHPUnit\Framework\Attributes\Test;
+use Tests\Unit\TestCase;
 use Validationable\Parameters;
 use Validationable\Rule;
 

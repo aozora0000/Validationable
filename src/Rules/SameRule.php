@@ -2,13 +2,14 @@
 
 namespace Validationable\Rules;
 
+use Validationable\Contracts\RuleInterface;
+use Validationable\Helpers\Arr;
 use Validationable\Parameters;
-use Validationable\Str;
 
-class RegexRule implements RuleInterface
+class SameRule implements RuleInterface
 {
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        return Str::of($value) && Str::isRegexPattern($value);
+        return $value === Arr::get($parameters->toArray(), $attribute);
     }
 }

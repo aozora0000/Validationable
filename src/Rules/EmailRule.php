@@ -2,27 +2,41 @@
 
 namespace Validationable\Rules;
 
-use Validationable\Arr;
+use Egulias\EmailValidator\EmailValidator;
+use Egulias\EmailValidator\Validation\DNSCheckValidation;
+use Egulias\EmailValidator\Validation\MessageIDValidation;
+use Egulias\EmailValidator\Validation\MultipleValidationWithAnd;
+use Egulias\EmailValidator\Validation\RFCValidation;
+use Validationable\Contracts\RuleInterface;
+use Validationable\Helpers\Arr;
+use Validationable\Helpers\Str;
 use Validationable\Parameters;
-use Validationable\Str;
+use Validationable\Validators\FilterEmailValidation;
 
 class EmailRule implements RuleInterface
 {
-
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if(!Str::contains($value, '@')) {
+        if (!Str::of($value)) {
             return false;
         }
+        $validator = new EmailValidator();
 
-        [, $host] = Str::split($value, '@');
-        if(Str::empty($host)) {
-            return false;
-        }
+        $validations = !empty($arguments) && Arr::every($arguments, fn($arg) => Str::of($arg)) ?
+            Arr::only(static::getValidators(), $arguments) : [];
+        $validations[] = new FilterEmailValidation();
+        return $validator->isValid($value, new MultipleValidationWithAnd($validations));
+    }
 
-        $callback = fn(string $type): bool => checkdnsrr($host, $type);
-        return
-            filter_var($value, FILTER_VALIDATE_EMAIL) !== false &&
-            Arr::some(['MX', 'A', 'AAAA'], $callback);
+    /**
+     * @var array<string, RFCValidation>
+     */
+    public static function getValidators(): array
+    {
+        return [
+            'rfc' => new RFCValidation(),
+            'dns' => new DNSCheckValidation(),
+            'message_id' => new MessageIDValidation(),
+        ];
     }
 }

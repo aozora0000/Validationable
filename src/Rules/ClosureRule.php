@@ -2,7 +2,7 @@
 
 namespace Validationable\Rules;
 
-use Validationable\Arr;
+use Validationable\Contracts\RuleInterface;
 use Validationable\Parameters;
 
 class ClosureRule implements RuleInterface

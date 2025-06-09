@@ -1,6 +1,6 @@
 <?php
 
-namespace Validationable\Rules;
+namespace Validationable\Contracts;
 
 use Validationable\Parameters;
 

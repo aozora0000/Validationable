@@ -4,8 +4,8 @@ namespace Tests\Unit\Validationable\Rules;
 
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Unit\TestCase;
+use Validationable\Helpers\Str;
 use Validationable\Rules\ClosureRule;
-use Validationable\Str;
 
 class ClosureRuleTest extends TestCase
 {
