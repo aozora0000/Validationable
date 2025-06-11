@@ -25,6 +25,6 @@ class LengthRule implements RuleInterface
         $min = min($arguments);
         $max = max($arguments);
         $length = Str::of($value) ? mb_strlen($value) : count($value);
-        return $min <=$length && $length <= $max;
+        return $min <= $length && $length <= $max;
     }
 }
