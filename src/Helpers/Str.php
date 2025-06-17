@@ -6,6 +6,17 @@ use Stringable;
 
 final class Str
 {
+    public static function stringify($value): string
+    {
+        return match(true) {
+            is_string($value) => $value,
+            is_a($value, Stringable::class) => $value->__toString(),
+            is_array($value) => json_encode($value),
+            is_object($value) => get_class($value),
+            is_resource($value) => 'resource',
+            default => (string)$value,
+        };
+    }
     public static function rand(): string
     {
         return md5(uniqid(rand(), true));

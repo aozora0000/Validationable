@@ -66,10 +66,6 @@ class DistinctRuleTest extends TestCase
     #[Test]
     public function 値が配列ではない場合_偽を返す()
     {
-        // 値が配列でない場合を模擬するためにArr::ofメソッドをモック
-        $arrMock = $this->createMock(Arr::class);
-        $arrMock->method('of')->willReturn(false);
-
         // テスト対象のインスタンスを作成
         $instance = new DistinctRule();
 
