@@ -38,7 +38,7 @@ final class Arr
     public static function dot($array, string $prepend = ''): array
     {
         try {
-            return array_dot_get($array, $prepend);
+            return array_dot_get(Arr::toArray($array), $prepend);
         } catch (\Throwable) {
             return [];
         }
@@ -47,6 +47,11 @@ final class Arr
     public static function only($array, array $keys): array
     {
         return array_filter(array_map(fn($key) => Arr::get($array, $key), $keys));
+    }
+
+    public static function keyDiff($target1, $target2): array
+    {
+        return array_diff(array_keys(Arr::toArray($target1)), array_keys(Arr::toArray($target2)));
     }
 
     public static function has($array, string $prepend = ''): bool
@@ -62,7 +67,7 @@ final class Arr
     public static function get($array, string $prepend = '', mixed $default = null)
     {
         try {
-            return array_dot_get($array, $prepend);
+            return array_dot_get(Arr::toArray($array), $prepend);
         } catch (\Throwable) {
             return $default;
         }
@@ -86,7 +91,7 @@ final class Arr
 
     public static function every($array, callable $callback): bool
     {
-        foreach ($array as $key => $value) {
+        foreach (Arr::toArray($array) as $key => $value) {
             if (! $callback($value, $key)) {
                 return false;
             }
@@ -109,12 +114,12 @@ final class Arr
 
     public static function everyPasses(array $array, string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        return Arr::every($array, fn(RuleInterface $rule) => $rule->passes($attribute, $value, $parameters, $arguments));
+        return Arr::every(Arr::toArray($array), fn(RuleInterface $rule) => $rule->passes($attribute, $value, $parameters, $arguments));
     }
 
     public static function somePasses(array $array, string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        return Arr::some($array, fn(RuleInterface $rule) => $rule->passes($attribute, $value, $parameters, $arguments));
+        return Arr::some(Arr::toArray($array), fn(RuleInterface $rule) => $rule->passes($attribute, $value, $parameters, $arguments));
     }
 
 
@@ -125,9 +130,19 @@ final class Arr
 
     public static function findByValue($array, $value, $default = null)
     {
-        if(array_search($value, $array, true) === -1) {
+        if(!in_array($value, $array, true)) {
             return $default;
         }
         return $array[array_search($value, $array, true)];
+    }
+
+    public static function mapWithKeys($array, callable $callback): array
+    {
+        $result = [];
+        foreach (Arr::toArray($array) as $key => $value) {
+            [$key, $value] = $callback($value, $key);
+            $result[$key] = $value;
+        }
+        return $result;
     }
 }

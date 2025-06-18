@@ -72,7 +72,7 @@ abstract class Parameters implements ArrayAccess
     protected array $errors = [];
     protected bool $validated = false;
 
-    protected array $rules = [
+    public static array $rules = [
         // HasValue
         'sometimes' => SometimesRule::class,
         'required' => RequiredRule::class,
@@ -165,15 +165,31 @@ abstract class Parameters implements ArrayAccess
         return $this->toArray();
     }
 
-    public function rules(): array
+    abstract public function rules(): array;
+
+    public function macros(): array
     {
-        return $this->rules;
+        return static::$rules;
     }
 
 
-    public function valid(): bool
+    public function validate($rule, string $attribute, mixed $value, array $arguments = []): bool
     {
-        return $this->validated && empty($this->errors);
+        // 引数がある場合はここで初期化する
+        if(is_string($rule) && str_contains( $rule, ":")) {
+            [$rule, $arguments] = explode(":", $rule);
+            $arguments = explode(",", $arguments);
+        }
+        if(is_string($rule) && array_key_exists($rule, static::$rules)) {
+            $rule = static::$rules[$rule];
+        }
+        $rule = match(true) {
+            Str::isClassString($rule, RuleInterface::class) => new $rule,
+            is_a($rule, RuleInterface::class) => $rule,
+            default => throw new \InvalidArgumentException(sprintf("The rule [%s] does not exist.", Str::stringify($rule))),
+        };
+        $check = fn($val) => $rule->passes($attribute, $val, $this, $arguments);
+        return Str::isGlob($attribute) ? Arr::every($value, $check) : $check($value);
     }
 
     public function passes(): bool
@@ -184,31 +200,17 @@ abstract class Parameters implements ArrayAccess
         $this->prepareValidate();
 
         foreach($this->rules() as $attribute => $rules) {
-            foreach($rules as $rule) {
-                $arguments = [];
-                // 引数がある場合はここで初期化する
-                if(is_string($rule) && str_contains( $rule, ":")) {
-                    [$rule, $arguments] = explode(":", $rule);
-                    $arguments = explode(",", $arguments);
+            foreach(Arr::toArray($rules) as $rule) {
+                $result = $this->validate($rule, $attribute, Arr::get($this->toArray(), $attribute));
+                if($result) {
+                    continue;
                 }
-                if(is_string($rule) && array_key_exists($rule, $this->rules)) {
-                    $rule = $this->rules[$rule];
-                }
-                $rule = match(true) {
-                    Str::isClassString($rule, RuleInterface::class) => new $rule,
-                    is_a($rule, RuleInterface::class) => $rule,
-                    default => throw new \InvalidArgumentException(sprintf("The rule [%s] does not exist.", Str::stringify($rule))),
-                };
-                $value = Arr::get($this->toArray(), $attribute);
-                $check = fn($val) => $rule->passes($attribute, $val, $this, $arguments);
-                $failed = Str::isGlob($attribute) ? !Arr::every($value, $check) : !$check($value);
-                if($failed && $rule instanceof SometimesRule) {
+                if($rule === 'sometimes' || $rule instanceof SometimesRule) {
                     continue 2; // sometimesがfalseの場合は後ろを処理しない
                 }
-                if($failed) {
-                    $name = Arr::findByValue($this->rules, get_class($rule), get_class($rule));
-                    $this->errors[$attribute][$name] = sprintf("%s is invalid: %s", $attribute, $name);
-                }
+                $ruleString = Str::of($rule) ? $rule : get_class($rule);
+                $name = Arr::findByValue(static::$rules, $ruleString, $ruleString);
+                $this->errors[$attribute][$name] = sprintf("%s is invalid: %s", $attribute, $name);
             }
         }
         $this->afterValidate();

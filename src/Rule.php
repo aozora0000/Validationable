@@ -6,6 +6,7 @@ use BackedEnum;
 use UnitEnum;
 use Validationable\Contracts\EnumRuleInterface;
 use Validationable\Contracts\RuleInterface;
+use Validationable\Helpers\Arr;
 
 class Rule
 {
@@ -19,6 +20,27 @@ class Rule
             public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
             {
                 return ($this->callback)($attribute, $value, $parameters, $arguments);
+            }
+        };
+    }
+
+    public static function when(array $rules, array $onSuccess = [], array $onFailure = []): RuleInterface
+    {
+        return new readonly class($rules, $onSuccess, $onFailure) implements RuleInterface {
+            public function __construct(
+                private array $rules,
+                private array $onSuccess,
+                private array $onFailure
+            ) {
+            }
+
+            public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
+            {
+                if(Arr::every($this->rules, fn($rule) => $parameters->validate($rule, $attribute, $value, $arguments))) {
+                    return Arr::every($this->onSuccess, fn($rule) => $parameters->validate($rule, $attribute, $value, $arguments));
+                } else {
+                    return Arr::every($this->onFailure, fn($rule) => $parameters->validate($rule, $attribute, $value, $arguments));
+                }
             }
         };
     }

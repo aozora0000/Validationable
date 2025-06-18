@@ -12,9 +12,7 @@ class ParametersTest extends TestCase
     #[Test]
     public function ルールがマクロ登録されているかチェック(): void
     {
-        $macros = (new class([]) extends Parameters {
-
-        })->rules();
+        $macros = Parameters::$rules;
         $files = glob(__DIR__ . '/../../../src/Rules/*.php');
 
         // ファイル名からクラス名を抽出
