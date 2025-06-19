@@ -31,9 +31,14 @@
         "illuminate/container": "^12.16",
         "illuminate/support": "^12.16",
         "symfony/var-dumper": "^7.3",
-        "illuminate/http": "^12.17"
+        "illuminate/http": "^12.17",
+        "phpstan/phpstan": "^2.1",
+        "rector/rector": "^2.0"
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "phpunit",
+        "stan": "phpstan analyse src tests --level 10",
+        "rector:dry": "rector --dry-run",
+        "rector:run": "rector"
     }
 }

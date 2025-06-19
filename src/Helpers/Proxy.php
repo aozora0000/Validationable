@@ -2,14 +2,14 @@
 
 namespace Validationable\Helpers;
 
-class Proxy
+final class Proxy
 {
     public mixed $target;
 
     public static function tap($value, $callback = null)
     {
         if (is_null($callback)) {
-            return new static($value);
+            return new self($value);
         }
 
         $callback($value);

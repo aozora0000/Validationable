@@ -31,7 +31,7 @@ class Ref
             array_key_exists($key, $args) => $args[$key],
             $param->isOptional() => $param->getDefaultValue(),
             $param->allowsNull() => null,
-            default => throw new InvalidArgumentException(sprintf("rule requires a valid function name [%s]", $key)),
+            default => throw new InvalidArgumentException("Missing argument: $key"),
         }]);
         match(get_class($reflection)) {
             ReflectionClass::class => $reflection->newInstanceArgs($values),

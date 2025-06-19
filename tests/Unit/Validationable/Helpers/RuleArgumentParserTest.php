@@ -146,7 +146,7 @@ class RuleArgumentParserTest extends TestCase
     public function 無効なルールフォーマットをパースする(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The rule [invalid format] is not a valid rule.');
+        $this->expectExceptionMessage('The rule [invalid format] does not exist.');
 
         $instance = new RuleArgumentParser([]);
         $instance->parse('invalid format');
