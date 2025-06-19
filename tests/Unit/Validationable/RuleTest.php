@@ -59,7 +59,6 @@ class RuleTest extends TestCase
     public function WhenでonSuccessが実行され且つ結果が偽の場合(): void
     {
         // WIP
-        $this->markTestSkipped('ここ途中');
         $params = new class(['test' => 101]) extends Parameters {
             public function rules(): array
             {
@@ -75,8 +74,6 @@ class RuleTest extends TestCase
     #[Test]
     public function WhenでonFailedが実行され且つ結果が真の場合(): void
     {
-        // WIP
-        $this->markTestSkipped('ここ途中');
         $params = new class(['test' => 'test_a']) extends Parameters {
             public function rules(): array
             {
@@ -86,7 +83,7 @@ class RuleTest extends TestCase
             }
         };
         $actual = $params->passes();
-        $this->assertFalse($actual);
+        $this->assertTrue($actual);
     }
 
     #[Test]

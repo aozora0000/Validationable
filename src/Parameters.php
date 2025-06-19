@@ -4,8 +4,8 @@ namespace Validationable;
 
 
 use ArrayAccess;
-use Validationable\Contracts\RuleInterface;
 use Validationable\Helpers\Arr;
+use Validationable\Helpers\RuleArgumentParser;
 use Validationable\Helpers\Str;
 use Validationable\Rules\ActiveUrlRule;
 use Validationable\Rules\AlphaDashRule;
@@ -19,6 +19,7 @@ use Validationable\Rules\CallableRule;
 use Validationable\Rules\ClassMethodStringRule;
 use Validationable\Rules\ClassStringRule;
 use Validationable\Rules\ClosureRule;
+use Validationable\Rules\ConstructableRule;
 use Validationable\Rules\CountableRule;
 use Validationable\Rules\DateFormatRule;
 use Validationable\Rules\DateRule;
@@ -47,7 +48,6 @@ use Validationable\Rules\MoreThanEqualRule;
 use Validationable\Rules\MoreThanRule;
 use Validationable\Rules\NotInRule;
 use Validationable\Rules\NumericRule;
-use Validationable\Rules\ConstructableRule;
 use Validationable\Rules\RegexPatternRule;
 use Validationable\Rules\RequiredIfRule;
 use Validationable\Rules\RequiredRule;
@@ -65,13 +65,6 @@ use Validationable\Rules\UrlRule;
  */
 abstract class Parameters implements ArrayAccess
 {
-    /**
-     * @var array
-     */
-    protected array $params = [];
-    protected array $errors = [];
-    protected bool $validated = false;
-
     public static array $rules = [
         // HasValue
         'sometimes' => SometimesRule::class,
@@ -136,7 +129,12 @@ abstract class Parameters implements ArrayAccess
         'image_width' => ImageWidthRule::class,
         'image_ratio' => ImageRatioRule::class,
     ];
-
+    /**
+     * @var array
+     */
+    protected array $params = [];
+    protected array $errors = [];
+    protected bool $validated = false;
 
     /**
      * @param T $params
@@ -165,47 +163,36 @@ abstract class Parameters implements ArrayAccess
         return $this->toArray();
     }
 
-    abstract public function rules(): array;
-
     public function macros(): array
     {
         return static::$rules;
     }
 
+    abstract public function rules(): array;
 
     public function validate($rule, string $attribute, mixed $value, array $arguments = []): bool
     {
-        // 引数がある場合はここで初期化する
-        if(is_string($rule) && str_contains( $rule, ":")) {
-            [$rule, $arguments] = explode(":", $rule);
-            $arguments = explode(",", $arguments);
-        }
-        if(is_string($rule) && array_key_exists($rule, static::$rules)) {
-            $rule = static::$rules[$rule];
-        }
-        $rule = match(true) {
-            Str::isClassString($rule, RuleInterface::class) => new $rule,
-            is_a($rule, RuleInterface::class) => $rule,
-            default => throw new \InvalidArgumentException(sprintf("The rule [%s] does not exist.", Str::stringify($rule))),
-        };
+        $parser = new RuleArgumentParser(static::$rules);
+        [$rule, $arguments] = $parser->parse($rule);
+
         $check = fn($val) => $rule->passes($attribute, $val, $this, $arguments);
         return Str::isGlob($attribute) ? Arr::every($value, $check) : $check($value);
     }
 
     public function passes(): bool
     {
-        if($this->validated) {
+        if ($this->validated) {
             return empty($this->errors);
         }
         $this->prepareValidate();
 
-        foreach($this->rules() as $attribute => $rules) {
-            foreach(Arr::toArray($rules) as $rule) {
+        foreach ($this->rules() as $attribute => $rules) {
+            foreach (Arr::toArray($rules) as $rule) {
                 $result = $this->validate($rule, $attribute, Arr::get($this->toArray(), $attribute));
-                if($result) {
+                if ($result) {
                     continue;
                 }
-                if($rule === 'sometimes' || $rule instanceof SometimesRule) {
+                if ($rule === 'sometimes' || $rule instanceof SometimesRule) {
                     continue 2; // sometimesがfalseの場合は後ろを処理しない
                 }
                 $ruleString = Str::of($rule) ? $rule : get_class($rule);
@@ -218,9 +205,19 @@ abstract class Parameters implements ArrayAccess
         return empty($this->errors);
     }
 
+    protected function prepareValidate(): void
+    {
+
+    }
+
+    protected function afterValidate(): void
+    {
+
+    }
+
     public function errors(): array
     {
-        if(!$this->validated) {
+        if (!$this->validated) {
             $this->passes();
         }
         return $this->errors;
@@ -244,15 +241,5 @@ abstract class Parameters implements ArrayAccess
     public function offsetUnset(mixed $offset): void
     {
         Arr::forget($this->params, $offset);
-    }
-
-    protected function prepareValidate(): void
-    {
-
-    }
-
-    protected function afterValidate(): void
-    {
-
     }
 }
