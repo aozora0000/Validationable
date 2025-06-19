@@ -2,6 +2,7 @@
 
 namespace Validationable\Helpers;
 
+use Exception;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 use SplFileInfo;
@@ -42,14 +43,16 @@ final class File
 
     /**
      * @param $file
-     * @throws Throwable
+     * @return Image
+     * @throws Exception
      */
     public static function image($file): Image
     {
+        /** @var ImageManager $manager */
         static $manager;
 
         if(!in_array(self::mimes($file), ['jpeg', 'png', 'gif', 'webp', 'bmp', 'svg', 'avif'])) {
-            throw new \Exception('Invalid image');
+            throw new Exception('Invalid image');
         };
 
         if($manager === null) {
@@ -73,6 +76,7 @@ final class File
      */
     public static function imageRatio($file): float
     {
-        return self::image($file)->width() / self::image($file)->height();
+        $image = self::image($file);
+        return $image->width() / $image->height();
     }
 }

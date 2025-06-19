@@ -36,10 +36,11 @@ class Rule
 
             public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
             {
-                if(Arr::every($this->rules, fn($rule): bool => $parameters->validate($rule, $attribute, $value, $arguments))) {
-                    return Arr::every($this->onSuccess, fn($rule): bool => $parameters->validate($rule, $attribute, $value, $arguments));
+                $condition = fn($rule): bool => $parameters->validate($rule, $attribute, $value, $arguments);
+                if(Arr::every($this->rules, $condition)) {
+                    return Arr::every($this->onSuccess, $condition);
                 }
-                return Arr::every($this->onFailure, fn($rule): bool => $parameters->validate($rule, $attribute, $value, $arguments));
+                return Arr::every($this->onFailure, $condition);
             }
         };
     }
