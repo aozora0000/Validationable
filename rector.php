@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\Carbon\Rector\FuncCall\DateFuncCallToCarbonRector;
 use Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector;
 use Rector\Config\RectorConfig;
 use Rector\Naming\Rector\Assign\RenameVariableToMatchMethodCallReturnTypeRector;
@@ -43,6 +44,7 @@ return static function (RectorConfig $config): void {
 
     // スキップ設定
     $config->skip([
+        DateFuncCallToCarbonRector::class,
         ReplaceTestAnnotationWithPrefixedFunctionRector::class,
         RenameParamToMatchTypeRector::class,
         RenameVariableToMatchNewTypeRector::class,
