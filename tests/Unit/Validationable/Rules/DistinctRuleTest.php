@@ -10,7 +10,7 @@ use Validationable\Rules\DistinctRule;
 class DistinctRuleTest extends TestCase
 {
     #[Test]
-    public function 値がユニークな場合_真を返す()
+    public function 値がユニークな場合_真を返す(): void
     {
         // テスト対象のインスタンスを作成
         $instance = new DistinctRule();
@@ -28,7 +28,7 @@ class DistinctRuleTest extends TestCase
     }
 
     #[Test]
-    public function 値が重複している場合_偽を返す()
+    public function 値が重複している場合_偽を返す(): void
     {
         // テスト対象のインスタンスを作成
         $instance = new DistinctRule();
@@ -46,7 +46,7 @@ class DistinctRuleTest extends TestCase
     }
 
     #[Test]
-    public function 空配列の場合_真を返す()
+    public function 空配列の場合_真を返す(): void
     {
         // テスト対象のインスタンスを作成
         $instance = new DistinctRule();
@@ -64,7 +64,7 @@ class DistinctRuleTest extends TestCase
     }
 
     #[Test]
-    public function 値が配列ではない場合_偽を返す()
+    public function 値が配列ではない場合_偽を返す(): void
     {
         // テスト対象のインスタンスを作成
         $instance = new DistinctRule();
@@ -82,7 +82,7 @@ class DistinctRuleTest extends TestCase
     }
 
     #[Test]
-    public function 値がnullの場合_偽を返す()
+    public function 値がnullの場合_偽を返す(): void
     {
         // テスト対象のインスタンスを作成
         $instance = new DistinctRule();

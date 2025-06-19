@@ -9,7 +9,7 @@ use Validationable\Rules\IpRule;
 class IpRuleTest extends TestCase
 {
     #[Test]
-    public function IP_が有効なIPv4の場合_検証が成功する()
+    public function IP_が有効なIPv4の場合_検証が成功する(): void
     {
         // テスト対象のクラス
         $instance = new IpRule();
@@ -27,7 +27,7 @@ class IpRuleTest extends TestCase
     }
 
     #[Test]
-    public function IP_が有効なIPv6の場合_検証が成功する()
+    public function IP_が有効なIPv6の場合_検証が成功する(): void
     {
         $instance = new IpRule();
         $attribute = 'ip';
@@ -41,7 +41,7 @@ class IpRuleTest extends TestCase
     }
 
     #[Test]
-    public function IP_が無効な文字列の場合_検証が失敗する()
+    public function IP_が無効な文字列の場合_検証が失敗する(): void
     {
         $instance = new IpRule();
         $attribute = 'ip';
@@ -55,7 +55,7 @@ class IpRuleTest extends TestCase
     }
 
     #[Test]
-    public function IP_が空文字の場合_検証が失敗する()
+    public function IP_が空文字の場合_検証が失敗する(): void
     {
         $instance = new IpRule();
         $attribute = 'ip';
@@ -69,7 +69,7 @@ class IpRuleTest extends TestCase
     }
 
     #[Test]
-    public function IP_がnullの場合_検証が失敗する()
+    public function IP_がnullの場合_検証が失敗する(): void
     {
         $instance = new IpRule();
         $attribute = 'ip';
@@ -83,7 +83,7 @@ class IpRuleTest extends TestCase
     }
 
     #[Test]
-    public function IP_が数値の場合_検証が失敗する()
+    public function IP_が数値の場合_検証が失敗する(): void
     {
         $instance = new IpRule();
         $attribute = 'ip';

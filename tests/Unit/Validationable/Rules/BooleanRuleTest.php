@@ -15,37 +15,33 @@ class BooleanRuleTest extends TestCase
     /**
      * 有効なboolean値のデータプロバイダ
      */
-    public static function 有効なboolean値のデータプロバイダ(): array
+    public static function 有効なboolean値のデータプロバイダ(): \Iterator
     {
-        return [
-            'boolean true' => [true],
-            'boolean false' => [false],
-            '文字列 "1"' => ['1'],
-            '文字列 "0"' => ['0'],
-            '文字列 "true"' => ['true'],
-            '文字列 "false"' => ['false'],
-            '数値 1' => [1],
-            '数値 0' => [0],
-        ];
+        yield 'boolean true' => [true];
+        yield 'boolean false' => [false];
+        yield '文字列 "1"' => ['1'];
+        yield '文字列 "0"' => ['0'];
+        yield '文字列 "true"' => ['true'];
+        yield '文字列 "false"' => ['false'];
+        yield '数値 1' => [1];
+        yield '数値 0' => [0];
     }
 
     /**
      * 無効なboolean値のデータプロバイダ
      */
-    public static function 無効なboolean値のデータプロバイダ(): array
+    public static function 無効なboolean値のデータプロバイダ(): \Iterator
     {
-        return [
-            '無効な文字列' => ['invalid'],
-            '無効な数値' => [2],
-            'null値' => [null],
-            '空配列' => [[]],
-            '配列' => [[1, 2, 3]],
-            'オブジェクト' => [new \stdClass()],
-            '空文字列' => [''],
-            '文字列スペース' => [' '],
-            '負の数値' => [-1],
-            'float値' => [1.5],
-        ];
+        yield '無効な文字列' => ['invalid'];
+        yield '無効な数値' => [2];
+        yield 'null値' => [null];
+        yield '空配列' => [[]];
+        yield '配列' => [[1, 2, 3]];
+        yield 'オブジェクト' => [new \stdClass()];
+        yield '空文字列' => [''];
+        yield '文字列スペース' => [' '];
+        yield '負の数値' => [-1];
+        yield 'float値' => [1.5];
     }
 
     #[Test]

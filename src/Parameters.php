@@ -129,11 +129,11 @@ abstract class Parameters implements ArrayAccess
         'image_width' => ImageWidthRule::class,
         'image_ratio' => ImageRatioRule::class,
     ];
-    /**
-     * @var array
-     */
+
     protected array $params = [];
+
     protected array $errors = [];
+
     protected bool $validated = false;
 
     /**
@@ -182,8 +182,9 @@ abstract class Parameters implements ArrayAccess
     public function passes(): bool
     {
         if ($this->validated) {
-            return empty($this->errors);
+            return $this->errors === [];
         }
+
         $this->prepareValidate();
 
         foreach ($this->rules() as $attribute => $rules) {
@@ -192,17 +193,20 @@ abstract class Parameters implements ArrayAccess
                 if ($result) {
                     continue;
                 }
+
                 if ($rule === 'sometimes' || $rule instanceof SometimesRule) {
                     continue 2; // sometimesがfalseの場合は後ろを処理しない
                 }
+
                 $ruleString = Str::of($rule) ? $rule : get_class($rule);
                 $name = Arr::findByValue(static::$rules, $ruleString, $ruleString);
                 $this->errors[$attribute][$name] = sprintf("%s is invalid: %s", $attribute, $name);
             }
         }
+
         $this->afterValidate();
         $this->validated = true;
-        return empty($this->errors);
+        return $this->errors === [];
     }
 
     protected function prepareValidate(): void
@@ -220,6 +224,7 @@ abstract class Parameters implements ArrayAccess
         if (!$this->validated) {
             $this->passes();
         }
+
         return $this->errors;
     }
 

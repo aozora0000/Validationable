@@ -42,7 +42,6 @@ final class File
 
     /**
      * @param $file
-     * @return Image
      * @throws Throwable
      */
     public static function image($file): Image

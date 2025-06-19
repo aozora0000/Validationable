@@ -12,7 +12,7 @@ use Validationable\Rules\StringRule;
 class StringRuleTest extends TestCase
 {
     #[Test]
-    public function 文字列値を渡すとtrueを返す()
+    public function 文字列値を渡すとtrueを返す(): void
     {
         // テスト対象のインスタンスを作成
         $instance = new StringRule();
@@ -25,14 +25,13 @@ class StringRuleTest extends TestCase
         
         // テストを実行
         $actual = $instance->passes($attribute, $value, $parameters, $arguments);
-        $expected = true;
         
         // 文字列値の場合はtrueが返されることを確認
         $this->assertTrue($actual);
     }
 
     #[Test]
-    public function 空文字列を渡すとtrueを返す()
+    public function 空文字列を渡すとtrueを返す(): void
     {
         // テスト対象のインスタンスを作成
         $instance = new StringRule();
@@ -51,7 +50,7 @@ class StringRuleTest extends TestCase
     }
 
     #[Test]
-    public function null値を渡すとfalseを返す()
+    public function null値を渡すとfalseを返す(): void
     {
         // テスト対象のインスタンスを作成
         $instance = new StringRule();
@@ -70,7 +69,7 @@ class StringRuleTest extends TestCase
     }
 
     #[Test]
-    public function 数値を渡すとtrueを返す()
+    public function 数値を渡すとtrueを返す(): void
     {
         // テスト対象のインスタンスを作成
         $instance = new StringRule();
@@ -89,7 +88,7 @@ class StringRuleTest extends TestCase
     }
 
     #[Test]
-    public function 配列を渡すとfalseを返す()
+    public function 配列を渡すとfalseを返す(): void
     {
         // テスト対象のインスタンスを作成
         $instance = new StringRule();
@@ -108,7 +107,7 @@ class StringRuleTest extends TestCase
     }
 
     #[Test]
-    public function オブジェクトを渡すとfalseを返す()
+    public function オブジェクトを渡すとfalseを返す(): void
     {
         // テスト対象のインスタンスを作成
         $instance = new StringRule();
@@ -127,7 +126,7 @@ class StringRuleTest extends TestCase
     }
 
     #[Test]
-    public function boolean値trueを渡すとfalseを返す()
+    public function boolean値trueを渡すとfalseを返す(): void
     {
         // テスト対象のインスタンスを作成
         $instance = new StringRule();
@@ -146,7 +145,7 @@ class StringRuleTest extends TestCase
     }
 
     #[Test]
-    public function 数値文字列を渡すとtrueを返す()
+    public function 数値文字列を渡すとtrueを返す(): void
     {
         // テスト対象のインスタンスを作成
         $instance = new StringRule();

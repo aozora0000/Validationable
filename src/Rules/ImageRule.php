@@ -22,9 +22,6 @@ class ImageRule implements RuleInterface
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
         $rule = new MimesRule();
-        if(!$rule->passes($attribute, $value, $parameters, self::$allowedMimeTypes)) {
-            return false;
-        }
-        return true;
+        return $rule->passes($attribute, $value, $parameters, self::$allowedMimeTypes);
     }
 }

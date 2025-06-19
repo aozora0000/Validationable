@@ -29,8 +29,8 @@ class ProxyTest extends TestCase
         $actual = $instance->__call('setGreeting', ['こんにちは']);
         $expected = $target;
 
-        self::assertSame($expected, $actual, 'ターゲットオブジェクトが返されること');
-        self::assertSame('こんにちは', $target->greeting, 'ターゲットオブジェクトのメソッドが正しく呼び出されること');
+        $this->assertSame($expected, $actual, 'ターゲットオブジェクトが返されること');
+        $this->assertSame('こんにちは', $target->greeting, 'ターゲットオブジェクトのメソッドが正しく呼び出されること');
     }
 
     /**
@@ -59,12 +59,12 @@ class ProxyTest extends TestCase
     {
         $target = 'こんにちは';
         // 実行と結果の確認
-        $actual = Proxy::tap($target, function (&$value) {
+        $actual = Proxy::tap($target, function (string &$value): void {
             $value .= '、世界！';
         });
         $expected = 'こんにちは、世界！';
 
-        self::assertSame($expected, $actual, 'tapで値が加工され正しく返されること');
+        $this->assertSame($expected, $actual, 'tapで値が加工され正しく返されること');
     }
 
     /**
@@ -79,6 +79,6 @@ class ProxyTest extends TestCase
         $actual = Proxy::tap($target);
         $expected = Proxy::class;
 
-        self::assertInstanceOf($expected, $actual, 'コールバックなしでProxyインスタンスが返されること');
+        $this->assertInstanceOf($expected, $actual, 'コールバックなしでProxyインスタンスが返されること');
     }
 }

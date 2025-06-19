@@ -9,7 +9,7 @@ use Validationable\Rules\UrlRule;
 class UrlRuleTest extends TestCase
 {
     #[Test]
-    public function 有効なHTTPプロトコルをテストします()
+    public function 有効なHTTPプロトコルをテストします(): void
     {
         // テスト対象のインスタンス
         $instance = new UrlRule();
@@ -24,96 +24,96 @@ class UrlRuleTest extends TestCase
         $actual = $instance->passes("url", $value, $params);
 
         // アサーション (失敗メッセージを含む)
-        $this->assertTrue($actual, "HTTP プロトコルのURLが有効であるべきです: $value");
+        $this->assertTrue($actual, 'HTTP プロトコルのURLが有効であるべきです: ' . $value);
     }
 
     #[Test]
-    public function 有効なHTTPSプロトコルをテストします()
+    public function 有効なHTTPSプロトコルをテストします(): void
     {
         $instance = new UrlRule();
         $value = "https://example.com";
         $params = $this->createParameter([]);
         $actual = $instance->passes("url", $value, $params);
-        $this->assertTrue($actual, "HTTPS プロトコルのURLが有効であるべきです: $value");
+        $this->assertTrue($actual, 'HTTPS プロトコルのURLが有効であるべきです: ' . $value);
     }
 
     #[Test]
-    public function 無効なプロトコルを持つURLをテストします()
+    public function 無効なプロトコルを持つURLをテストします(): void
     {
         $instance = new UrlRule();
         $value = "abcd://example.com";
         $params = $this->createParameter([]);
         $actual = $instance->passes("url", $value, $params);
-        $this->assertFalse($actual, "無効なプロトコルのURLは失敗すべきです: $value");
+        $this->assertFalse($actual, '無効なプロトコルのURLは失敗すべきです: ' . $value);
     }
 
     #[Test]
-    public function ドメイン無しのURLをテストします()
+    public function ドメイン無しのURLをテストします(): void
     {
         $instance = new UrlRule();
         $value = "http://";
         $params = $this->createParameter([]);
         $actual = $instance->passes("url", $value, $params);
-        $this->assertFalse($actual, "ドメインが欠けているURLは失敗すべきです: $value");
+        $this->assertFalse($actual, 'ドメインが欠けているURLは失敗すべきです: ' . $value);
     }
 
     #[Test]
-    public function 有効なFTPプロトコルをテストします()
+    public function 有効なFTPプロトコルをテストします(): void
     {
         $instance = new UrlRule();
         $value = "ftp://example.com";
         $params = $this->createParameter([]);
         $actual = $instance->passes("url", $value, $params);
-        $this->assertTrue($actual, "FTP プロトコルのURLが有効であるべきです: $value");
+        $this->assertTrue($actual, 'FTP プロトコルのURLが有効であるべきです: ' . $value);
     }
 
     #[Test]
-    public function カスタムプロトコルを含むURLをテストします()
+    public function カスタムプロトコルを含むURLをテストします(): void
     {
         $instance = new UrlRule();
         $value = "custom://example.com";
         $params = $this->createParameter([]);
         $actual = $instance->passes("url", $value, $params, ["custom"]);
-        $this->assertTrue($actual, "カスタムプロトコルのURLが有効であるべきです: $value");
+        $this->assertTrue($actual, 'カスタムプロトコルのURLが有効であるべきです: ' . $value);
     }
 
     #[Test]
-    public function IPアドレスを含むURLをテストします()
+    public function IPアドレスを含むURLをテストします(): void
     {
         $instance = new UrlRule();
         $value = "http://192.168.0.1";
         $params = $this->createParameter([]);
         $actual = $instance->passes("url", $value, $params);
-        $this->assertTrue($actual, "IPアドレスを使用したURLが有効であるべきです: $value");
+        $this->assertTrue($actual, 'IPアドレスを使用したURLが有効であるべきです: ' . $value);
     }
 
     #[Test]
-    public function 無効な形式のIPアドレスをテストします()
+    public function 無効な形式のIPアドレスをテストします(): void
     {
         $instance = new UrlRule();
         $value = "http://999.999.999.999";
         $params = $this->createParameter([]);
         $actual = $instance->passes("url", $value, $params);
-        $this->assertFalse($actual, "無効な形式のIPアドレスを含むURLは失敗すべきです: $value");
+        $this->assertFalse($actual, '無効な形式のIPアドレスを含むURLは失敗すべきです: ' . $value);
     }
 
     #[Test]
-    public function ポート番号付きのURLをテストします()
+    public function ポート番号付きのURLをテストします(): void
     {
         $instance = new UrlRule();
         $value = "http://example.com:8080";
         $params = $this->createParameter([]);
         $actual = $instance->passes("url", $value, $params);
-        $this->assertTrue($actual, "ポート番号を含むURLが有効であるべきです: $value");
+        $this->assertTrue($actual, 'ポート番号を含むURLが有効であるべきです: ' . $value);
     }
 
     #[Test]
-    public function クエリ文字列を含むURLをテストします()
+    public function クエリ文字列を含むURLをテストします(): void
     {
         $instance = new UrlRule();
         $value = "http://example.com?query=param";
         $params = $this->createParameter([]);
         $actual = $instance->passes("url", $value, $params);
-        $this->assertTrue($actual, "クエリ文字列を含むURLが有効であるべきです: $value");
+        $this->assertTrue($actual, 'クエリ文字列を含むURLが有効であるべきです: ' . $value);
     }
 }

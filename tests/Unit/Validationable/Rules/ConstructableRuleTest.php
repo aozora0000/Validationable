@@ -12,7 +12,7 @@ class ConstructableRuleTest extends TestCase
      * ObjectCreatableRule::passes()メソッドは引数が存在しない場合、例外をスローすることを確認します。
      */
     #[Test]
-    public function 引数が存在しない場合例外をスローする()
+    public function 引数が存在しない場合例外をスローする(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage("ConstructableRule rule requires at least one argument");
@@ -25,7 +25,7 @@ class ConstructableRuleTest extends TestCase
      * ObjectCreatableRule::passes()メソッドは引数が正しいクラス名でない場合、例外をスローすることを確認します。
      */
     #[Test]
-    public function 正しくないクラス名の場合例外をスローする()
+    public function 正しくないクラス名の場合例外をスローする(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage("ConstructableRule rule requires a valid class name");
@@ -38,7 +38,7 @@ class ConstructableRuleTest extends TestCase
      * ObjectCreatableRule::passes()メソッドは渡された値が配列でない場合、falseを返すことを確認します。
      */
     #[Test]
-    public function 値が配列でない場合falseを返す()
+    public function 値が配列でない場合falseを返す(): void
     {
         $instance = new ConstructableRule();
         $params = $this->createParameter([]);
@@ -51,7 +51,7 @@ class ConstructableRuleTest extends TestCase
      * ObjectCreatableRule::passes()メソッドはクラスがコンストラクタを持たない場合、falseを返すことを確認します。
      */
     #[Test]
-    public function クラスがコンストラクタを持たない場合falseを返す()
+    public function クラスがコンストラクタを持たない場合falseを返す(): void
     {
         $instance = new ConstructableRule();
         $params = $this->createParameter([]);
@@ -64,7 +64,7 @@ class ConstructableRuleTest extends TestCase
      * ObjectCreatableRule::passes()メソッドは渡された値がコンストラクタのパラメータと異なる場合、falseを返すことを確認します。
      */
     #[Test]
-    public function 渡された値がコンストラクタのパラメータと異なる場合falseを返す()
+    public function 渡された値がコンストラクタのパラメータと異なる場合falseを返す(): void
     {
         $instance = new ConstructableRule();
         $params = $this->createParameter([]);
@@ -77,7 +77,7 @@ class ConstructableRuleTest extends TestCase
      * ObjectCreatableRule::passes()メソッドがすべての要件を満たしている場合、trueを返すことを確認します。
      */
     #[Test]
-    public function 必須要件を満たしている場合trueを返す()
+    public function 必須要件を満たしている場合trueを返す(): void
     {
         $instance = new ConstructableRule();
         $params = $this->createParameter([]);
@@ -90,7 +90,7 @@ class ConstructableRuleTest extends TestCase
      * ObjectCreatableRule::passes()メソッドがすべての要件を満たしている場合、trueを返すことを確認します。
      */
     #[Test]
-    public function 全ての要件を満たしている場合trueを返す()
+    public function 全ての要件を満たしている場合trueを返す(): void
     {
         $instance = new ConstructableRule();
         $params = $this->createParameter([]);
@@ -103,7 +103,7 @@ class ConstructableRuleTest extends TestCase
      * ObjectCreatableRule::passes()メソッドがすべての要件を満たしている場合、trueを返すことを確認します。
      */
     #[Test]
-    public function 引数名の要件を満たしているが型が違う場合falseを返す()
+    public function 引数名の要件を満たしているが型が違う場合falseを返す(): void
     {
         $instance = new ConstructableRule();
         $params = $this->createParameter([]);

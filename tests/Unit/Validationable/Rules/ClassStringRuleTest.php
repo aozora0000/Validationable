@@ -9,64 +9,52 @@ use Validationable\Rules\ClassStringRule;
 
 class ClassStringRuleTest extends TestCase
 {
-    public static function 非文字列値のデータプロバイダー(): array
+    public static function 非文字列値のデータプロバイダー(): \Iterator
     {
-        return [
-            '整数' => [123],
-            'float' => [12.34],
-            'null' => [null],
-            '配列' => [['test']],
-            'オブジェクト' => [new \stdClass()],
-            'bool真' => [true],
-            'bool偽' => [false],
-        ];
+        yield '整数' => [123];
+        yield 'float' => [12.34];
+        yield 'null' => [null];
+        yield '配列' => [['test']];
+        yield 'オブジェクト' => [new \stdClass()];
+        yield 'bool真' => [true];
+        yield 'bool偽' => [false];
     }
 
-    public static function 存在しないクラス名のデータプロバイダー(): array
+    public static function 存在しないクラス名のデータプロバイダー(): \Iterator
     {
-        return [
-            '存在しないクラス' => ['NonExistentClass'],
-            '空文字' => [''],
-            '不正なクラス名' => ['Invalid\\Class\\Name\\That\\Does\\Not\\Exist'],
-        ];
+        yield '存在しないクラス' => ['NonExistentClass'];
+        yield '空文字' => [''];
+        yield '不正なクラス名' => ['Invalid\\Class\\Name\\That\\Does\\Not\\Exist'];
     }
 
-    public static function 存在するクラス名のデータプロバイダー(): array
+    public static function 存在するクラス名のデータプロバイダー(): \Iterator
     {
-        return [
-            'DateTime' => ['DateTime'],
-            'stdClass' => ['stdClass'],
-            'Exception' => ['Exception'],
-            'PDO' => ['PDO'],
-        ];
+        yield 'DateTime' => ['DateTime'];
+        yield 'stdClass' => ['stdClass'];
+        yield 'Exception' => ['Exception'];
+        yield 'PDO' => ['PDO'];
     }
 
-    public static function サブクラス関係のデータプロバイダー(): array
+    public static function サブクラス関係のデータプロバイダー(): \Iterator
     {
-        return [
-            'ExceptionはThrowableのサブクラス' => ['Exception', 'Throwable'],
-            'RuntimeExceptionはExceptionのサブクラス' => ['RuntimeException', 'Exception'],
-            'InvalidArgumentExceptionはRuntimeExceptionのサブクラス' => ['InvalidArgumentException', 'LogicException'],
-        ];
+        yield 'ExceptionはThrowableのサブクラス' => ['Exception', 'Throwable'];
+        yield 'RuntimeExceptionはExceptionのサブクラス' => ['RuntimeException', 'Exception'];
+        yield 'InvalidArgumentExceptionはRuntimeExceptionのサブクラス' => ['InvalidArgumentException', 'LogicException'];
     }
 
-    public static function サブクラス関係でないデータプロバイダー(): array
+    public static function サブクラス関係でないデータプロバイダー(): \Iterator
     {
-        return [
-            'stdClassはExceptionのサブクラスでない' => ['stdClass', 'Exception'],
-            'DateTimeはThrowableのサブクラスでない' => ['DateTime', 'Throwable'],
-            'PDOはDateTimeのサブクラスでない' => ['PDO', 'DateTime'],
-        ];
+        yield 'stdClassはExceptionのサブクラスでない' => ['stdClass', 'Exception'];
+        yield 'DateTimeはThrowableのサブクラスでない' => ['DateTime', 'Throwable'];
+        yield 'PDOはDateTimeのサブクラスでない' => ['PDO', 'DateTime'];
     }
 
-    public static function 引数が非文字列のデータプロバイダー(): array
+    public static function 引数が非文字列のデータプロバイダー(): \Iterator
     {
-        return [
-            'null' => [null],
-            '配列' => [['test']],
-            'オブジェクト' => [new \stdClass()],
-            'bool' => [true],
-        ];
+        yield 'null' => [null];
+        yield '配列' => [['test']];
+        yield 'オブジェクト' => [new \stdClass()];
+        yield 'bool' => [true];
     }
 
     #[Test]

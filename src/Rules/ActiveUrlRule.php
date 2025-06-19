@@ -14,10 +14,12 @@ class ActiveUrlRule implements RuleInterface
         if(!Arr::everyPasses([new UrlRule], $attribute, $value, $parameters, $arguments)) {
             return false;
         }
+
         $host = parse_url($value, PHP_URL_HOST);
-        if(!$host) {
+        if($host === 0 || ($host === '' || $host === '0') || $host === [] || $host === false || $host === null) {
             return false;
         }
+
         return match(true) {
             filter_var($host, FILTER_VALIDATE_IP) !== false => gethostbyaddr($host) !== false,
             default => gethostbyname($host) !== $host,

@@ -23,7 +23,7 @@ class RuleArgumentParserTest extends TestCase
         $expected = [];
         $actual = $instance->parseArguments('');
 
-        self::assertSame($expected, $actual, '空文字列をパースした結果が正しくありません。');
+        $this->assertSame($expected, $actual, '空文字列をパースした結果が正しくありません。');
     }
 
     #[Test]
@@ -33,7 +33,7 @@ class RuleArgumentParserTest extends TestCase
         $expected = ['example'];
         $actual = $instance->parseArguments('example');
 
-        self::assertSame($expected, $actual, '単一の引数をパースした結果が正しくありません。');
+        $this->assertSame($expected, $actual, '単一の引数をパースした結果が正しくありません。');
     }
 
     #[Test]
@@ -43,7 +43,7 @@ class RuleArgumentParserTest extends TestCase
         $expected = ['first', 'second', 'third'];
         $actual = $instance->parseArguments('first,second,third');
 
-        self::assertSame($expected, $actual, '複数の引数をパースした結果が正しくありません。');
+        $this->assertSame($expected, $actual, '複数の引数をパースした結果が正しくありません。');
     }
 
     #[Test]
@@ -53,7 +53,7 @@ class RuleArgumentParserTest extends TestCase
         $expected = ['first', 'second value', 'third'];
         $actual = $instance->parseArguments('first,"second value",third');
 
-        self::assertSame($expected, $actual, 'クォート付きの引数をパースした結果が正しくありません。');
+        $this->assertSame($expected, $actual, 'クォート付きの引数をパースした結果が正しくありません。');
     }
 
     #[Test]
@@ -63,7 +63,7 @@ class RuleArgumentParserTest extends TestCase
         $expected = ['H:i:s'];
         $actual = $instance->parseArguments('"H:i:s"');
 
-        self::assertSame($expected, $actual, 'セミコロン付きの引数をパースした結果が正しくありません。');
+        $this->assertSame($expected, $actual, 'セミコロン付きの引数をパースした結果が正しくありません。');
     }
 
     #[Test]
@@ -73,7 +73,7 @@ class RuleArgumentParserTest extends TestCase
         $expected = ['first', "it's complicated", 'third'];
         $actual = $instance->parseArguments("first,'it\'s complicated',third");
 
-        self::assertNotSame($expected, $actual, 'シングルクォート付きの引数をパースした結果が正しくありません。');
+        $this->assertNotSame($expected, $actual, 'シングルクォート付きの引数をパースした結果が正しくありません。');
     }
 
     #[Test]
@@ -83,7 +83,7 @@ class RuleArgumentParserTest extends TestCase
         $expected = ['first', 'second', 'third'];
         $actual = $instance->parseArguments('first , second , third');
 
-        self::assertSame($expected, $actual, '空白を含む引数をパースした結果が正しくありません。');
+        $this->assertSame($expected, $actual, '空白を含む引数をパースした結果が正しくありません。');
     }
 
     #[Test]
@@ -93,7 +93,7 @@ class RuleArgumentParserTest extends TestCase
         $expected = ['first', 'value with "escaped" quotes', 'third'];
         $actual = $instance->parseArguments('first,"value with ""escaped"" quotes",third');
 
-        self::assertSame($expected, $actual, 'エスケープされたクォートを含む引数をパースした結果が正しくありません。');
+        $this->assertSame($expected, $actual, 'エスケープされたクォートを含む引数をパースした結果が正しくありません。');
     }
 
     #[Test]
@@ -103,7 +103,7 @@ class RuleArgumentParserTest extends TestCase
         $expected = ['first', 'second,third'];
         $actual = $instance->parseArguments('first,second",third');
 
-        self::assertSame($expected, $actual, '不正なフォーマットの引数をパースした結果が正しくありません。');
+        $this->assertSame($expected, $actual, '不正なフォーマットの引数をパースした結果が正しくありません。');
     }
 
     #[Test]
@@ -114,8 +114,8 @@ class RuleArgumentParserTest extends TestCase
         $expected = [$this->createDummyRule(), []];
         $actual = $instance->parse('rule');
 
-        self::assertInstanceOf(RuleInterface::class, $actual[0], '適切にルールインスタンスが生成されていません。');
-        self::assertEquals($expected[1], $actual[1], '引数なしのルールをパースした結果が正しくありません。');
+        $this->assertInstanceOf(RuleInterface::class, $actual[0], '適切にルールインスタンスが生成されていません。');
+        $this->assertEquals($expected[1], $actual[1], '引数なしのルールをパースした結果が正しくありません。');
     }
 
     #[Test]
@@ -126,8 +126,8 @@ class RuleArgumentParserTest extends TestCase
         $expected = [$this->createDummyRule(), ['arg1', 'arg2']];
         $actual = $instance->parse('rule:arg1,arg2');
 
-        self::assertInstanceOf(RuleInterface::class, $actual[0], '適切にルールインスタンスが生成されていません。');
-        self::assertEquals($expected[1], $actual[1], '引数ありのルールをパースした結果が正しくありません。');
+        $this->assertInstanceOf(RuleInterface::class, $actual[0], '適切にルールインスタンスが生成されていません。');
+        $this->assertEquals($expected[1], $actual[1], '引数ありのルールをパースした結果が正しくありません。');
     }
 
     #[Test]
@@ -138,8 +138,8 @@ class RuleArgumentParserTest extends TestCase
         $expected = [$dummyRule, []];
         $actual = $instance->parse($dummyRule);
 
-        self::assertSame($expected[0], $actual[0], 'RuleInterfaceインスタンスを渡した場合のパース結果が正しくありません。');
-        self::assertEquals($expected[1], $actual[1], 'RuleInterfaceインスタンスの配列引数のパースが正しくありません。');
+        $this->assertSame($expected[0], $actual[0], 'RuleInterfaceインスタンスを渡した場合のパース結果が正しくありません。');
+        $this->assertEquals($expected[1], $actual[1], 'RuleInterfaceインスタンスの配列引数のパースが正しくありません。');
     }
 
     #[Test]

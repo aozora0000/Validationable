@@ -43,13 +43,11 @@ class IntegerRuleTest extends TestCase
         $this->assertFalse($actual, $message);
     }
 
-    public static function notIntegerProvider(): array
+    public static function notIntegerProvider(): \Iterator
     {
-        return [
-            ['a', '整数でない'],
-            ['1000a', '整数が入る文字列'],
-            ['10.0', '実数'],
-            [['1'], '配列']
-        ];
+        yield ['a', '整数でない'];
+        yield ['1000a', '整数が入る文字列'];
+        yield ['10.0', '実数'];
+        yield [['1'], '配列'];
     }
 }

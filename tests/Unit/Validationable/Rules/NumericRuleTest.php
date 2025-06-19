@@ -134,17 +134,15 @@ class NumericRuleTest extends TestCase
     /**
      * 非数値データのテストケースを提供
      */
-    public static function 非数値データProvider(): array
+    public static function 非数値データProvider(): \Iterator
     {
-        return [
-            ['abc', '文字列'],
-            ['123abc', '数値が含まれる文字列'],
-            ['', '空文字'],
-            [null, 'null値'],
-            [[], '配列'],
-            [true, 'boolean値'],
-            ['12.34.56', '複数の小数点'],
-            [' 123 ', '前後にスペースがある数値'],
-        ];
+        yield ['abc', '文字列'];
+        yield ['123abc', '数値が含まれる文字列'];
+        yield ['', '空文字'];
+        yield [null, 'null値'];
+        yield [[], '配列'];
+        yield [true, 'boolean値'];
+        yield ['12.34.56', '複数の小数点'];
+        yield [' 123 ', '前後にスペースがある数値'];
     }
 }

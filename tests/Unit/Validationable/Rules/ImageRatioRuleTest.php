@@ -10,7 +10,7 @@ class ImageRatioRuleTest extends TestCase
 {
 // テスト: 引数が空の場合は例外をスローするか
     #[Test]
-    public function 引数が空の場合例外をスローする()
+    public function 引数が空の場合例外をスローする(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage("Image width rule requires at least one argument");
@@ -23,7 +23,7 @@ class ImageRatioRuleTest extends TestCase
 
     // テスト: 無効な比率が引数として渡された場合は例外をスローするか
     #[Test]
-    public function 無効な比率が渡された場合例外をスローする()
+    public function 無効な比率が渡された場合例外をスローする(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage("Image width rule requires a numeric ratio");
@@ -36,7 +36,7 @@ class ImageRatioRuleTest extends TestCase
 
     // テスト: ImageRuleが失敗した場合、falseを返す
     #[Test]
-    public function ImageRuleが失敗した場合falseを返す()
+    public function ImageRuleが失敗した場合falseを返す(): void
     {
         $instance = new ImageRatioRule();
         $parameters = $this->createParameter([]);
@@ -48,7 +48,7 @@ class ImageRatioRuleTest extends TestCase
 
     // テスト: 比率が一致する画像の場合はtrueを返す
     #[Test]
-    public function 比率が一致する画像の場合trueを返す()
+    public function 比率が一致する画像の場合trueを返す(): void
     {
         $instance = new ImageRatioRule();
         $parameters = $this->createParameter([]);
@@ -60,7 +60,7 @@ class ImageRatioRuleTest extends TestCase
 
     // テスト: 比率が一致しない画像の場合はfalseを返す
     #[Test]
-    public function 比率が一致しない画像の場合falseを返す()
+    public function 比率が一致しない画像の場合falseを返す(): void
     {
 
         $instance = new ImageRatioRule();

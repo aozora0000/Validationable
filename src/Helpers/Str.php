@@ -17,6 +17,7 @@ final class Str
             default => (string)$value,
         };
     }
+
     public static function rand(): string
     {
         return md5(uniqid(rand(), true));
@@ -37,7 +38,10 @@ final class Str
 
     public static function empty($value): bool
     {
-        return !Str::of($value) || $value === '';
+        if (!Str::of($value)) {
+            return true;
+        }
+        return $value === '';
     }
 
     public static function contains($value, string $needle): bool
@@ -91,6 +95,7 @@ final class Str
             [$class, $method] = explode($sep, $value);
             return class_exists($class) && method_exists($class, $method);
         }
+
         return false;
     }
 
@@ -99,6 +104,7 @@ final class Str
         if(!Str::of($value)) {
             return false;
         }
+
         try {
             if(preg_match('/^(.)(.*)\\1[imsxuADSUXJu]*$/', $value)) {
                 // 正規表現として利用可能か試す
@@ -107,6 +113,7 @@ final class Str
                 restore_error_handler();
                 return $result !== false;
             }
+
             return false;
         } catch (\Throwable) {
             return false;

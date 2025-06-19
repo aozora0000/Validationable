@@ -23,13 +23,16 @@ class RuleArgumentParser
         if($value instanceof RuleInterface) {
             return [$value, []];
         }
+
         if(!Str::of($value)) {
             throw new \InvalidArgumentException(sprintf("The rule [%s] is not a valid rule.", Str::stringify($value)));
         }
+
         [$key, $arguments] = Str::contains($value, ":") ? explode(":", $value, 2) : [$value, ''];
         if(array_key_exists($key, $this->rules)) {
             return [new $this->rules[$key], $this->parseArguments($arguments)];
         }
+
         throw new \InvalidArgumentException(sprintf("The rule [%s] does not exist.", Str::stringify($value)));
     }
 
@@ -39,6 +42,7 @@ class RuleArgumentParser
         if($argumentsString === '') {
             return [];
         }
+
         $arguments = [];
         $current = '';
         $inQuotes = false;

@@ -36,11 +36,10 @@ class Rule
 
             public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
             {
-                if(Arr::every($this->rules, fn($rule) => $parameters->validate($rule, $attribute, $value, $arguments))) {
-                    return Arr::every($this->onSuccess, fn($rule) => $parameters->validate($rule, $attribute, $value, $arguments));
-                } else {
-                    return Arr::every($this->onFailure, fn($rule) => $parameters->validate($rule, $attribute, $value, $arguments));
+                if(Arr::every($this->rules, fn($rule): bool => $parameters->validate($rule, $attribute, $value, $arguments))) {
+                    return Arr::every($this->onSuccess, fn($rule): bool => $parameters->validate($rule, $attribute, $value, $arguments));
                 }
+                return Arr::every($this->onFailure, fn($rule): bool => $parameters->validate($rule, $attribute, $value, $arguments));
             }
         };
     }
@@ -52,7 +51,9 @@ class Rule
          */
         return new class($enum) implements EnumRuleInterface {
             protected string $enum;
+
             protected array $expects = [];
+
             /**
              * @property class-string $enum
              */
@@ -61,6 +62,7 @@ class Rule
                 if(!is_a($enum, UnitEnum::class, true)) {
                     throw new \InvalidArgumentException('The enum must be an instance of Enum');
                 }
+
                 $this->enum = $enum;
             }
 
@@ -73,8 +75,10 @@ class Rule
                     if(!is_a($expect, $this->enum, false)) {
                         throw new \InvalidArgumentException('The enum must be an instance of Enum');
                     }
+
                     $this->expects[] = $expect;
                 }
+
                 return $this;
             }
 
@@ -84,18 +88,21 @@ class Rule
                     if(in_array($case, $this->expects, true)) {
                         continue;
                     }
+
                     $property = match(true) {
                         is_a($case, BackedEnum::class, false) => 'value',
                         is_a($case, UnitEnum::class, false) => 'name',
                         default => null,
                     };
-                    if(!$property) {
+                    if($property === null) {
                         continue;
                     }
+
                     if($case === $value || $case->{$property} === $value) {
                         return true;
                     }
                 }
+
                 return false;
             }
         };

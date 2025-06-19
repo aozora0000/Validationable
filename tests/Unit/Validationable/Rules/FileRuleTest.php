@@ -11,7 +11,7 @@ use Validationable\Rules\FileRule;
 class FileRuleTest extends TestCase
 {
     #[Test]
-    public function ファイルパスが読める場合はtrueを返す()
+    public function ファイルパスが読める場合はtrueを返す(): void
     {
         $instance = new FileRule();
         $parameters = $this->createParameter([]);
@@ -22,7 +22,7 @@ class FileRuleTest extends TestCase
     }
 
     #[Test]
-    public function ファイルパスが存在しない場合はfalseを返す()
+    public function ファイルパスが存在しない場合はfalseを返す(): void
     {
         $instance = new FileRule();
         $parameters = $this->createParameter([]);
@@ -33,7 +33,7 @@ class FileRuleTest extends TestCase
     }
 
     #[Test]
-    public function リソースが渡された場合はtrueを返す()
+    public function リソースが渡された場合はtrueを返す(): void
     {
         $instance = new FileRule();
         $parameters = $this->createParameter([]);
@@ -46,7 +46,7 @@ class FileRuleTest extends TestCase
     }
 
     #[Test]
-    public function SplFileInfoインスタンスがファイルの場合はtrueを返す()
+    public function SplFileInfoインスタンスがファイルの場合はtrueを返す(): void
     {
         $instance = new FileRule();
         $parameters = $this->createParameter([]);
@@ -58,7 +58,7 @@ class FileRuleTest extends TestCase
     }
 
     #[Test]
-    public function LaravelFileインスタンスがファイルの場合はtrueを返す()
+    public function LaravelFileインスタンスがファイルの場合はtrueを返す(): void
     {
         $instance = new FileRule();
         $parameters = $this->createParameter([]);
@@ -70,7 +70,7 @@ class FileRuleTest extends TestCase
     }
 
     #[Test]
-    public function SplFileInfoインスタンスがファイルでない場合はfalseを返す()
+    public function SplFileInfoインスタンスがファイルでない場合はfalseを返す(): void
     {
         $instance = new FileRule();
         $parameters = $this->createParameter([]);
@@ -82,7 +82,7 @@ class FileRuleTest extends TestCase
     }
 
     #[Test]
-    public function その他の値の場合はfalseを返す()
+    public function その他の値の場合はfalseを返す(): void
     {
         $instance = new FileRule();
         $parameters = $this->createParameter([]);

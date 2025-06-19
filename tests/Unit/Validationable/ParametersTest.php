@@ -36,6 +36,7 @@ class ParametersTest extends TestCase
 
         $this->assertEmpty($errorMessage, $errorMessage);
     }
+
     #[Test]
     public function コールバックバリデーションが機能しているかチェック(): void
     {
@@ -43,7 +44,7 @@ class ParametersTest extends TestCase
             public function rules(): array
             {
                 return [
-                    'test' => [Rule::callback(fn($attribute, $value, $parameters) => $value === 'test')],
+                    'test' => [Rule::callback(fn($attribute, $value, $parameters): bool => $value === 'test')],
                 ];
             }
         };

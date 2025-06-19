@@ -12,7 +12,7 @@ class Ipv4RuleTest extends TestCase
      * テスト：有効なIPv4アドレスを検証
      */
     #[Test]
-    public function 有効なIPv4アドレスを検証する()
+    public function 有効なIPv4アドレスを検証する(): void
     {
         $instance = new Ipv4Rule();
         $params = $this->createParameter([]);
@@ -25,7 +25,7 @@ class Ipv4RuleTest extends TestCase
      * テスト：無効なIPv4アドレスを検証
      */
     #[Test]
-    public function 無効なIPv4アドレスを検証する()
+    public function 無効なIPv4アドレスを検証する(): void
     {
         $instance = new Ipv4Rule();
         $params = $this->createParameter([]);
@@ -38,7 +38,7 @@ class Ipv4RuleTest extends TestCase
      * テスト：IPv4形式ではない文字列の場合
      */
     #[Test]
-    public function IPv4形式ではない文字列を検証する()
+    public function IPv4形式ではない文字列を検証する(): void
     {
         $instance = new Ipv4Rule();
         $params = $this->createParameter([]);
@@ -51,7 +51,7 @@ class Ipv4RuleTest extends TestCase
      * テスト：空文字の場合
      */
     #[Test]
-    public function 空文字を検証する()
+    public function 空文字を検証する(): void
     {
         $instance = new Ipv4Rule();
         $params = $this->createParameter([]);
@@ -64,7 +64,7 @@ class Ipv4RuleTest extends TestCase
      * テスト：null値の場合
      */
     #[Test]
-    public function null値を検証する()
+    public function null値を検証する(): void
     {
         $instance = new Ipv4Rule();
         $params = $this->createParameter([]);
@@ -77,7 +77,7 @@ class Ipv4RuleTest extends TestCase
      * テスト：IPv6アドレスの場合
      */
     #[Test]
-    public function IPv6アドレスを検証する()
+    public function IPv6アドレスを検証する(): void
     {
         $instance = new Ipv4Rule();
         $params = $this->createParameter([]);

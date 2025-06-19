@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Validationable\Rules;
 
+use Carbon\Carbon;
 use DateTime;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Unit\TestCase;
@@ -15,7 +16,7 @@ class DatetimeRuleTest extends TestCase
         // Arrange
         $instance = new DatetimeRule();
         $params = $this->createParameter([]);
-        $value = new DateTime();
+        $value = Carbon::now();
 
         // Act
         $result = $instance->passes('test', $value, $params);

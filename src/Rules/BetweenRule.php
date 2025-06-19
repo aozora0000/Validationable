@@ -15,9 +15,11 @@ class BetweenRule implements RuleInterface
         if (!Str::isInteger($value)) {
             return false;
         }
-        if(empty($arguments) || !Arr::every($arguments, [Str::class, 'isInteger'])) {
+
+        if($arguments === [] || !Arr::every($arguments, [Str::class, 'isInteger'])) {
             throw new \InvalidArgumentException('The between rule requires at least 1 argument.');
         }
+
         $min = (int)min($arguments);
         $max = (int)max($arguments);
         return match(true) {

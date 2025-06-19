@@ -10,7 +10,7 @@ use Validationable\Rules\SameRule;
 class SameRuleTest extends TestCase
 {
     #[Test]
-    public function 値が同じ場合に正しい結果を返す()
+    public function 値が同じ場合に正しい結果を返す(): void
     {
         // テスト対象のインスタンス
         $instance = new SameRule();
@@ -29,7 +29,7 @@ class SameRuleTest extends TestCase
     }
 
     #[Test]
-    public function 値が異なる場合に正しい結果を返す()
+    public function 値が異なる場合に正しい結果を返す(): void
     {
         // テスト対象のインスタンス
         $instance = new SameRule();
@@ -48,7 +48,7 @@ class SameRuleTest extends TestCase
     }
 
     #[Test]
-    public function 属性が存在しない場合に正しい結果を返す()
+    public function 属性が存在しない場合に正しい結果を返す(): void
     {
         // テスト対象のインスタンス
         $instance = new SameRule();

@@ -23,15 +23,16 @@ class Ref
         };
         $params = Arr::mapWithKeys(
             ($reflection instanceof ReflectionClass ? $reflection->getConstructor() : $reflection)->getParameters(),
-            fn(ReflectionParameter $param) => [$param->getName(), $param]);
-        if (count(Arr::keyDiff($args, $params)) > 0) {
+            fn(ReflectionParameter $param): array => [$param->getName(), $param]);
+        if (Arr::keyDiff($args, $params) !== []) {
             return false;
         }
-        $values = Arr::mapWithKeys($params, fn($param, $key) => [$param->getName(), match (true) {
+
+        $values = Arr::mapWithKeys($params, fn($param, $key): array => [$param->getName(), match (true) {
             array_key_exists($key, $args) => $args[$key],
             $param->isOptional() => $param->getDefaultValue(),
             $param->allowsNull() => null,
-            default => throw new InvalidArgumentException("Missing argument: $key"),
+            default => throw new InvalidArgumentException('Missing argument: ' . $key),
         }]);
         match(get_class($reflection)) {
             ReflectionClass::class => $reflection->newInstanceArgs($values),

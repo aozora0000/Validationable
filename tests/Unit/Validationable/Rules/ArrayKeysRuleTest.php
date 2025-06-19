@@ -12,7 +12,7 @@ class ArrayKeysRuleTest extends TestCase
      * `ArrayKeysRule::passes` メソッドは、配列のすべてのキーが指定された配列に存在する場合に true を返すべきです。
      */
     #[Test]
-    public function 配列のキーが全て存在する場合にtrueを返す()
+    public function 配列のキーが全て存在する場合にtrueを返す(): void
     {
         $instance = new ArrayKeysRule();
         $attribute = 'test';
@@ -29,7 +29,7 @@ class ArrayKeysRuleTest extends TestCase
      * `ArrayKeysRule::passes` メソッドは、配列内の一部のキーが欠如している場合に false を返すべきです。
      */
     #[Test]
-    public function 配列のキーが一部存在しない場合にfalseを返す()
+    public function 配列のキーが一部存在しない場合にfalseを返す(): void
     {
         $instance = new ArrayKeysRule();
         $attribute = 'test';
@@ -46,7 +46,7 @@ class ArrayKeysRuleTest extends TestCase
      * `ArrayKeysRule::passes` メソッドは、空配列のキーを指定された場合に true を返すべきです。
      */
     #[Test]
-    public function 空配列のキーが指定された場合にtrueを返す()
+    public function 空配列のキーが指定された場合にtrueを返す(): void
     {
         $instance = new ArrayKeysRule();
         $attribute = 'test';
@@ -63,7 +63,7 @@ class ArrayKeysRuleTest extends TestCase
      * `ArrayKeysRule::passes` メソッドは、`$value` が配列でない場合に false を返すべきです。
      */
     #[Test]
-    public function valueが配列でない場合にfalseを返す()
+    public function valueが配列でない場合にfalseを返す(): void
     {
         $instance = new ArrayKeysRule();
         $attribute = 'test';

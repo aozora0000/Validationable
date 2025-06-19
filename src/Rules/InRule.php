@@ -11,7 +11,7 @@ class InRule implements RuleInterface
 
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if (empty($arguments)) {
+        if ($arguments === []) {
             throw new \InvalidArgumentException("In rule requires arguments.");
         }
 

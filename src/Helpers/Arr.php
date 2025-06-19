@@ -54,7 +54,7 @@ final class Arr
         return array_diff(array_keys(Arr::toArray($target1)), array_keys(Arr::toArray($target2)));
     }
 
-    public static function has($array, string $prepend = ''): bool
+    public static function has(array $array, string $prepend = ''): bool
     {
         try {
             array_dot_get($array, $prepend);
@@ -76,7 +76,7 @@ final class Arr
     /**
      * @throws InvalidPathException
      */
-    public static function set(&$array, string $prepend, mixed $value): void
+    public static function set(array &$array, string $prepend, mixed $value): void
     {
         array_dot_set($array, $prepend, $value);
     }
@@ -84,7 +84,7 @@ final class Arr
     /**
      * @throws InvalidPathException
      */
-    public static function forget(&$array, string $prepend): void
+    public static function forget(array &$array, string $prepend): void
     {
         array_dot_set($array, $prepend, null);
     }
@@ -96,6 +96,7 @@ final class Arr
                 return false;
             }
         }
+
         return true;
     }
 
@@ -104,22 +105,24 @@ final class Arr
         if(empty($array)) {
             return true;
         }
+
         foreach ($array as $key => $value) {
             if ($callback($value, $key)) {
                 return true;
             }
         }
+
         return false;
     }
 
     public static function everyPasses(array $array, string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        return Arr::every(Arr::toArray($array), fn(RuleInterface $rule) => $rule->passes($attribute, $value, $parameters, $arguments));
+        return Arr::every(Arr::toArray($array), fn(RuleInterface $rule): bool => $rule->passes($attribute, $value, $parameters, $arguments));
     }
 
     public static function somePasses(array $array, string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        return Arr::some(Arr::toArray($array), fn(RuleInterface $rule) => $rule->passes($attribute, $value, $parameters, $arguments));
+        return Arr::some(Arr::toArray($array), fn(RuleInterface $rule): bool => $rule->passes($attribute, $value, $parameters, $arguments));
     }
 
 
@@ -128,11 +131,12 @@ final class Arr
         return is_countable($array);
     }
 
-    public static function findByValue($array, $value, $default = null)
+    public static function findByValue(array $array, $value, $default = null)
     {
         if(!in_array($value, $array, true)) {
             return $default;
         }
+
         return $array[array_search($value, $array, true)];
     }
 
@@ -143,6 +147,7 @@ final class Arr
             [$key, $value] = $callback($value, $key);
             $result[$key] = $value;
         }
+
         return $result;
     }
 }

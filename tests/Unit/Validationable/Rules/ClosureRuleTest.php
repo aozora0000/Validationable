@@ -15,7 +15,7 @@ class ClosureRuleTest extends TestCase
         $instance = new ClosureRule();
         $parameters = $this->createParameter([]);
 
-        $actual = $instance->passes('test_attribute', function () {
+        $actual = $instance->passes('test_attribute', function (): void {
         }, $parameters);
 
         $this->assertTrue($actual);
@@ -39,7 +39,7 @@ class ClosureRuleTest extends TestCase
         $parameters = $this->createParameter([]);
 
         $invokableObject = new class {
-            public function __invoke()
+            public function __invoke(): void
             {
             }
         };

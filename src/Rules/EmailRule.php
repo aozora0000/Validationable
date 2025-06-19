@@ -20,9 +20,10 @@ class EmailRule implements RuleInterface
         if (!Str::of($value)) {
             return false;
         }
+
         $validator = new EmailValidator();
 
-        $validations = !empty($arguments) && Arr::every($arguments, fn($arg) => Str::of($arg)) ?
+        $validations = $arguments !== [] && Arr::every($arguments, fn($arg): bool => Str::of($arg)) ?
             Arr::only(static::getValidators(), $arguments) : [];
         $validations[] = new FilterEmailValidation();
         return $validator->isValid($value, new MultipleValidationWithAnd($validations));

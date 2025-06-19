@@ -11,9 +11,10 @@ class EndsWithRule implements RuleInterface
 {
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if(empty($arguments) || !Arr::every($arguments, fn($arg) => Str::of($arg))) {
+        if($arguments === [] || !Arr::every($arguments, fn($arg): bool => Str::of($arg))) {
             throw new \InvalidArgumentException('The endsWith rule requires at least 1 argument.');
         }
-        return Str::of($value) && Arr::some($arguments, fn(string $arg) => Str::endsWith($value, $arg));
+
+        return Str::of($value) && Arr::some($arguments, fn(string $arg): bool => Str::endsWith($value, $arg));
     }
 }

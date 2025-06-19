@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Validationable\Rules;
 
+use Carbon\Carbon;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Unit\TestCase;
 use Validationable\Rules\InstanceOfRule;
@@ -29,7 +30,7 @@ class InstanceOfRuleTest extends TestCase
         // テスト対象のインスタンスを作成
         $instance = new InstanceOfRule();
         $parameters = $this->createParameter([]);
-        $value = new \DateTime();
+        $value = Carbon::now();
 
         // テスト実行
         $actual = $instance->passes('test_attribute', $value, $parameters, ['DateTime']);
@@ -59,7 +60,7 @@ class InstanceOfRuleTest extends TestCase
         // テスト対象のインスタンスを作成
         $instance = new InstanceOfRule();
         $parameters = $this->createParameter([]);
-        $value = new \DateTime();
+        $value = Carbon::now();
 
         // テスト実行
         $actual = $instance->passes('test_attribute', $value, $parameters, ['DateTimeInterface', true]);
@@ -89,7 +90,7 @@ class InstanceOfRuleTest extends TestCase
         // テスト対象のインスタンスを作成
         $instance = new InstanceOfRule();
         $parameters = $this->createParameter([]);
-        $value = new \DateTime();
+        $value = Carbon::now();
 
         // テスト実行
         $actual = $instance->passes('test_attribute', $value, $parameters, ['DateTime', false]);
@@ -104,7 +105,7 @@ class InstanceOfRuleTest extends TestCase
         // テスト対象のインスタンスを作成
         $instance = new InstanceOfRule();
         $parameters = $this->createParameter([]);
-        $value = new \DateTime();
+        $value = Carbon::now();
 
         // テスト実行
         $actual = $instance->passes('test_attribute', $value, $parameters, ['DateTime']);

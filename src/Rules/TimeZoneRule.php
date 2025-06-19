@@ -14,6 +14,7 @@ class TimeZoneRule implements RuleInterface
         if (!Str::of($value)) {
             return false;
         }
+
         return in_array(strtolower($value), $arguments, true);
     }
 }

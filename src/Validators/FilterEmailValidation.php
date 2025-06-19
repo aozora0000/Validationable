@@ -11,10 +11,6 @@ class FilterEmailValidation implements EmailValidation
 {
     /**
      * Returns true if the given email is valid.
-     *
-     * @param string $email
-     * @param EmailLexer $emailLexer
-     * @return bool
      */
     public function isValid(string $email, EmailLexer $emailLexer): bool
     {
@@ -23,8 +19,6 @@ class FilterEmailValidation implements EmailValidation
 
     /**
      * Returns the validation error.
-     *
-     * @return InvalidEmail|null
      */
     public function getError(): ?InvalidEmail
     {

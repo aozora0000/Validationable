@@ -121,6 +121,6 @@ class CallableRuleTest extends TestCase
         $value = [];
         $arguments = ['invalid_function'];
 
-        $actual = $instance->passes('test_attribute', $value, $parameters, $arguments);
+        $instance->passes('test_attribute', $value, $parameters, $arguments);
     }
 }

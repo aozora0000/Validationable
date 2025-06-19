@@ -13,16 +13,19 @@ class ImageHeightRule implements RuleInterface
 
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if (empty($arguments)) {
+        if ($arguments === []) {
             throw new \InvalidArgumentException("Image height rule requires at least one argument");
         }
-        if (!preg_match('/\d+$/u', $arguments[0])) {
+
+        if (in_array(preg_match('/\d+$/u', $arguments[0]), [0, false], true)) {
             throw new \InvalidArgumentException("Image height rule requires a valid size");
         }
+
         if (!(new ImageRule)->passes($attribute, $value, $parameters, $arguments)) {
             return false;
         }
-        $replace = fn(string $arg) => (int)str_replace($arg, '', $arguments[0]);
+
+        $replace = fn(string $arg): int => (int)str_replace($arg, '', $arguments[0]);
         $fn = fn(Image $image): bool => match(true) {
             (bool)preg_match('/^\d+$/', $arguments[0]) => $image->height() === (int)$arguments[0],
             Str::startsWith($arguments[0], '==')=> $image->height() === $replace('=='),

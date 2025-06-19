@@ -12,13 +12,15 @@ class MoreThanEqualRule implements RuleInterface
 
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if(empty($arguments)) {
+        if($arguments === []) {
             throw new \InvalidArgumentException("Less rule requires parameters.");
         }
-        $integer = fn ($val) => Str::isNumeric($val);
+
+        $integer = fn ($val): bool => Str::isNumeric($val);
         if(!Arr::every($arguments, $integer)) {
             throw new \InvalidArgumentException("Less rule requires integer arguments.");
         }
+
         return $integer($value) && $arguments[0] <= $value;
     }
 }

@@ -12,6 +12,6 @@ class ArrayKeysRule implements RuleInterface
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
         return Arr::of($value) && Arr::of($arguments) &&
-            Arr::every($arguments, fn($key) => in_array($key, $value));
+            Arr::every($arguments, fn($key): bool => in_array($key, $value));
     }
 }

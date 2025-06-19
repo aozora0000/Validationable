@@ -9,16 +9,15 @@ use Validationable\Helpers\Arr;
 
 class ArrTest extends TestCase
 {
-    public static function getProvider(): array
+    public static function getProvider(): \Iterator
     {
-        return [
-            ['test', 'test', null],
-            ['test2', 'invalidKey', 'test2'],
-            ['test3', 'test2.test3', null],
-            ['test4', 'test2.1', null],
-            [['test5'], 'test5.*.ttt', null],
-        ];
+        yield ['test', 'test', null];
+        yield ['test2', 'invalidKey', 'test2'];
+        yield ['test3', 'test2.test3', null];
+        yield ['test4', 'test2.1', null];
+        yield [['test5'], 'test5.*.ttt', null];
     }
+
     #[Test]
     #[DataProvider('getProvider')]
     public function testGet(mixed $expected, string $key, mixed $default): void

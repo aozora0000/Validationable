@@ -14,7 +14,7 @@ class EmailRuleTest extends TestCase
      * 有効なメールアドレス（MXレコードが存在する）をテストします。
      */
     #[Test]
-    public function 有効なメールアドレス_MXレコードが存在する()
+    public function 有効なメールアドレス_MXレコードが存在する(): void
     {
         $instance = new EmailRule();
         $attribute = 'email';
@@ -31,7 +31,7 @@ class EmailRuleTest extends TestCase
      * 無効なメールアドレス（@を含まない）をテストします。
      */
     #[Test]
-    public function 無効なメールアドレス_アットマークがない()
+    public function 無効なメールアドレス_アットマークがない(): void
     {
         $instance = new EmailRule();
         $attribute = 'email';
@@ -48,7 +48,7 @@ class EmailRuleTest extends TestCase
      * @記号の後が空の場合をテストします。
      */
     #[Test]
-    public function 無効なメールアドレス_アットマークの後が空()
+    public function 無効なメールアドレス_アットマークの後が空(): void
     {
         $instance = new EmailRule();
         $attribute = 'email';
@@ -65,7 +65,7 @@ class EmailRuleTest extends TestCase
      * 無効なメールアドレス（形式が正しくない）をテストします。
      */
     #[Test]
-    public function 無効なメールアドレス_形式が正しくない()
+    public function 無効なメールアドレス_形式が正しくない(): void
     {
         $instance = new EmailRule();
         $attribute = 'email';
@@ -82,7 +82,7 @@ class EmailRuleTest extends TestCase
      * 有効なメールアドレス（Aレコードがある場合）をテストします。
      */
     #[Test]
-    public function 有効なメールアドレス_Aレコードが存在する()
+    public function 有効なメールアドレス_Aレコードが存在する(): void
     {
         $instance = new EmailRule();
         $attribute = 'email';
@@ -99,7 +99,7 @@ class EmailRuleTest extends TestCase
      * DNSレコードが存在しないドメインをテストします。
      */
     #[Test]
-    public function 無効なメールアドレス_DNSレコードが存在しない()
+    public function 無効なメールアドレス_DNSレコードが存在しない(): void
     {
         $instance = new EmailRule();
         $attribute = 'email';

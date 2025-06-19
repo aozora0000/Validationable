@@ -9,7 +9,7 @@ use Validationable\Rules\Ipv6Rule;
 class Ipv6RuleTest extends TestCase
 {
     #[Test]
-    public function パスするための有効なIpv6を確認する()
+    public function パスするための有効なIpv6を確認する(): void
     {
         $instance = new Ipv6Rule();
         $value = '2001:0db8:85a3:0000:0000:8a2e:0370:7334';
@@ -21,7 +21,7 @@ class Ipv6RuleTest extends TestCase
     }
 
     #[Test]
-    public function 無効なIpv6を検証する()
+    public function 無効なIpv6を検証する(): void
     {
         $instance = new Ipv6Rule();
         $value = 'invalid-ipv6';
@@ -33,7 +33,7 @@ class Ipv6RuleTest extends TestCase
     }
 
     #[Test]
-    public function 空の値がIpv6として失敗するかを確認する()
+    public function 空の値がIpv6として失敗するかを確認する(): void
     {
         $instance = new Ipv6Rule();
         $value = '';
@@ -45,7 +45,7 @@ class Ipv6RuleTest extends TestCase
     }
 
     #[Test]
-    public function Ipv4変換可能なIpv6がパスするか確認する()
+    public function Ipv4変換可能なIpv6がパスするか確認する(): void
     {
         $instance = new Ipv6Rule();
         $value = '::ffff:192.0.2.128';
@@ -57,7 +57,7 @@ class Ipv6RuleTest extends TestCase
     }
 
     #[Test]
-    public function 数値値がIpv6として失敗するか確認する()
+    public function 数値値がIpv6として失敗するか確認する(): void
     {
         $instance = new Ipv6Rule();
         $value = 123456;

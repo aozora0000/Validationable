@@ -13,7 +13,7 @@ class MissingRuleTest extends TestCase
      * 属性が存在する場合にtrueを返すかテストします。
      */
     #[Test]
-    public function 属性が存在する場合にtrueを返す()
+    public function 属性が存在する場合にtrueを返す(): void
     {
         $parameters = $this->createParameter(['key' => null]);
 
@@ -32,7 +32,7 @@ class MissingRuleTest extends TestCase
      * 属性が存在しない場合にfalseを返すかテストします。
      */
     #[Test]
-    public function 属性が存在しない場合にfalseを返す()
+    public function 属性が存在しない場合にfalseを返す(): void
     {
         $parameters = $this->createParameter([]);
 
