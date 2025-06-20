@@ -30,6 +30,35 @@ final class File
         };
     }
 
+    /**
+     * @throws Throwable
+     */
+    public static function isImageCompare($file, callable $condition): bool
+    {
+        return $condition(self::image($file));
+    }
+
+    /**
+     * @param $file
+     * @throws Exception
+     */
+    public static function image($file): Image
+    {
+        /** @var ImageManager $manager */
+        static $manager;
+
+        if (!in_array(self::mimes($file), ['jpeg', 'png', 'gif', 'webp', 'bmp', 'svg', 'avif'])) {
+            throw new Exception('Invalid image');
+        };
+
+        if ($manager === null) {
+            $method = extension_loaded('imagick') ? 'imagick' : 'gd';
+            $manager = ImageManager::{$method}();
+        }
+
+        return $manager->read($file);
+    }
+
     public static function mimes($file): string
     {
         $mimes = match (true) {
@@ -39,36 +68,6 @@ final class File
             default => []
         };
         return str_replace(['+xml'], '', strtolower($mimes[1] ?? ''));
-    }
-
-    /**
-     * @param $file
-     * @return Image
-     * @throws Exception
-     */
-    public static function image($file): Image
-    {
-        /** @var ImageManager $manager */
-        static $manager;
-
-        if(!in_array(self::mimes($file), ['jpeg', 'png', 'gif', 'webp', 'bmp', 'svg', 'avif'])) {
-            throw new Exception('Invalid image');
-        };
-
-        if($manager === null) {
-            $method = extension_loaded('imagick') ? 'imagick' : 'gd';
-            $manager = ImageManager::{$method}();
-        }
-
-        return $manager->read($file);
-    }
-
-    /**
-     * @throws Throwable
-     */
-    public static function isImageCompare($file, callable $condition): bool
-    {
-        return $condition(self::image($file));
     }
 
     /**

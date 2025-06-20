@@ -13,7 +13,7 @@ class ImageRatioRuleTest extends TestCase
     public function 引数が空の場合例外をスローする(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("Image width rule requires at least one argument");
+        $this->expectExceptionMessage("Image ratio rule requires at least one argument");
 
         $instance = new ImageRatioRule();
         $parameters = $this->createParameter([]);
@@ -26,7 +26,7 @@ class ImageRatioRuleTest extends TestCase
     public function 無効な比率が渡された場合例外をスローする(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("Image width rule requires a numeric ratio");
+        $this->expectExceptionMessage("Image ratio rule requires a numeric ratio in the format of '16/9'");
 
         $instance = new ImageRatioRule();
         $parameters = $this->createParameter([]);

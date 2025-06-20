@@ -13,15 +13,15 @@ class CallableRule implements RuleInterface
 
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if($arguments === []) {
+        if ($arguments === []) {
             throw new \InvalidArgumentException("CallableRule rule requires at least one argument");
         }
 
-        if(!Arr::of($value)) {
+        if (!Arr::of($value)) {
             return false;
         }
 
-        if(!Str::of($arguments[0]) || !Str::isClassMethodString($arguments[0], '::') && !function_exists($arguments[0])) {
+        if (!Str::isClassMethodString($arguments[0], '::') && !function_exists($arguments[0])) {
             throw new \InvalidArgumentException("CallableRule rule requires a valid class name");
         }
 

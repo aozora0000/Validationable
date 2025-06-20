@@ -3,6 +3,7 @@
 namespace Validationable;
 
 
+use AllowDynamicProperties;
 use ArrayAccess;
 use Validationable\Helpers\Arr;
 use Validationable\Helpers\RuleArgumentParser;
@@ -27,6 +28,7 @@ use Validationable\Rules\DatetimeRule;
 use Validationable\Rules\DistinctRule;
 use Validationable\Rules\EmailRule;
 use Validationable\Rules\EndsWithRule;
+use Validationable\Rules\EqualsRule;
 use Validationable\Rules\FileMtime;
 use Validationable\Rules\FileRule;
 use Validationable\Rules\ImageHeightRule;
@@ -63,8 +65,11 @@ use Validationable\Rules\UrlRule;
 /**
  * @template T
  */
-abstract class Parameters implements ArrayAccess
+#[AllowDynamicProperties] abstract class Parameters implements ArrayAccess
 {
+    /**
+     * @var array<string, class-string>
+     */
     public static array $rules = [
         // HasValue
         'sometimes' => SometimesRule::class,
@@ -72,6 +77,7 @@ abstract class Parameters implements ArrayAccess
         'required_if' => RequiredIfRule::class,
         'same' => SameRule::class,
         'missing' => MissingRule::class,
+        'equals' => EqualsRule::class,
         // Primitive
         'in' => InRule::class,
         'not_in' => NotInRule::class,
@@ -168,8 +174,6 @@ abstract class Parameters implements ArrayAccess
         return static::$rules;
     }
 
-    abstract public function rules(): array;
-
     public function validate($rule, string $attribute, mixed $value, array $arguments = []): bool
     {
         $parser = new RuleArgumentParser(static::$rules);
@@ -214,6 +218,13 @@ abstract class Parameters implements ArrayAccess
 
     }
 
+    abstract public function rules(): array;
+
+    public function get(string $key, $default = null)
+    {
+        return Arr::get($this->toArray(), $key, $default);
+    }
+
     protected function afterValidate(): void
     {
 
@@ -231,6 +242,11 @@ abstract class Parameters implements ArrayAccess
     public function offsetExists($offset): bool
     {
         return Arr::has($this->toArray(), $offset);
+    }
+
+    public function has(string $key): bool
+    {
+        return Arr::has($this->toArray(), $key);
     }
 
     public function offsetGet($offset): mixed

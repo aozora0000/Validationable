@@ -30,7 +30,7 @@ class EmailRule implements RuleInterface
     }
 
     /**
-     * @var array<string, RFCValidation>
+     * @return array<string, RFCValidation>
      */
     public static function getValidators(): array
     {

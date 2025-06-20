@@ -11,6 +11,6 @@ class NumericRule implements RuleInterface
 
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        return Str::of($value) && preg_match('/^-?\d*\.?\d+([eE][+-]?\d+)?$/', $value);
+        return Str::match($value, '/^-?\d*\.?\d+([eE][+-]?\d+)?$/');
     }
 }

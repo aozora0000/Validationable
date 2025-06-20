@@ -13,15 +13,15 @@ class ConstructableRule implements RuleInterface
 
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if($arguments === []) {
+        if ($arguments === []) {
             throw new \InvalidArgumentException("ConstructableRule rule requires at least one argument");
         }
 
-        if(!Arr::of($value)) {
+        if (!Arr::of($value)) {
             return false;
         }
 
-        if(!Str::of($arguments[0]) || !class_exists($arguments[0])) {
+        if (!Str::isClass($arguments[0])) {
             throw new \InvalidArgumentException("ConstructableRule rule requires a valid class name");
         }
 

@@ -14,12 +14,12 @@ class ImageRatioRule implements RuleInterface
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
         if ($arguments === []) {
-            throw new \InvalidArgumentException("Image width rule requires at least one argument");
+            throw new \InvalidArgumentException("Image ratio rule requires at least one argument");
         }
 
         $fraction = Str::split($arguments[0], '/');
         if (count($fraction) !== 2 || !Arr::every($fraction, fn($arg): bool => Str::isNumeric($arg))) {
-            throw new \InvalidArgumentException("Image width rule requires a numeric ratio");
+            throw new \InvalidArgumentException("Image ratio rule requires a numeric ratio in the format of '16/9'");
         }
 
         if (!(new ImageRule)->passes($attribute, $value, $parameters, $arguments)) {

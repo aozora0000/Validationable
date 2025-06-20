@@ -12,22 +12,19 @@ class LengthRule implements RuleInterface
 
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if($arguments === []) {
+        if ($arguments === []) {
             return false;
         }
 
-        if(!Arr::every($arguments, fn ($val): bool => Str::isInteger($val))) {
+        if (!Arr::every($arguments, fn($val): bool => Str::isInteger($val))) {
             throw new \InvalidArgumentException("Length rule requires integer arguments.");
         }
 
-        if(count($arguments) === 1) {
-            $length = Str::of($value) ? mb_strlen($value) : count($value);
+        $length = Str::of($value) ? mb_strlen($value) : count($value);
+        if (count($arguments) === 1) {
             return $length === (int)min($arguments);
         }
 
-        $min = min($arguments);
-        $max = max($arguments);
-        $length = Str::of($value) ? mb_strlen($value) : count($value);
-        return $min <= $length && $length <= $max;
+        return min($arguments) <= $length && $length <= max($arguments);
     }
 }

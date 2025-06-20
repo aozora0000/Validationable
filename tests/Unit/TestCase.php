@@ -9,11 +9,18 @@ class TestCase extends \PHPUnit\Framework\TestCase
 {
     public function createParameter(array $values, array $rules = []): Parameters
     {
-        $mock = $this->createMock(Parameters::class);
-        $mock->method('rules')->willReturn($rules);
-        $mock->method('toArray')->willReturn($values);
-        $mock->method('all')->willReturn($values);
-        return $mock;
+        return new class($values, $rules) extends Parameters {
+            public function __construct(array $values, array $rules = [])
+            {
+                $this->_rules = $rules;
+                parent::__construct($values);
+            }
+
+            public function rules(): array
+            {
+                return $this->_rules;
+            }
+        };
     }
 
     public function createDummyRule(bool $passed = true): RuleInterface

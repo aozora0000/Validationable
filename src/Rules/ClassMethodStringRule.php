@@ -11,7 +11,6 @@ class ClassMethodStringRule implements RuleInterface
 
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        $sep = $arguments[0] ?? '@';
-        return Str::of($value) && Str::isClassMethodString($attribute, $sep);
+        return Str::isClassMethodString($attribute, $arguments[0] ?? '@');
     }
 }

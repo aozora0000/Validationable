@@ -8,7 +8,7 @@ final class Str
 {
     public static function stringify($value): string
     {
-        return match(true) {
+        return match (true) {
             is_string($value) => $value,
             is_a($value, Stringable::class) => $value->__toString(),
             is_array($value) => json_encode($value),
@@ -41,6 +41,7 @@ final class Str
         if (!Str::of($value)) {
             return true;
         }
+
         return $value === '';
     }
 
@@ -84,6 +85,11 @@ final class Str
         return Str::of($value) && str_contains($value, '*');
     }
 
+    public static function isClass(string $value): bool
+    {
+        return Str::of($value) && class_exists($value);
+    }
+
     public static function isClassString($value, string $class): bool
     {
         return Str::of($value) && is_a($value, $class, true);
@@ -101,14 +107,15 @@ final class Str
 
     public static function isRegexPattern($value): bool
     {
-        if(!Str::of($value)) {
+        if (!Str::of($value)) {
             return false;
         }
 
         try {
-            if(preg_match('/^(.)(.*)\\1[imsxuADSUXJu]*$/', $value)) {
+            if (preg_match('/^(.)(.*)\\1[imsxuADSUXJu]*$/', $value)) {
                 // 正規表現として利用可能か試す
-                set_error_handler(function(): void {}, E_WARNING);
+                set_error_handler(function (): void {
+                }, E_WARNING);
                 $result = preg_match($value, "");
                 restore_error_handler();
                 return $result !== false;

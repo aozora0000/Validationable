@@ -31,15 +31,17 @@ class Rule
                 private array $rules,
                 private array $onSuccess,
                 private array $onFailure
-            ) {
+            )
+            {
             }
 
             public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
             {
                 $condition = fn($rule): bool => $parameters->validate($rule, $attribute, $value, $arguments);
-                if(Arr::every($this->rules, $condition)) {
+                if (Arr::every($this->rules, $condition)) {
                     return Arr::every($this->onSuccess, $condition);
                 }
+
                 return Arr::every($this->onFailure, $condition);
             }
         };
@@ -60,7 +62,7 @@ class Rule
              */
             public function __construct(string $enum)
             {
-                if(!is_a($enum, UnitEnum::class, true)) {
+                if (!is_a($enum, UnitEnum::class, true)) {
                     throw new \InvalidArgumentException('The enum must be an instance of Enum');
                 }
 
@@ -72,8 +74,8 @@ class Rule
              */
             public function expect(array $expects): EnumRuleInterface
             {
-                foreach($expects as $expect) {
-                    if(!is_a($expect, $this->enum, false)) {
+                foreach ($expects as $expect) {
+                    if (!is_a($expect, $this->enum, false)) {
                         throw new \InvalidArgumentException('The enum must be an instance of Enum');
                     }
 
@@ -85,21 +87,21 @@ class Rule
 
             public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
             {
-                foreach($this->enum::cases() as $case) {
-                    if(in_array($case, $this->expects, true)) {
+                foreach ($this->enum::cases() as $case) {
+                    if (in_array($case, $this->expects, true)) {
                         continue;
                     }
 
-                    $property = match(true) {
+                    $property = match (true) {
                         is_a($case, BackedEnum::class, false) => 'value',
                         is_a($case, UnitEnum::class, false) => 'name',
                         default => null,
                     };
-                    if($property === null) {
+                    if ($property === null) {
                         continue;
                     }
 
-                    if($case === $value || $case->{$property} === $value) {
+                    if ($case === $value || $case->{$property} === $value) {
                         return true;
                     }
                 }
