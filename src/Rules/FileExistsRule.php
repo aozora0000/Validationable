@@ -14,6 +14,7 @@ class FileExistsRule implements RuleInterface
         if (!Str::of($value)) {
             throw new \InvalidArgumentException('The exists rule requires at least 1 argument.');
         }
+
         return is_file($value);
     }
 }
