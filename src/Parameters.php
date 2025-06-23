@@ -25,12 +25,16 @@ use Validationable\Rules\CountableRule;
 use Validationable\Rules\DateFormatRule;
 use Validationable\Rules\DateRule;
 use Validationable\Rules\DatetimeRule;
+use Validationable\Rules\DirExistsRule;
 use Validationable\Rules\DistinctRule;
 use Validationable\Rules\EmailRule;
 use Validationable\Rules\EndsWithRule;
 use Validationable\Rules\EqualsRule;
+use Validationable\Rules\ExistsRule;
+use Validationable\Rules\FileExistsRule;
 use Validationable\Rules\FileMtime;
 use Validationable\Rules\FileRule;
+use Validationable\Rules\HexRule;
 use Validationable\Rules\ImageHeightRule;
 use Validationable\Rules\ImageRatioRule;
 use Validationable\Rules\ImageRule;
@@ -50,6 +54,7 @@ use Validationable\Rules\MoreThanEqualRule;
 use Validationable\Rules\MoreThanRule;
 use Validationable\Rules\NotInRule;
 use Validationable\Rules\NumericRule;
+use Validationable\Rules\OctalRule;
 use Validationable\Rules\RegexPatternRule;
 use Validationable\Rules\RequiredIfRule;
 use Validationable\Rules\RequiredRule;
@@ -61,6 +66,7 @@ use Validationable\Rules\StringRule;
 use Validationable\Rules\TimeZoneRule;
 use Validationable\Rules\UniqueRule;
 use Validationable\Rules\UrlRule;
+use Validationable\Rules\UuidRule;
 
 /**
  * @template T
@@ -82,7 +88,6 @@ use Validationable\Rules\UrlRule;
         'in' => InRule::class,
         'not_in' => NotInRule::class,
         'boolean' => BooleanRule::class,
-        'integer' => IntegerRule::class,
         'between' => BetweenRule::class,
         'more_than' => MoreThanRule::class,
         'more_than_equal' => MoreThanEqualRule::class,
@@ -92,7 +97,10 @@ use Validationable\Rules\UrlRule;
         'less_than_equal' => LessThanEqualRule::class,
         'lt' => LessThanRule::class,
         'lte' => LessThanEqualRule::class,
+        'integer' => IntegerRule::class,
         'numeric' => NumericRule::class,
+        'hex' => HexRule::class,
+        'octal' => OctalRule::class,
         'string' => StringRule::class,
         'regex_pattern' => RegexPatternRule::class,
         'alpha' => AlphaRule::class,
@@ -106,6 +114,7 @@ use Validationable\Rules\UrlRule;
         'ip' => IpRule::class,
         'ipv4' => IpV4Rule::class,
         'ipv6' => Ipv6Rule::class,
+        'uuid' => UuidRule::class,
         'class-string' => ClassStringRule::class,
         'class-method-string' => ClassMethodStringRule::class,
         // Object
@@ -127,6 +136,9 @@ use Validationable\Rules\UrlRule;
         'timezone' => TimeZoneRule::class,
         // File/Image
         'file' => FileRule::class,
+        'exists' => ExistsRule::class,
+        'file_exists' => FileExistsRule::class,
+        'dir_exists' => DirExistsRule::class,
         'mtime' => FileMtime::class,
         'size' => SizeRule::class,
         'mime' => MimesRule::class,
