@@ -105,6 +105,14 @@ final class Str
         return false;
     }
 
+    public static function isJson($value): bool
+    {
+        if(!Str::of($value)) {
+            return false;
+        }
+        return json_validate($value);
+    }
+
     public static function isRegexPattern($value): bool
     {
         if (!Str::of($value)) {
