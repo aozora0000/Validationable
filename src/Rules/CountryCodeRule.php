@@ -3,14 +3,15 @@
 namespace Validationable\Rules;
 
 use Validationable\Contracts\RuleInterface;
+use Validationable\Helpers\Countries;
 use Validationable\Helpers\Str;
 use Validationable\Parameters;
 
-class JsonStringRule implements RuleInterface
+class CountryCodeRule implements RuleInterface
 {
 
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        return Str::isJson($value);
+        return Str::of($value) && Countries::findByCountryCode($value) !== null;
     }
 }

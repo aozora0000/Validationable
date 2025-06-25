@@ -4,14 +4,14 @@ namespace Tests\Unit\Validationable\Rules;
 
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Unit\TestCase;
-use Validationable\Rules\JsonStringRule;
+use Validationable\Rules\JsonRule;
 
-class JsonStringRuleTest extends TestCase
+class JsonRuleTest extends TestCase
 {
     #[Test]
     public function 合法なJson文字列を渡すとtrueを返す()
     {
-        $instance = new JsonStringRule();
+        $instance = new JsonRule();
         $value = '{"key": "value"}';
         $params = $this->createParameter([]);
         $actual = $instance->passes('attribute', $value, $params);
@@ -22,7 +22,7 @@ class JsonStringRuleTest extends TestCase
     #[Test]
     public function 空文字列を渡すとfalseを返す()
     {
-        $instance = new JsonStringRule();
+        $instance = new JsonRule();
         $value = '';
         $params = $this->createParameter([]);
         $actual = $instance->passes('attribute', $value, $params);
@@ -33,7 +33,7 @@ class JsonStringRuleTest extends TestCase
     #[Test]
     public function 無効なJson文字列を渡すとfalseを返す()
     {
-        $instance = new JsonStringRule();
+        $instance = new JsonRule();
         $value = '{key: value}';
         $params = $this->createParameter([]);
         $actual = $instance->passes('attribute', $value, $params);
@@ -45,7 +45,7 @@ class JsonStringRuleTest extends TestCase
     #[Test]
     public function nullを渡すとfalseを返す()
     {
-        $instance = new JsonStringRule();
+        $instance = new JsonRule();
         $value = null;
         $params = $this->createParameter([]);
         $actual = $instance->passes('attribute', $value, $params);
@@ -56,7 +56,7 @@ class JsonStringRuleTest extends TestCase
     #[Test]
     public function 配列表記のJson文字列を渡すとtrueを返す()
     {
-        $instance = new JsonStringRule();
+        $instance = new JsonRule();
         $value = '["item1", "item2"]';
         $params = $this->createParameter([]);
         $actual = $instance->passes('attribute', $value, $params);

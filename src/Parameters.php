@@ -14,6 +14,7 @@ use Validationable\Rules\AlphaNumRule;
 use Validationable\Rules\AlphaRule;
 use Validationable\Rules\ArrayKeysRule;
 use Validationable\Rules\ArrayRule;
+use Validationable\Rules\Base64Rule;
 use Validationable\Rules\BetweenRule;
 use Validationable\Rules\BooleanRule;
 use Validationable\Rules\CallableRule;
@@ -27,6 +28,7 @@ use Validationable\Rules\DateRule;
 use Validationable\Rules\DatetimeRule;
 use Validationable\Rules\DirExistsRule;
 use Validationable\Rules\DistinctRule;
+use Validationable\Rules\DomainRule;
 use Validationable\Rules\EmailRule;
 use Validationable\Rules\EndsWithRule;
 use Validationable\Rules\EqualsRule;
@@ -34,20 +36,26 @@ use Validationable\Rules\ExistsRule;
 use Validationable\Rules\FileExistsRule;
 use Validationable\Rules\FileMtime;
 use Validationable\Rules\FileRule;
+use Validationable\Rules\FutureRule;
 use Validationable\Rules\HexRule;
 use Validationable\Rules\ImageHeightRule;
 use Validationable\Rules\ImageRatioRule;
 use Validationable\Rules\ImageRule;
 use Validationable\Rules\ImageWidthRule;
+use Validationable\Rules\InCidrRule;
 use Validationable\Rules\InRule;
 use Validationable\Rules\InstanceOfRule;
 use Validationable\Rules\IntegerRule;
 use Validationable\Rules\IpRule;
 use Validationable\Rules\Ipv4Rule;
 use Validationable\Rules\Ipv6Rule;
+use Validationable\Rules\IsbnRule;
+use Validationable\Rules\JsonRule;
+use Validationable\Rules\JwtRule;
 use Validationable\Rules\LengthRule;
 use Validationable\Rules\LessThanEqualRule;
 use Validationable\Rules\LessThanRule;
+use Validationable\Rules\LuhnRule;
 use Validationable\Rules\MimesRule;
 use Validationable\Rules\MissingRule;
 use Validationable\Rules\MoreThanEqualRule;
@@ -55,6 +63,8 @@ use Validationable\Rules\MoreThanRule;
 use Validationable\Rules\NotInRule;
 use Validationable\Rules\NumericRule;
 use Validationable\Rules\OctalRule;
+use Validationable\Rules\PasswordStrengthRule;
+use Validationable\Rules\PastRule;
 use Validationable\Rules\RegexPatternRule;
 use Validationable\Rules\RequiredIfRule;
 use Validationable\Rules\RequiredRule;
@@ -102,6 +112,7 @@ use Validationable\Rules\UuidRule;
         'hex' => HexRule::class,
         'octal' => OctalRule::class,
         'string' => StringRule::class,
+        'base64' => Base64Rule::class,
         'regex_pattern' => RegexPatternRule::class,
         'alpha' => AlphaRule::class,
         'alpha_dash' => AlphaDashRule::class,
@@ -109,14 +120,21 @@ use Validationable\Rules\UuidRule;
         'starts_with' => StartsWithRule::class,
         'ends_with' => EndsWithRule::class,
         'email' => EmailRule::class,
+        'domain' => DomainRule::class,
         'url' => UrlRule::class,
         'active_url' => ActiveUrlRule::class,
         'ip' => IpRule::class,
         'ipv4' => IpV4Rule::class,
         'ipv6' => Ipv6Rule::class,
+        'in_cidr' => InCidrRule::class,
         'uuid' => UuidRule::class,
+        'isbn' => IsbnRule::class,
         'class-string' => ClassStringRule::class,
         'class-method-string' => ClassMethodStringRule::class,
+        'json' => JsonRule::class,
+        'jwt' => JwtRule::class,
+        'luhn' => LuhnRule::class,
+        'password_strength' => PasswordStrengthRule::class,
         // Object
         'closure' => ClosureRule::class,
         'instance_of' => InstanceOfRule::class,
@@ -134,6 +152,8 @@ use Validationable\Rules\UuidRule;
         'date_format' => DateFormatRule::class,
         'date_time' => DatetimeRule::class,
         'timezone' => TimeZoneRule::class,
+        'past' => PastRule::class,
+        'future' => FutureRule::class,
         // File/Image
         'file' => FileRule::class,
         'exists' => ExistsRule::class,

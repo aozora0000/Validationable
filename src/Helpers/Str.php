@@ -57,7 +57,7 @@ final class Str
 
     public static function match($value, string $pattern): bool
     {
-        return Str::of($value) && preg_match($pattern, $value);
+        return Str::of($value) && (bool)preg_match($pattern, $value);
     }
 
     public static function startsWith($value, string $needle): bool

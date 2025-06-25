@@ -19,8 +19,8 @@ class FutureRule implements RuleInterface
         $target = new DateTime($arguments[0] ?? 'now');
         return match (true) {
             $value === null => false,
-            is_a($value, DateTime::class, true) => $value > new DateTime($target),
-            Str::of($value) && strtotime($value) !== false => $value > new DateTime($target),
+            is_a($value, DateTime::class, true) => $value > $target,
+            Str::of($value) && strtotime($value) !== false => new DateTime($value) > $target,
             default => false,
         };
     }
