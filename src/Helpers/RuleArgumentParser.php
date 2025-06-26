@@ -16,21 +16,28 @@ class RuleArgumentParser
      * 3. 'rule:arguments...'
      * 4. 'rule:"argument:args","argument"'
      * @param $value
-     * @return array{0: RuleInterface, 1: string[]}
+     * @return array{0: RuleInterface, 1: string[], 2: bool}
      */
     public function parse($value): array
     {
         if($value instanceof RuleInterface) {
-            return [$value, []];
+            return [$value, [], false];
         }
 
         if(!Str::of($value)) {
             throw new \InvalidArgumentException(sprintf("The rule [%s] is not a valid rule.", Str::stringify($value)));
         }
 
+        $not = false;
+
         [$key, $arguments] = Str::contains($value, ":") ? explode(":", $value, 2) : [$value, ''];
+
+        // !がルール前にある場合は、結果を反転させる
+        if(Str::startsWith($key, '!')) {
+            [$key, $not] = [substr($key, 1), true];
+        }
         if(array_key_exists($key, $this->rules)) {
-            return [new $this->rules[$key], $this->parseArguments($arguments)];
+            return [new $this->rules[$key], $this->parseArguments($arguments), $not];
         }
 
         throw new \InvalidArgumentException(sprintf("The rule [%s] does not exist.", Str::stringify($value)));

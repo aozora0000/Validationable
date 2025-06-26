@@ -20,6 +20,10 @@ class LocaleRuleTest extends TestCase
         $actual = $instance->passes('locale', 'en_US', $parameters);
 
         $this->assertTrue($actual, '有効なロケールが失敗と判定されています。');
+
+        $actual = $instance->passes('locale', 'en-US', $parameters);
+
+        $this->assertTrue($actual, '有効なロケールが失敗と判定されています。');
     }
 
     /**

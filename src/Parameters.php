@@ -14,6 +14,7 @@ use Validationable\Rules\AlphaNumRule;
 use Validationable\Rules\AlphaRule;
 use Validationable\Rules\ArrayKeysRule;
 use Validationable\Rules\ArrayRule;
+use Validationable\Rules\AsciiRule;
 use Validationable\Rules\Base64Rule;
 use Validationable\Rules\BetweenRule;
 use Validationable\Rules\BooleanRule;
@@ -21,8 +22,11 @@ use Validationable\Rules\CallableRule;
 use Validationable\Rules\ClassMethodStringRule;
 use Validationable\Rules\ClassStringRule;
 use Validationable\Rules\ClosureRule;
+use Validationable\Rules\ColorRule;
 use Validationable\Rules\ConstructableRule;
 use Validationable\Rules\CountableRule;
+use Validationable\Rules\CountryCodeRule;
+use Validationable\Rules\CurrencyRule;
 use Validationable\Rules\DateFormatRule;
 use Validationable\Rules\DateRule;
 use Validationable\Rules\DatetimeRule;
@@ -38,6 +42,7 @@ use Validationable\Rules\FileMtime;
 use Validationable\Rules\FileRule;
 use Validationable\Rules\FutureRule;
 use Validationable\Rules\HexRule;
+use Validationable\Rules\HostnameRule;
 use Validationable\Rules\ImageHeightRule;
 use Validationable\Rules\ImageRatioRule;
 use Validationable\Rules\ImageRule;
@@ -55,7 +60,9 @@ use Validationable\Rules\JwtRule;
 use Validationable\Rules\LengthRule;
 use Validationable\Rules\LessThanEqualRule;
 use Validationable\Rules\LessThanRule;
+use Validationable\Rules\LocaleRule;
 use Validationable\Rules\LuhnRule;
+use Validationable\Rules\MacAddressRule;
 use Validationable\Rules\MimesRule;
 use Validationable\Rules\MissingRule;
 use Validationable\Rules\MoreThanEqualRule;
@@ -65,11 +72,14 @@ use Validationable\Rules\NumericRule;
 use Validationable\Rules\OctalRule;
 use Validationable\Rules\PasswordStrengthRule;
 use Validationable\Rules\PastRule;
+use Validationable\Rules\PortNumberRule;
 use Validationable\Rules\RegexPatternRule;
 use Validationable\Rules\RequiredIfRule;
 use Validationable\Rules\RequiredRule;
 use Validationable\Rules\SameRule;
+use Validationable\Rules\SemVerRule;
 use Validationable\Rules\SizeRule;
+use Validationable\Rules\SlugRule;
 use Validationable\Rules\SometimesRule;
 use Validationable\Rules\StartsWithRule;
 use Validationable\Rules\StringRule;
@@ -77,6 +87,7 @@ use Validationable\Rules\TimeZoneRule;
 use Validationable\Rules\UniqueRule;
 use Validationable\Rules\UrlRule;
 use Validationable\Rules\UuidRule;
+use Validationable\Rules\XmlRule;
 
 /**
  * @template T
@@ -113,6 +124,7 @@ use Validationable\Rules\UuidRule;
         'octal' => OctalRule::class,
         'string' => StringRule::class,
         'base64' => Base64Rule::class,
+        'ascii' => AsciiRule::class,
         'regex_pattern' => RegexPatternRule::class,
         'alpha' => AlphaRule::class,
         'alpha_dash' => AlphaDashRule::class,
@@ -121,20 +133,30 @@ use Validationable\Rules\UuidRule;
         'ends_with' => EndsWithRule::class,
         'email' => EmailRule::class,
         'domain' => DomainRule::class,
+        'hostname' => HostnameRule::class,
         'url' => UrlRule::class,
         'active_url' => ActiveUrlRule::class,
         'ip' => IpRule::class,
         'ipv4' => IpV4Rule::class,
         'ipv6' => Ipv6Rule::class,
         'in_cidr' => InCidrRule::class,
+        'port_number' => PortNumberRule::class,
+        'mac_address' => MacAddressRule::class,
         'uuid' => UuidRule::class,
         'isbn' => IsbnRule::class,
+        'color' => ColorRule::class,
+        'semver' => SemVerRule::class,
+        'locale' => LocaleRule::class,
+        'country_code' => CountryCodeRule::class,
+        'currency' => CurrencyRule::class,
         'class-string' => ClassStringRule::class,
         'class-method-string' => ClassMethodStringRule::class,
         'json' => JsonRule::class,
         'jwt' => JwtRule::class,
+        'xml' => XmlRule::class,
         'luhn' => LuhnRule::class,
         'password_strength' => PasswordStrengthRule::class,
+        'slug' => SlugRule::class,
         // Object
         'closure' => ClosureRule::class,
         'instance_of' => InstanceOfRule::class,
@@ -209,10 +231,10 @@ use Validationable\Rules\UuidRule;
     public function validate($rule, string $attribute, mixed $value, array $arguments = []): bool
     {
         $parser = new RuleArgumentParser(static::$rules);
-        [$rule, $arguments] = $parser->parse($rule);
-
+        [$rule, $arguments, $not] = $parser->parse($rule);
+        $notfn = fn(bool $callback): bool => $not ? !$callback : $callback;
         $check = fn($val) => $rule->passes($attribute, $val, $this, $arguments);
-        return Str::isGlob($attribute) ? Arr::every($value, $check) : $check($value);
+        return Str::isGlob($attribute) ? $notfn(Arr::every($value, $check)) : $notfn($check($value));
     }
 
     public function passes(): bool

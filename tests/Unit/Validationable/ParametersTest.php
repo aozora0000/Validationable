@@ -137,4 +137,18 @@ class ParametersTest extends TestCase
         };
         $this->assertTrue($validation->passes());
     }
+
+    #[Test]
+    public function Not構文が機能しているかチェック(): void
+    {
+        $validation = new class(['test' => '1']) extends Parameters {
+            public function rules(): array
+            {
+                return [
+                    'test' => ['required', '!integer'],
+                ];
+            }
+        };
+        $this->assertFalse($validation->passes());
+    }
 }
