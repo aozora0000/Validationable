@@ -3,3 +3,5 @@
 vendor
 .env
 GEMINI.md
+airports.json
+locales.json

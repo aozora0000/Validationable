@@ -42,6 +42,8 @@
         "test": "phpunit",
         "stan": "phpstan analyse src tests --level 10",
         "rector:dry": "rector --dry-run",
-        "rector:run": "rector"
+        "rector:run": "rector",
+        "pre-install-cmd": "php download.php",
+        "pre-update-cmd": "php download.php"
     }
 }
