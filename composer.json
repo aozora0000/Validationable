@@ -27,7 +27,9 @@
         "egulias/email-validator": "^4.0",
         "z4kn4fein/php-semver": "^3.0",
         "ext-libxml": "*",
-        "ext-simplexml": "*"
+        "ext-simplexml": "*",
+        "doctrine/inflector": "^2.0",
+        "ext-dom": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^12.1",

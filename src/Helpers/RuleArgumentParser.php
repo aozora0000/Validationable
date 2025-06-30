@@ -6,7 +6,7 @@ use Validationable\Contracts\RuleInterface;
 
 class RuleArgumentParser
 {
-    public function __construct(protected array $rules)
+    public function __construct(protected array $rules, protected array $caches = [])
     {}
 
     /**
@@ -37,7 +37,8 @@ class RuleArgumentParser
             [$key, $not] = [substr($key, 1), true];
         }
         if(array_key_exists($key, $this->rules)) {
-            return [new $this->rules[$key], $this->parseArguments($arguments), $not];
+            $instance = $this->caches[$key] ?? new $this->rules[$key];
+            return [$instance, $this->parseArguments($arguments), $not];
         }
 
         throw new \InvalidArgumentException(sprintf("The rule [%s] does not exist.", Str::stringify($value)));

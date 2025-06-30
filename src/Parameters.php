@@ -9,6 +9,7 @@ use Validationable\Helpers\Arr;
 use Validationable\Helpers\RuleArgumentParser;
 use Validationable\Helpers\Str;
 use Validationable\Rules\ActiveUrlRule;
+use Validationable\Rules\AlgebraicNotationRule;
 use Validationable\Rules\AlphaDashRule;
 use Validationable\Rules\AlphaNumRule;
 use Validationable\Rules\AlphaRule;
@@ -43,6 +44,7 @@ use Validationable\Rules\FileRule;
 use Validationable\Rules\FutureRule;
 use Validationable\Rules\HexRule;
 use Validationable\Rules\HostnameRule;
+use Validationable\Rules\IcaoRule;
 use Validationable\Rules\ImageHeightRule;
 use Validationable\Rules\ImageRatioRule;
 use Validationable\Rules\ImageRule;
@@ -67,17 +69,20 @@ use Validationable\Rules\MimesRule;
 use Validationable\Rules\MissingRule;
 use Validationable\Rules\MoreThanEqualRule;
 use Validationable\Rules\MoreThanRule;
+use Validationable\Rules\MultipleOfRule;
 use Validationable\Rules\NotInRule;
 use Validationable\Rules\NumericRule;
 use Validationable\Rules\OctalRule;
 use Validationable\Rules\PasswordStrengthRule;
 use Validationable\Rules\PastRule;
+use Validationable\Rules\PluralRule;
 use Validationable\Rules\PortNumberRule;
 use Validationable\Rules\RegexPatternRule;
 use Validationable\Rules\RequiredIfRule;
 use Validationable\Rules\RequiredRule;
 use Validationable\Rules\SameRule;
 use Validationable\Rules\SemVerRule;
+use Validationable\Rules\SingularRule;
 use Validationable\Rules\SizeRule;
 use Validationable\Rules\SlugRule;
 use Validationable\Rules\SometimesRule;
@@ -120,6 +125,8 @@ use Validationable\Rules\XmlRule;
         'lte' => LessThanEqualRule::class,
         'integer' => IntegerRule::class,
         'numeric' => NumericRule::class,
+        'multiple_of' => MultipleOfRule::class,
+        'algebraic_notation' => AlgebraicNotationRule::class,
         'hex' => HexRule::class,
         'octal' => OctalRule::class,
         'string' => StringRule::class,
@@ -131,6 +138,9 @@ use Validationable\Rules\XmlRule;
         'alpha_num' => AlphaNumRule::class,
         'starts_with' => StartsWithRule::class,
         'ends_with' => EndsWithRule::class,
+        'slug' => SlugRule::class,
+        'singular' => SingularRule::class,
+        'plural' => PluralRule::class,
         'email' => EmailRule::class,
         'domain' => DomainRule::class,
         'hostname' => HostnameRule::class,
@@ -149,6 +159,7 @@ use Validationable\Rules\XmlRule;
         'locale' => LocaleRule::class,
         'country_code' => CountryCodeRule::class,
         'currency' => CurrencyRule::class,
+        'icao' => IcaoRule::class,
         'class-string' => ClassStringRule::class,
         'class-method-string' => ClassMethodStringRule::class,
         'json' => JsonRule::class,
@@ -156,7 +167,6 @@ use Validationable\Rules\XmlRule;
         'xml' => XmlRule::class,
         'luhn' => LuhnRule::class,
         'password_strength' => PasswordStrengthRule::class,
-        'slug' => SlugRule::class,
         // Object
         'closure' => ClosureRule::class,
         'instance_of' => InstanceOfRule::class,
@@ -230,7 +240,10 @@ use Validationable\Rules\XmlRule;
 
     public function validate($rule, string $attribute, mixed $value, array $arguments = []): bool
     {
-        $parser = new RuleArgumentParser(static::$rules);
+        static $parser;
+        if (!$parser) {
+            $parser = new RuleArgumentParser(static::$rules);
+        }
         [$rule, $arguments, $not] = $parser->parse($rule);
         $notfn = fn(bool $callback): bool => $not ? !$callback : $callback;
         $check = fn($val) => $rule->passes($attribute, $val, $this, $arguments);
