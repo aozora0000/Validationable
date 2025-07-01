@@ -4,8 +4,8 @@ namespace Tests\Unit\Validationable\Rules;
 
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Unit\TestCase;
-use Validationable\Rules\SizeRule;
 use Validationable\RulesSizeRule;
+use Validationable\Rules\SizeRule;
 
 class SizeRuleTest extends TestCase
 {

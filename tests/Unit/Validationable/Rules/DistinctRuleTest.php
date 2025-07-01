@@ -4,7 +4,6 @@ namespace Tests\Unit\Validationable\Rules;
 
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Unit\TestCase;
-use Validationable\Helpers\Arr;
 use Validationable\Rules\DistinctRule;
 
 class DistinctRuleTest extends TestCase

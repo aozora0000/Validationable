@@ -3,7 +3,6 @@
 namespace Tests\Unit\Validationable\Rules;
 
 use PHPUnit\Framework\Attributes\Test;
-
 use Tests\Unit\TestCase;
 use Validationable\Rules\AlphaRule;
 

@@ -8,7 +8,7 @@ final class Airports
     {
         static $items;
         if ($items === null) {
-            $items = json_decode(file_get_contents(__DIR__ . '/../../airports.json'), true);
+            $items = json_decode(file_get_contents(__DIR__ . '/../../../airports.json'), true);
         }
         return $items;
     }

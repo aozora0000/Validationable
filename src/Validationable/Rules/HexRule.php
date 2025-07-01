@@ -6,15 +6,11 @@ use Validationable\Contracts\RuleInterface;
 use Validationable\Helpers\Str;
 use Validationable\Parameters;
 
-class MacAddressRule implements RuleInterface
+class HexRule implements RuleInterface
 {
 
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if (!is_string($value)) {
-            return false;
-        }
-
-        return filter_var($value, FILTER_VALIDATE_MAC) !== false;
+        return Str::of($value) && ctype_xdigit($value);
     }
 }

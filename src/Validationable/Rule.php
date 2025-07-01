@@ -2,6 +2,8 @@
 
 namespace Validationable;
 
+use;
+use;
 use BackedEnum;
 use UnitEnum;
 use Validationable\Contracts\EnumRuleInterface;
@@ -70,7 +72,7 @@ class Rule
             }
 
             /**
-             * @param array<T> $expects
+             * @param UnitEnum $expects
              */
             public function expect(array $expects): EnumRuleInterface
             {

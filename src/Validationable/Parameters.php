@@ -2,7 +2,6 @@
 
 namespace Validationable;
 
-
 use AllowDynamicProperties;
 use ArrayAccess;
 use Validationable\Helpers\Arr;

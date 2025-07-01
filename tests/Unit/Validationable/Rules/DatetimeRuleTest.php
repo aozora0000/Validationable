@@ -3,7 +3,6 @@
 namespace Tests\Unit\Validationable\Rules;
 
 use Carbon\Carbon;
-use DateTime;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Unit\TestCase;
 use Validationable\Rules\DatetimeRule;

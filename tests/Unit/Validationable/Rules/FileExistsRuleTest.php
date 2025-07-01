@@ -4,7 +4,6 @@ namespace Unit\Validationable\Rules;
 
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Unit\TestCase;
-use Validationable\Rules\ExistsRule;
 use Validationable\Rules\FileExistsRule;
 
 class FileExistsRuleTest extends TestCase

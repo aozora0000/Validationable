@@ -29,7 +29,7 @@ class Countries
     {
         static $items;
         if ($items === null) {
-            $items = json_decode(file_get_contents(__DIR__ . '/../../locales.json'), true);
+            $items = json_decode(file_get_contents(__DIR__ . '/../../../locales.json'), true);
         }
         return $items;
     }

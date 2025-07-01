@@ -3,7 +3,6 @@
 namespace Validationable\Rules;
 
 use Validationable\Contracts\RuleInterface;
-use Validationable\Helpers\Str;
 use Validationable\Parameters;
 
 class MultipleOfRule implements RuleInterface

@@ -2,9 +2,8 @@
 
 namespace Tests\Unit\Validationable\Rules;
 
-use Tests\Unit\TestCase;
 use PHPUnit\Framework\Attributes\Test;
-use Validationable\Parameters;
+use Tests\Unit\TestCase;
 use Validationable\Rules\BetweenRule;
 
 class BetweenRuleTest extends TestCase
