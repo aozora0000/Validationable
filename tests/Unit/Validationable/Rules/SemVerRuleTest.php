@@ -89,7 +89,6 @@ class SemVerRuleTest extends TestCase
     public function 有効なバージョン制約の場合はtrueを返す(): void
     {
         $instance = new SemVerRule();
-        $expected = true;
         $this->assertTrue(
             $instance->passes('version', '1.2.3', $this->createParameter([]), ['^1.0']),
             '有効な制約 ^1.0 を持つバージョン 1.2.3 が検証に失敗しました。'
@@ -100,7 +99,6 @@ class SemVerRuleTest extends TestCase
     public function 無効なバージョン制約の場合はfalseを返す(): void
     {
         $instance = new SemVerRule();
-        $expected = false;
         $this->assertFalse(
             $instance->passes('version', '2.0.0', $this->createParameter([]), ['^1.0']),
             '無効な制約 ^1.0 を持つバージョン 2.0.0 が検証に成功しました。'

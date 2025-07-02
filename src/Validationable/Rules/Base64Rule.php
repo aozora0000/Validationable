@@ -12,7 +12,7 @@ class Base64Rule implements RuleInterface
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
         // Base64 文字セットの検証 (RFC 4648)
-        if (!Str::of($value) || Str::empty($value) || !preg_match('/^[A-Za-z0-9+\/]*={0,2}$/', $value)) {
+        if (!Str::of($value) || Str::empty($value) || in_array(preg_match('/^[A-Za-z0-9+\/]*={0,2}$/', $value), [0, false], true)) {
             return false;
         }
 

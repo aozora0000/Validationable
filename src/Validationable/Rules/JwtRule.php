@@ -17,7 +17,7 @@ class JwtRule implements RuleInterface
         }
 
         // JWT形式: 3つのセクション（ヘッダー.ペイロード.署名）をドットで区切った形式
-        $parts = array_map(fn($part) => $part . '==', explode('.', $value));
+        $parts = array_map(fn($part): string => $part . '==', explode('.', $value));
         if (count($parts) !== 3) {
             return false;
         }

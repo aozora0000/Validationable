@@ -9,11 +9,11 @@ use Validationable\Rules\JwtRule;
 class JwtRuleTest extends TestCase
 {
     #[Test]
-    public function 有効なJwtを渡すとTrueが返る()
+    public function 有効なJwtを渡すとTrueが返る(): void
     {
         $instance = new JwtRule();
         $parameters = $this->createParameter([]);
-        $value = implode('.', array_map(fn($v) => rtrim(base64_encode($v), '=='), ['a', 'b', 'c']));
+        $value = implode('.', array_map(fn($v): string => rtrim(base64_encode($v), '=='), ['a', 'b', 'c']));
 
         $actual = $instance->passes('token', $value, $parameters);
 
@@ -21,7 +21,7 @@ class JwtRuleTest extends TestCase
     }
 
     #[Test]
-    public function 無効なJwtを渡すとFalseが返る()
+    public function 無効なJwtを渡すとFalseが返る(): void
     {
         $instance = new JwtRule();
         $parameters = $this->createParameter([]);
@@ -33,7 +33,7 @@ class JwtRuleTest extends TestCase
     }
 
     #[Test]
-    public function Jwtに含まれるセクションが3つ未満の場合にFalseが返る()
+    public function Jwtに含まれるセクションが3つ未満の場合にFalseが返る(): void
     {
         $instance = new JwtRule();
         $parameters = $this->createParameter([]);
@@ -45,7 +45,7 @@ class JwtRuleTest extends TestCase
     }
 
     #[Test]
-    public function Jwtに含まれるセクションのいずれかがBase64形式でない場合にFalseが返る()
+    public function Jwtに含まれるセクションのいずれかがBase64形式でない場合にFalseが返る(): void
     {
         $instance = new JwtRule();
         $parameters = $this->createParameter([]);
@@ -57,7 +57,7 @@ class JwtRuleTest extends TestCase
     }
 
     #[Test]
-    public function 空の値を渡すとFalseが返る()
+    public function 空の値を渡すとFalseが返る(): void
     {
         $instance = new JwtRule();
         $parameters = $this->createParameter([]);
@@ -69,7 +69,7 @@ class JwtRuleTest extends TestCase
     }
 
     #[Test]
-    public function 非文字列の値を渡すとFalseが返る()
+    public function 非文字列の値を渡すとFalseが返る(): void
     {
         $instance = new JwtRule();
         $parameters = $this->createParameter([]);

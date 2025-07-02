@@ -14,6 +14,7 @@ class InCidrRule implements RuleInterface
         if ($arguments === []) {
             throw new \InvalidArgumentException("InCidr rule requires at least one argument");
         }
+
         if(!Str::of($value) || !str_contains($arguments[0], '/')) {
             return false;
         }

@@ -24,6 +24,7 @@ class LuhnRule implements RuleInterface
                     $digit -= 9;
                 }
             }
+
             $sum += $digit;
         }
 

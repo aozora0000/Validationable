@@ -13,7 +13,7 @@ class SingularRuleTest extends TestCase
      * 名詞が複数形として評価され、単数形に変換可能な場合に true を返すか確認
      */
     #[Test]
-    public function 名詞が複数形の場合に単数形に変換可能な場合はtrueを返す()
+    public function 名詞が複数形の場合に単数形に変換可能な場合はtrueを返す(): void
     {
         $instance = new SingularRule();
         $attribute = 'word';
@@ -31,7 +31,7 @@ class SingularRuleTest extends TestCase
      * 名詞が既に単数形の場合に false を返すか確認
      */
     #[Test]
-    public function 単数形の名詞の場合はfalseを返す()
+    public function 単数形の名詞の場合はfalseを返す(): void
     {
         $instance = new SingularRule();
         $attribute = 'word';
@@ -49,7 +49,7 @@ class SingularRuleTest extends TestCase
      * 値が文字列でない場合に false を返すか確認
      */
     #[Test]
-    public function 非文字列の値の場合はfalseを返す()
+    public function 非文字列の値の場合はfalseを返す(): void
     {
         $instance = new SingularRule();
         $attribute = 'word';
@@ -67,7 +67,7 @@ class SingularRuleTest extends TestCase
      * 空の値に対して false を返すか確認
      */
     #[Test]
-    public function 空の値の場合はfalseを返す()
+    public function 空の値の場合はfalseを返す(): void
     {
         $instance = new SingularRule();
         $attribute = 'word';
@@ -85,7 +85,7 @@ class SingularRuleTest extends TestCase
      * 不明な言語コードを指定し、デフォルトの英語ルールを適用するか確認
      */
     #[Test]
-    public function 不明な言語コードの場合にデフォルトでtrueを返す()
+    public function 不明な言語コードの場合にデフォルトでtrueを返す(): void
     {
         $instance = new SingularRule();
         $attribute = 'word';

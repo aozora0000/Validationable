@@ -36,6 +36,7 @@ class RuleArgumentParser
         if(Str::startsWith($key, '!')) {
             [$key, $not] = [substr($key, 1), true];
         }
+
         if(array_key_exists($key, $this->rules)) {
             $instance = $this->caches[$key] ?? new $this->rules[$key];
             return [$instance, $this->parseArguments($arguments), $not];

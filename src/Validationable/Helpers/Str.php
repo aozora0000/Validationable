@@ -110,6 +110,7 @@ final class Str
         if(!Str::of($value)) {
             return false;
         }
+
         return json_validate($value);
     }
 
@@ -137,13 +138,15 @@ final class Str
 
     public static function semver($value): ?array
     {
-        if(static::of($value) === false) {
+        if(self::of($value) === false) {
             return null;
         }
+
         $pattern = '/^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/';
-        if (!preg_match($pattern, $value, $matches)) {
+        if (in_array(preg_match($pattern, $value, $matches), [0, false], true)) {
             return null;
         }
+
         return [
             'major' => (int)$matches['major'],
             'minor' => (int)$matches['minor'],

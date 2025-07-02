@@ -12,7 +12,7 @@ class CurrencyRuleTest extends TestCase
      * CurrencyRuleのpassesメソッドのテスト：有効な通貨コードを渡した場合
      */
     #[Test]
-    public function 有効な通貨コードを渡した場合()
+    public function 有効な通貨コードを渡した場合(): void
     {
         $instance = new CurrencyRule();
         $attribute = 'currency';
@@ -22,14 +22,14 @@ class CurrencyRuleTest extends TestCase
 
         $actual = $instance->passes($attribute, $value, $parameters, $arguments);
 
-        $this->assertTrue($actual, "有効な通貨コードが正しく検証されませんでした: {$value}");
+        $this->assertTrue($actual, '有効な通貨コードが正しく検証されませんでした: ' . $value);
     }
 
     /**
      * CurrencyRuleのpassesメソッドのテスト：無効な通貨コードを渡した場合
      */
     #[Test]
-    public function 無効な通貨コードを渡した場合()
+    public function 無効な通貨コードを渡した場合(): void
     {
         $instance = new CurrencyRule();
         $attribute = 'currency';
@@ -39,14 +39,14 @@ class CurrencyRuleTest extends TestCase
 
         $actual = $instance->passes($attribute, $value, $parameters, $arguments);
 
-        $this->assertFalse($actual, "無効な通貨コードが正しく検証されませんでした: {$value}");
+        $this->assertFalse($actual, '無効な通貨コードが正しく検証されませんでした: ' . $value);
     }
 
     /**
      * CurrencyRuleのpassesメソッドのテスト：値がnullの場合
      */
     #[Test]
-    public function 値がnullの場合()
+    public function 値がnullの場合(): void
     {
         $instance = new CurrencyRule();
         $attribute = 'currency';
@@ -63,7 +63,7 @@ class CurrencyRuleTest extends TestCase
      * CurrencyRuleのpassesメソッドのテスト：空文字列を渡した場合
      */
     #[Test]
-    public function 空文字列を渡した場合()
+    public function 空文字列を渡した場合(): void
     {
         $instance = new CurrencyRule();
         $attribute = 'currency';
@@ -80,7 +80,7 @@ class CurrencyRuleTest extends TestCase
      * CurrencyRuleのpassesメソッドのテスト：数値を渡した場合
      */
     #[Test]
-    public function 数値を渡した場合()
+    public function 数値を渡した場合(): void
     {
         $instance = new CurrencyRule();
         $attribute = 'currency';
@@ -90,6 +90,6 @@ class CurrencyRuleTest extends TestCase
 
         $actual = $instance->passes($attribute, $value, $parameters, $arguments);
 
-        $this->assertFalse($actual, "数値が正しく検証されませんでした: {$value}");
+        $this->assertFalse($actual, '数値が正しく検証されませんでした: ' . $value);
     }
 }

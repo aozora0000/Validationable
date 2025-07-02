@@ -13,7 +13,7 @@ class HashRule implements RuleInterface
         'sha1' => '/^[a-f0-9]{40}$/i',
         'sha256' => '/^[a-f0-9]{64}$/i',
         'sha512' => '/^[a-f0-9]{128}$/i',
-        'bcrypt' => '/^\$2[ayb]\$[0-9]{2}\$[A-Za-z0-9\.\/]{53}$/'
+        'bcrypt' => '/^\$2[ayb]\$\d{2}\$[A-Za-z0-9\.\/]{53}$/'
     ];
 
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
@@ -22,6 +22,7 @@ class HashRule implements RuleInterface
         if(!array_key_exists($pattern, $this->patterns)) {
             throw new \InvalidArgumentException('An undefined hashing algorithm was detected.');
         }
+
         return Str::match($value, $this->patterns[$pattern]);
     }
 }

@@ -14,6 +14,7 @@ class SemVerRule implements RuleInterface
         if (!is_string($value)) {
             return false;
         }
+
         try {
             $target = Version::parse($value);
             if(!isset($arguments[0])) {

@@ -13,7 +13,7 @@ class ParametersTest extends TestCase
     public function ルールがマクロ登録されているかチェック(): void
     {
         $macros = Parameters::$rules;
-        $files = glob(__DIR__ . '/../../../src/Rules/*.php');
+        $files = glob(__DIR__ . '/../../../src/Validationable/Rules/*.php');
 
         // ファイル名からクラス名を抽出
         $fileClasses = array_map(fn($file): string => basename($file, '.php'), $files);

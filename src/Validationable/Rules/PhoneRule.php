@@ -15,6 +15,7 @@ class PhoneRule implements RuleInterface
         if(!Str::of($value)) {
             return false;
         }
+
         try {
             $lang = $arguments[0] ?? 'ja';
 

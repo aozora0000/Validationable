@@ -2,8 +2,6 @@
 
 namespace Validationable;
 
-use;
-use;
 use BackedEnum;
 use UnitEnum;
 use Validationable\Contracts\EnumRuleInterface;

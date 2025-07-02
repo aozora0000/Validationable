@@ -41,8 +41,11 @@ use Validationable\Rules\FileExistsRule;
 use Validationable\Rules\FileMtime;
 use Validationable\Rules\FileRule;
 use Validationable\Rules\FutureRule;
+use Validationable\Rules\GeoJsonRule;
+use Validationable\Rules\HashRule;
 use Validationable\Rules\HexRule;
 use Validationable\Rules\HostnameRule;
+use Validationable\Rules\HtmlRule;
 use Validationable\Rules\IcaoRule;
 use Validationable\Rules\ImageHeightRule;
 use Validationable\Rules\ImageRatioRule;
@@ -74,6 +77,7 @@ use Validationable\Rules\NumericRule;
 use Validationable\Rules\OctalRule;
 use Validationable\Rules\PasswordStrengthRule;
 use Validationable\Rules\PastRule;
+use Validationable\Rules\PhoneRule;
 use Validationable\Rules\PluralRule;
 use Validationable\Rules\PortNumberRule;
 use Validationable\Rules\RegexPatternRule;
@@ -85,6 +89,7 @@ use Validationable\Rules\SingularRule;
 use Validationable\Rules\SizeRule;
 use Validationable\Rules\SlugRule;
 use Validationable\Rules\SometimesRule;
+use Validationable\Rules\SqlInjectionRule;
 use Validationable\Rules\StartsWithRule;
 use Validationable\Rules\StringRule;
 use Validationable\Rules\TimeZoneRule;
@@ -140,6 +145,7 @@ use Validationable\Rules\XmlRule;
         'slug' => SlugRule::class,
         'singular' => SingularRule::class,
         'plural' => PluralRule::class,
+        'phone' => PhoneRule::class,
         'email' => EmailRule::class,
         'domain' => DomainRule::class,
         'hostname' => HostnameRule::class,
@@ -162,10 +168,14 @@ use Validationable\Rules\XmlRule;
         'class-string' => ClassStringRule::class,
         'class-method-string' => ClassMethodStringRule::class,
         'json' => JsonRule::class,
+        'geo_json' => GeoJsonRule::class,
         'jwt' => JwtRule::class,
         'xml' => XmlRule::class,
+        'html' => HtmlRule::class,
         'luhn' => LuhnRule::class,
+        'hash' => HashRule::class,
         'password_strength' => PasswordStrengthRule::class,
+        'sql_injection' => SqlInjectionRule::class,
         // Object
         'closure' => ClosureRule::class,
         'instance_of' => InstanceOfRule::class,
@@ -243,6 +253,7 @@ use Validationable\Rules\XmlRule;
         if (!$parser) {
             $parser = new RuleArgumentParser(static::$rules);
         }
+
         [$rule, $arguments, $not] = $parser->parse($rule);
         $notfn = fn(bool $callback): bool => $not ? !$callback : $callback;
         $check = fn($val) => $rule->passes($attribute, $val, $this, $arguments);

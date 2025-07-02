@@ -9,16 +9,10 @@ class MultipleOfRule implements RuleInterface
 {
     /**
      * 指定された数値の倍数であることを検証します。
-     *
-     * @param string $attribute
-     * @param mixed $value
-     * @param Parameters $parameters
-     * @param array $arguments
-     * @return bool
      */
     public function passes(string $attribute, mixed $value, Parameters $parameters, array $arguments = []): bool
     {
-        if (empty($arguments)) {
+        if ($arguments === []) {
             throw new \InvalidArgumentException('The multiple of rule requires at least 1 argument.');
         }
 

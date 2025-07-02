@@ -14,6 +14,7 @@ class IsbnRule implements RuleInterface
         if(!Str::of($value)) {
             return false;
         }
+
         // 区切り文字を削除して正規化
         $isbn = preg_replace('/[^0-9X]/', '', $value);
 

@@ -10,6 +10,7 @@ final class Airports
         if ($items === null) {
             $items = json_decode(file_get_contents(__DIR__ . '/../../../airports.json'), true);
         }
+
         return $items;
     }
     
@@ -18,6 +19,7 @@ final class Airports
         if(array_key_exists(strtoupper($code), self::read())) {
             return self::read()[strtoupper($code)];
         }
+
         return null;
     }
     

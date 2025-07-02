@@ -15,13 +15,19 @@ class PasswordStrengthRule implements RuleInterface
         if(!Str::of($value)) {
             return false;
         }
-        if (!$length = \strlen($value)) {
+
+        if (($length = \strlen($value)) === 0) {
             return $arguments[0] === 'very_weak';
         }
+
         $password = count_chars($value, 1);
         $chars = \count($password);
-
-        $control = $digit = $upper = $lower = $symbol = $other = 0;
+        $control = 0;
+        $digit = 0;
+        $upper = 0;
+        $lower = 0;
+        $symbol = 0;
+        $other = 0;
         foreach ($password as $chr => $count) {
             match (true) {
                 $chr < 32 || 127 === $chr => $control = 33,

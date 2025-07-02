@@ -9,7 +9,7 @@ use Validationable\Rules\IcaoRule;
 class IcaoRuleTest extends TestCase
 {
     #[Test]
-    public function 値が正しいICAOである場合にtrueが返却される()
+    public function 値が正しいICAOである場合にtrueが返却される(): void
     {
         $instance = new IcaoRule();
         $parameters = $this->createParameter([]);
@@ -22,7 +22,7 @@ class IcaoRuleTest extends TestCase
     }
 
     #[Test]
-    public function 値が不正なICAOである場合にfalseが返却される()
+    public function 値が不正なICAOである場合にfalseが返却される(): void
     {
         $instance = new IcaoRule();
         $parameters = $this->createParameter([]);
@@ -35,7 +35,7 @@ class IcaoRuleTest extends TestCase
     }
 
     #[Test]
-    public function 値が文字列ではない場合にfalseが返却される()
+    public function 値が文字列ではない場合にfalseが返却される(): void
     {
         $instance = new IcaoRule();
         $parameters = $this->createParameter([]);

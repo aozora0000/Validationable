@@ -12,7 +12,7 @@ class HashRuleTest extends TestCase
      * HashRule::passes() メソッドの正常系（md5検証が成功する場合）をテストします。
      */
     #[Test]
-    public function md5ハッシュが正しい場合は成功する()
+    public function md5ハッシュが正しい場合は成功する(): void
     {
         $instance = new HashRule();
         $params = $this->createParameter([]);
@@ -24,7 +24,7 @@ class HashRuleTest extends TestCase
      * HashRule::passes() メソッドの異常系（md5検証が失敗する場合）をテストします。
      */
     #[Test]
-    public function md5ハッシュが正しくない場合は失敗する()
+    public function md5ハッシュが正しくない場合は失敗する(): void
     {
         $instance = new HashRule();
         $params = $this->createParameter([]);
@@ -36,7 +36,7 @@ class HashRuleTest extends TestCase
      * HashRule::passes() メソッドの正常系（sha1検証が成功する場合）をテストします。
      */
     #[Test]
-    public function sha1ハッシュが正しい場合は成功する()
+    public function sha1ハッシュが正しい場合は成功する(): void
     {
         $instance = new HashRule();
         $params = $this->createParameter([]);
@@ -48,7 +48,7 @@ class HashRuleTest extends TestCase
      * HashRule::passes() メソッドの異常系（sha1検証が失敗する場合）をテストします。
      */
     #[Test]
-    public function sha1ハッシュが正しくない場合は失敗する()
+    public function sha1ハッシュが正しくない場合は失敗する(): void
     {
         $instance = new HashRule();
         $params = $this->createParameter([]);
@@ -60,7 +60,7 @@ class HashRuleTest extends TestCase
      * HashRule::passes() メソッドの正常系（sha256検証が成功する場合）をテストします。
      */
     #[Test]
-    public function sha256ハッシュが正しい場合は成功する()
+    public function sha256ハッシュが正しい場合は成功する(): void
     {
         $instance = new HashRule();
         $params = $this->createParameter([]);
@@ -72,7 +72,7 @@ class HashRuleTest extends TestCase
      * HashRule::passes() メソッドの異常系（sha256検証が失敗する場合）をテストします。
      */
     #[Test]
-    public function sha256ハッシュが正しくない場合は失敗する()
+    public function sha256ハッシュが正しくない場合は失敗する(): void
     {
         $instance = new HashRule();
         $params = $this->createParameter([]);
@@ -84,7 +84,7 @@ class HashRuleTest extends TestCase
      * HashRule::passes() メソッドの正常系（bcrypt検証が成功する場合）をテストします。
      */
     #[Test]
-    public function bcryptハッシュが正しい場合は成功する()
+    public function bcryptハッシュが正しい場合は成功する(): void
     {
         $instance = new HashRule();
         $params = $this->createParameter([]);
@@ -96,7 +96,7 @@ class HashRuleTest extends TestCase
      * HashRule::passes() メソッドの異常系（bcrypt検証が失敗する場合）をテストします。
      */
     #[Test]
-    public function bcryptハッシュが正しくない場合は失敗する()
+    public function bcryptハッシュが正しくない場合は失敗する(): void
     {
         $instance = new HashRule();
         $params = $this->createParameter([]);
@@ -108,7 +108,7 @@ class HashRuleTest extends TestCase
      * HashRule::passes() メソッドの異常系（未定義のハッシュアルゴリズムの場合）をテストします。
      */
     #[Test]
-    public function 未定義のアルゴリズムを指定した場合は例外をスローする()
+    public function 未定義のアルゴリズムを指定した場合は例外をスローする(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('An undefined hashing algorithm was detected.');

@@ -10,7 +10,7 @@ use Validationable\Rules\PhoneRule;
 class PhoneRuleTest extends TestCase
 {
     #[Test]
-    public function 電話番号が有効である場合はtrueを返す()
+    public function 電話番号が有効である場合はtrueを返す(): void
     {
         // テスト対象のクラス
         $instance = new PhoneRule();
@@ -29,7 +29,7 @@ class PhoneRuleTest extends TestCase
     }
 
     #[Test]
-    public function 電話番号が無効である場合はfalseを返す()
+    public function 電話番号が無効である場合はfalseを返す(): void
     {
         // テスト対象のクラス
         $instance = new PhoneRule();
@@ -48,7 +48,7 @@ class PhoneRuleTest extends TestCase
     }
 
     #[Test]
-    public function 空文字列の場合はfalseを返す()
+    public function 空文字列の場合はfalseを返す(): void
     {
         // テスト対象のクラス
         $instance = new PhoneRule();
@@ -67,7 +67,7 @@ class PhoneRuleTest extends TestCase
     }
 
     #[Test]
-    public function nullの場合はfalseを返す()
+    public function nullの場合はfalseを返す(): void
     {
         // テスト対象のクラス
         $instance = new PhoneRule();
@@ -86,7 +86,7 @@ class PhoneRuleTest extends TestCase
     }
 
     #[Test]
-    public function 国コードが省略された場合はデフォルト言語を使用する()
+    public function 国コードが省略された場合はデフォルト言語を使用する(): void
     {
         // テスト対象のクラス
         $instance = new PhoneRule();

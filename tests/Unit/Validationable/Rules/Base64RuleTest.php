@@ -9,7 +9,7 @@ use Validationable\Rules\Base64Rule;
 class Base64RuleTest extends TestCase
 {
     #[Test]
-    public function 有効なBase64を検証する()
+    public function 有効なBase64を検証する(): void
     {
         $parameters = $this->createParameter([]);
         $value = 'SGVsbG8gd29ybGQ='; // "Hello world" in Base64
@@ -20,7 +20,7 @@ class Base64RuleTest extends TestCase
     }
 
     #[Test]
-    public function 無効なBase64文字列を検証する()
+    public function 無効なBase64文字列を検証する(): void
     {
         $parameters = $this->createParameter([]);
         $value = 'InvalidBase64!!'; // 非Base64文字列
@@ -31,7 +31,7 @@ class Base64RuleTest extends TestCase
     }
 
     #[Test]
-    public function 空文字列を検証する()
+    public function 空文字列を検証する(): void
     {
         $parameters = $this->createParameter([]);
         $value = '';
@@ -42,7 +42,7 @@ class Base64RuleTest extends TestCase
     }
 
     #[Test]
-    public function 不完全なBase64パディングを検証する()
+    public function 不完全なBase64パディングを検証する(): void
     {
         $parameters = $this->createParameter([]);
         $value = 'SGVsbG8gd29ybGQ'; // パディングが不足している
@@ -53,7 +53,7 @@ class Base64RuleTest extends TestCase
     }
 
     #[Test]
-    public function 有効なBase64パディングを検証する()
+    public function 有効なBase64パディングを検証する(): void
     {
         $parameters = $this->createParameter([]);
         $value = 'SGVsbG8g'; // "Hello" encoded, valid padding
@@ -64,10 +64,9 @@ class Base64RuleTest extends TestCase
     }
 
     #[Test]
-    public function Base64デコードが失敗する文字列を検証する()
+    public function Base64デコードが失敗する文字列を検証する(): void
     {
-        $parameters = $this->createParameter([]);
-        $value = 'SGVsbG8gd29ybGQ='; // これは有効だが、エラーをシミュレーションするとします
+        $parameters = $this->createParameter([]); // これは有効だが、エラーをシミュレーションするとします
         $instance = new Base64Rule();
         $actual = $instance->passes('attribute', "\x80Invalid", $parameters);
 

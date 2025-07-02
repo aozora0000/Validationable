@@ -9,7 +9,7 @@ use Validationable\Rules\JsonRule;
 class JsonRuleTest extends TestCase
 {
     #[Test]
-    public function 合法なJson文字列を渡すとtrueを返す()
+    public function 合法なJson文字列を渡すとtrueを返す(): void
     {
         $instance = new JsonRule();
         $value = '{"key": "value"}';
@@ -20,7 +20,7 @@ class JsonRuleTest extends TestCase
     }
 
     #[Test]
-    public function 空文字列を渡すとfalseを返す()
+    public function 空文字列を渡すとfalseを返す(): void
     {
         $instance = new JsonRule();
         $value = '';
@@ -31,7 +31,7 @@ class JsonRuleTest extends TestCase
     }
 
     #[Test]
-    public function 無効なJson文字列を渡すとfalseを返す()
+    public function 無効なJson文字列を渡すとfalseを返す(): void
     {
         $instance = new JsonRule();
         $value = '{key: value}';
@@ -43,7 +43,7 @@ class JsonRuleTest extends TestCase
 
 
     #[Test]
-    public function nullを渡すとfalseを返す()
+    public function nullを渡すとfalseを返す(): void
     {
         $instance = new JsonRule();
         $value = null;
@@ -54,7 +54,7 @@ class JsonRuleTest extends TestCase
     }
 
     #[Test]
-    public function 配列表記のJson文字列を渡すとtrueを返す()
+    public function 配列表記のJson文字列を渡すとtrueを返す(): void
     {
         $instance = new JsonRule();
         $value = '["item1", "item2"]';

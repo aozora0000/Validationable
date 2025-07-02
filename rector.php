@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Carbon\Rector\FuncCall\DateFuncCallToCarbonRector;
+use Rector\Carbon\Rector\MethodCall\DateTimeMethodCallToCarbonRector;
 use Rector\CodingStyle\Rector\Catch_\CatchExceptionNameMatchingTypeRector;
 use Rector\Config\RectorConfig;
 use Rector\Naming\Rector\Assign\RenameVariableToMatchMethodCallReturnTypeRector;
@@ -11,7 +12,6 @@ use Rector\Naming\Rector\ClassMethod\RenameParamToMatchTypeRector;
 use Rector\Naming\Rector\ClassMethod\RenameVariableToMatchNewTypeRector;
 use Rector\PHPUnit\CodeQuality\Rector\ClassMethod\ReplaceTestAnnotationWithPrefixedFunctionRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
-use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\ValueObject\PhpVersion;
 use RectorLaravel\Rector\If_\ThrowIfRector;
@@ -31,7 +31,6 @@ return static function (RectorConfig $config): void {
         SetList::NAMING,
         SetList::TYPE_DECLARATION,
         SetList::EARLY_RETURN,
-        SetList::CARBON,
         PHPUnitSetList::PHPUNIT_110,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
         PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
@@ -51,6 +50,7 @@ return static function (RectorConfig $config): void {
         RenameVariableToMatchMethodCallReturnTypeRector::class,
         RenamePropertyToMatchTypeRector::class,
         CatchExceptionNameMatchingTypeRector::class,
+        DateTimeMethodCallToCarbonRector::class,
         // AddOverrideAttributeToOverriddenMethodsRector::class,
     ]);
 };

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Validationable\Rules;
 
+use Carbon\Carbon;
 use DateTime;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Unit\TestCase;
@@ -13,7 +14,7 @@ class FutureRuleTest extends TestCase
      * FutureRule::passes は null の値を false として扱います。
      */
     #[Test]
-    public function nullを検証する()
+    public function nullを検証する(): void
     {
         $instance = new FutureRule();
         $value = null;
@@ -29,12 +30,12 @@ class FutureRuleTest extends TestCase
      * FutureRule::passes は日付文字列が未来の日付の場合 true を返します。
      */
     #[Test]
-    public function 日付文字列の未来日付を検証する()
+    public function 日付文字列の未来日付を検証する(): void
     {
         $instance = new FutureRule();
-        $value = (new DateTime('tomorrow'))->format('Y-m-d H:i:s');
+        $value = (Carbon::tomorrow())->format('Y-m-d H:i:s');
         $parameters = $this->createParameter([]);
-        $arguments = [(new DateTime('now'))->format('Y-m-d H:i:s')];
+        $arguments = [(Carbon::now())->format('Y-m-d H:i:s')];
 
         $actual = $instance->passes('test_attribute', $value, $parameters, $arguments);
 
@@ -45,12 +46,12 @@ class FutureRuleTest extends TestCase
      * FutureRule::passes は日付文字列が過去の日付の場合 false を返します。
      */
     #[Test]
-    public function 日付文字列の過去日付を検証する()
+    public function 日付文字列の過去日付を検証する(): void
     {
         $instance = new FutureRule();
-        $value = (new DateTime('yesterday'))->format('Y-m-d H:i:s');
+        $value = (Carbon::yesterday())->format('Y-m-d H:i:s');
         $parameters = $this->createParameter([]);
-        $arguments = [(new DateTime('now'))->format('Y-m-d H:i:s')];
+        $arguments = [(Carbon::now())->format('Y-m-d H:i:s')];
 
         $actual = $instance->passes('test_attribute', $value, $parameters, $arguments);
 
@@ -61,10 +62,10 @@ class FutureRuleTest extends TestCase
      * FutureRule::passes は DateTime オブジェクトが未来の日付の場合 true を返します。
      */
     #[Test]
-    public function DateTimeオブジェクトの未来日付を検証する()
+    public function DateTimeオブジェクトの未来日付を検証する(): void
     {
         $instance = new FutureRule();
-        $value = new DateTime('tomorrow');
+        $value = Carbon::tomorrow();
         $parameters = $this->createParameter([]);
         $arguments = ['now'];
 
@@ -77,10 +78,10 @@ class FutureRuleTest extends TestCase
      * FutureRule::passes は DateTime オブジェクトが過去の日付の場合 false を返します。
      */
     #[Test]
-    public function DateTimeオブジェクトの過去日付を検証する()
+    public function DateTimeオブジェクトの過去日付を検証する(): void
     {
         $instance = new FutureRule();
-        $value = new DateTime('yesterday');
+        $value = Carbon::yesterday();
         $parameters = $this->createParameter([]);
         $arguments = ['now'];
 
@@ -93,12 +94,12 @@ class FutureRuleTest extends TestCase
      * FutureRule::passes は無効な値を false として扱います。
      */
     #[Test]
-    public function 無効な値を検証する()
+    public function 無効な値を検証する(): void
     {
         $instance = new FutureRule();
         $value = 'invalid_date';
         $parameters = $this->createParameter([]);
-        $arguments = [(new DateTime('now'))->format('Y-m-d H:i:s')];
+        $arguments = [(Carbon::now())->format('Y-m-d H:i:s')];
 
         $actual = $instance->passes('test_attribute', $value, $parameters, $arguments);
 
@@ -109,10 +110,10 @@ class FutureRuleTest extends TestCase
      * FutureRule::passes はデフォルトで現在の日付を基準として検証します。
      */
     #[Test]
-    public function デフォルト日付基準を検証する()
+    public function デフォルト日付基準を検証する(): void
     {
         $instance = new FutureRule();
-        $value = new DateTime('tomorrow');
+        $value = Carbon::tomorrow();
         $parameters = $this->createParameter([]);
         $arguments = []; // 基準日付未指定
 

@@ -14,6 +14,7 @@ class SingularRule implements RuleInterface
         if (!Str::of($value)) {
             return false;
         }
+
         return Inflector::get($arguments[0] ?? 'en')->singularize($value) !== (string)$value;
     }
 }

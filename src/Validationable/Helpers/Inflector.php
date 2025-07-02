@@ -16,6 +16,7 @@ class Inflector
         if (!isset(self::$inflectors[$lang])) {
             self::$inflectors[$lang] = InflectorFactory::create()->build();
         }
+
         return self::$inflectors[$lang];
     }
 
@@ -34,6 +35,7 @@ class Inflector
                 return $language;
             }
         }
+
         throw new \InvalidArgumentException('Invalid language');
     }
 }

@@ -9,7 +9,7 @@ use Validationable\Rules\DomainRule;
 class DomainRuleTest extends TestCase
 {
     #[Test]
-    public function ドメインが有効な場合はtrueを返す()
+    public function ドメインが有効な場合はtrueを返す(): void
     {
         $instance = new DomainRule();
         $parameters = $this->createParameter([]);
@@ -23,7 +23,7 @@ class DomainRuleTest extends TestCase
 
     // 値が空文字の場合、`passes` メソッドが false を返すかテストする
     #[Test]
-    public function 値が空文字の場合はfalseを返す()
+    public function 値が空文字の場合はfalseを返す(): void
     {
         $instance = new DomainRule();
         $parameters = $this->createParameter([]);
@@ -37,7 +37,7 @@ class DomainRuleTest extends TestCase
 
     // 値が無効なドメインの場合に `passes` メソッドが false を返すかテストする
     #[Test]
-    public function 値が無効なドメインの場合はfalseを返す()
+    public function 値が無効なドメインの場合はfalseを返す(): void
     {
         $instance = new DomainRule();
         $parameters = $this->createParameter([]);
@@ -51,7 +51,7 @@ class DomainRuleTest extends TestCase
 
     // ドメインの長さが25文字を超える場合に `passes` メソッドが false を返すかテストする
     #[Test]
-    public function ドメインの長さが25文字を超える場合はfalseを返す()
+    public function ドメインの長さが25文字を超える場合はfalseを返す(): void
     {
         $instance = new DomainRule();
         $parameters = $this->createParameter([]);

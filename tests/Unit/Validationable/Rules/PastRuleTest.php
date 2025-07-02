@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Validationable\Rules;
 
+use Carbon\Carbon;
 use DateTime;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\Unit\TestCase;
@@ -18,7 +19,7 @@ class PastRuleTest extends TestCase
     {
         $instance = new PastRule();
         $parameters = $this->createParameter([]);
-        $actual = $instance->passes('test', new DateTime('yesterday'), $parameters);
+        $actual = $instance->passes('test', Carbon::yesterday(), $parameters);
         $this->assertTrue($actual, '過去の日付が true として認識されるべきです。');
     }
 

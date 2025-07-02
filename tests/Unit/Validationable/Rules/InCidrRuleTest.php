@@ -19,8 +19,6 @@ class InCidrRuleTest extends TestCase
         $value = '192.168.1.1';
         $parameters = $this->createParameter([]);
         $arguments = ['192.168.1.0/24'];
-
-        $expected = true;
         $actual = $instance->passes($attribute, $value, $parameters, $arguments);
 
         $this->assertTrue($actual, "正常なCIDR範囲内のIPが正しく判定されませんでした。");
@@ -37,8 +35,6 @@ class InCidrRuleTest extends TestCase
         $value = '192.168.2.1';
         $parameters = $this->createParameter([]);
         $arguments = ['192.168.1.0/24'];
-
-        $expected = false;
         $actual = $instance->passes($attribute, $value, $parameters, $arguments);
 
         $this->assertFalse($actual, "CIDR範囲外のIPが正しく判定されませんでした。");
@@ -55,8 +51,6 @@ class InCidrRuleTest extends TestCase
         $value = '192.168.1.1';
         $parameters = $this->createParameter([]);
         $arguments = ['192.168.1.0'];
-
-        $expected = false;
         $actual = $instance->passes($attribute, $value, $parameters, $arguments);
 
         $this->assertFalse($actual, "無効なCIDRフォーマットが正しく拒否されませんでした。");
@@ -73,8 +67,6 @@ class InCidrRuleTest extends TestCase
         $value = '999.999.999.999';
         $parameters = $this->createParameter([]);
         $arguments = ['192.168.1.0/24'];
-
-        $expected = false;
         $actual = $instance->passes($attribute, $value, $parameters, $arguments);
 
         $this->assertFalse($actual, "無効なIPアドレスが正しく拒否されませんでした。");

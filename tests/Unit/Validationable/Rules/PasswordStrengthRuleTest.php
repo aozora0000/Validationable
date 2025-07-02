@@ -9,7 +9,7 @@ use Validationable\Rules\PasswordStrengthRule;
 class PasswordStrengthRuleTest extends TestCase
 {
     #[Test]
-    public function strong基準で12文字未満のパスワードはfalseを返す()
+    public function strong基準で12文字未満のパスワードはfalseを返す(): void
     {
         $instance = new PasswordStrengthRule();
         $parameters = $this->createParameter([]);
@@ -20,7 +20,7 @@ class PasswordStrengthRuleTest extends TestCase
     }
 
     #[Test]
-    public function medium基準で8文字未満のパスワードはfalseを返す()
+    public function medium基準で8文字未満のパスワードはfalseを返す(): void
     {
         $instance = new PasswordStrengthRule();
         $parameters = $this->createParameter([]);
@@ -31,7 +31,7 @@ class PasswordStrengthRuleTest extends TestCase
     }
 
     #[Test]
-    public function エントロピー計算でStrong基準のパスワードが適切に判定される()
+    public function エントロピー計算でStrong基準のパスワードが適切に判定される(): void
     {
         $instance = new PasswordStrengthRule();
         $parameters = $this->createParameter([]);
@@ -42,7 +42,7 @@ class PasswordStrengthRuleTest extends TestCase
     }
 
     #[Test]
-    public function エントロピー計算でMedium基準のパスワードが適切に判定される()
+    public function エントロピー計算でMedium基準のパスワードが適切に判定される(): void
     {
         $instance = new PasswordStrengthRule();
         $parameters = $this->createParameter([]);
@@ -53,7 +53,7 @@ class PasswordStrengthRuleTest extends TestCase
     }
 
     #[Test]
-    public function エントロピー計算でWeak基準のパスワードが適切に判定される()
+    public function エントロピー計算でWeak基準のパスワードが適切に判定される(): void
     {
         $instance = new PasswordStrengthRule();
         $parameters = $this->createParameter([]);
@@ -64,7 +64,7 @@ class PasswordStrengthRuleTest extends TestCase
     }
 
     #[Test]
-    public function 空のパスワードはfalseを返す()
+    public function 空のパスワードはfalseを返す(): void
     {
         $instance = new PasswordStrengthRule();
         $parameters = $this->createParameter([]);

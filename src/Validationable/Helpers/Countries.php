@@ -9,7 +9,7 @@ class Countries
 {
     public static function findByCountryCode(string $code): ?array
     {
-        return self::where('country.code', fn($value) => strtolower($value) === strtolower($code));
+        return self::where('country.code', fn($value): bool => strtolower($value) === strtolower($code));
     }
 
     /**
@@ -22,6 +22,7 @@ class Countries
                 return $item;
             }
         }
+
         return null;
     }
 
@@ -31,16 +32,17 @@ class Countries
         if ($items === null) {
             $items = json_decode(file_get_contents(__DIR__ . '/../../../locales.json'), true);
         }
+
         return $items;
     }
 
     public static function findByLocale(string $locale): ?array
     {
-        return self::where('locale', fn($value) => strtolower($value) === strtolower(str_replace('_', '-', $locale)));
+        return self::where('locale', fn($value): bool => strtolower($value) === strtolower(str_replace('_', '-', $locale)));
     }
 
     public static function findByCurrency(string $currency): ?array
     {
-        return self::where('country.currency_code', fn($value) => strtolower($value) === strtolower($currency));
+        return self::where('country.currency_code', fn($value): bool => strtolower($value) === strtolower($currency));
     }
 }

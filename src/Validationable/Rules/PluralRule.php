@@ -20,10 +20,12 @@ class PluralRule implements RuleInterface
         if (!Str::of($value)) {
             return false;
         }
+
         $lang = $this->getLang($arguments[0] ?? 'en');
         if (!array_key_exists($lang, static::$inflectors)) {
             static::$inflectors[$lang] = InflectorFactory::createForLanguage($lang)->build();
         }
+
         return static::$inflectors[$lang]->singularize($value) !== (string)$value;
     }
 
@@ -42,6 +44,7 @@ class PluralRule implements RuleInterface
                 return $language;
             }
         }
+
         throw new \InvalidArgumentException('Invalid language');
     }
 }
