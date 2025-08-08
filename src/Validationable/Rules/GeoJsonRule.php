@@ -144,6 +144,7 @@ class GeoJsonRule implements RuleInterface
         if ($position[0] < -180 || $position[0] > 180) {
             return false;
         }
+
         // 緯度は -90 から 90 の範囲
         return $position[1] >= -90 && $position[1] <= 90;
     }

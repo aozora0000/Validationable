@@ -18,7 +18,7 @@ class Ref
     {
         $reflection = match (true) {
             class_exists($callable) => new ReflectionClass($callable),
-            str_contains($callable, '::') => new ReflectionMethod($callable),
+            str_contains($callable, '::') => new ReflectionMethod(...explode('::', $callable)),
             default => new ReflectionFunction($callable)
         };
         $params = Arr::mapWithKeys(

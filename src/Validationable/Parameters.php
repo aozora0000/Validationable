@@ -47,6 +47,7 @@ use Validationable\Rules\HexRule;
 use Validationable\Rules\HostnameRule;
 use Validationable\Rules\HtmlRule;
 use Validationable\Rules\IcaoRule;
+use Validationable\Rules\IataRule;
 use Validationable\Rules\ImageHeightRule;
 use Validationable\Rules\ImageRatioRule;
 use Validationable\Rules\ImageRule;
@@ -97,6 +98,20 @@ use Validationable\Rules\UniqueRule;
 use Validationable\Rules\UrlRule;
 use Validationable\Rules\UuidRule;
 use Validationable\Rules\XmlRule;
+use Validationable\Rules\UnicodeNormalizationRule;
+use Validationable\Rules\DisposableEmailRule;
+use Validationable\Rules\MimeTypeByContentRule;
+use Validationable\Rules\SafeFilenameRule;
+use Validationable\Rules\CronExpressionRule;
+use Validationable\Rules\CoordinatesRule;
+use Validationable\Rules\KanaRule;
+use Validationable\Rules\HiraganaRule;
+use Validationable\Rules\ZenkakuRule;
+use Validationable\Rules\HankakuRule;
+use Validationable\Rules\PostalCodeRule;
+use Validationable\Rules\HostInAllowlistRule;
+use Validationable\Rules\HtmlNoTagsRule;
+use Validationable\Rules\CoordinateInPolygonRule;
 
 /**
  * @template T
@@ -165,6 +180,7 @@ use Validationable\Rules\XmlRule;
         'country_code' => CountryCodeRule::class,
         'currency' => CurrencyRule::class,
         'icao' => IcaoRule::class,
+                'iata' => IataRule::class,
         'class-string' => ClassStringRule::class,
         'class-method-string' => ClassMethodStringRule::class,
         'json' => JsonRule::class,
@@ -207,6 +223,21 @@ use Validationable\Rules\XmlRule;
         'image_height' => ImageHeightRule::class,
         'image_width' => ImageWidthRule::class,
         'image_ratio' => ImageRatioRule::class,
+        // Additional rules
+        'unicode_normalization' => UnicodeNormalizationRule::class,
+        'disposable_email' => DisposableEmailRule::class,
+        'mime_type_by_content' => MimeTypeByContentRule::class,
+        'safe_filename' => SafeFilenameRule::class,
+        'cron_expression' => CronExpressionRule::class,
+        'coordinates' => CoordinatesRule::class,
+        'kana' => KanaRule::class,
+        'hiragana' => HiraganaRule::class,
+        'zenkaku' => ZenkakuRule::class,
+        'hankaku' => HankakuRule::class,
+        'postal_code' => PostalCodeRule::class,
+        'host_in_allowlist' => HostInAllowlistRule::class,
+        'html_no_tags' => HtmlNoTagsRule::class,
+        'coordinate_in_polygon' => CoordinateInPolygonRule::class,
     ];
 
     protected array $params = [];

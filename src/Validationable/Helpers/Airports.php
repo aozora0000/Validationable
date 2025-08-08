@@ -22,5 +22,19 @@ final class Airports
 
         return null;
     }
+
+    // IATAコードで空港情報を検索する
+    public static function findByIata(string $code): ?array
+    {
+        $code = strtoupper($code);
+        foreach (self::read() as $airport) {
+            // airports.jsonの各要素は配列で、'iata'キーにIATAコードが入る（空文字の場合もある）
+            if (($airport['iata'] ?? '') === $code && $code !== '') {
+                return $airport;
+            }
+        }
+
+        return null;
+    }
     
 }
